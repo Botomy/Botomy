@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Botomy Blog</title>
-        <link>https://botomy.vercel.app/blog</link>
+        <link>https://botomy.vercel.app/botomy/blog</link>
         <description>Botomy Blog</description>
         <lastBuildDate>Mon, 05 Aug 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>en</language>
         <item>
             <title><![CDATA[Hello World]]></title>
-            <link>https://botomy.vercel.app/blog/hello-world</link>
-            <guid>https://botomy.vercel.app/blog/hello-world</guid>
+            <link>https://botomy.vercel.app/botomy/blog/hello-world</link>
+            <guid>https://botomy.vercel.app/botomy/blog/hello-world</guid>
             <pubDate>Mon, 05 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Launching the open alpha]]></description>
             <content:encoded><![CDATA[<p>Officially launching Botomy in open alpha.</p>

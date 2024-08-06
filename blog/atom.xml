@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://botomy.vercel.app/blog</id>
+    <id>https://botomy.vercel.app/botomy/blog</id>
     <title>Botomy Blog</title>
     <updated>2024-08-05T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://botomy.vercel.app/blog"/>
+    <link rel="alternate" href="https://botomy.vercel.app/botomy/blog"/>
     <subtitle>Botomy Blog</subtitle>
-    <icon>https://botomy.vercel.app/img/favicon.ico</icon>
+    <icon>https://botomy.vercel.app/botomy/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Hello World]]></title>
-        <id>https://botomy.vercel.app/blog/hello-world</id>
-        <link href="https://botomy.vercel.app/blog/hello-world"/>
+        <id>https://botomy.vercel.app/botomy/blog/hello-world</id>
+        <link href="https://botomy.vercel.app/botomy/blog/hello-world"/>
         <updated>2024-08-05T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Launching the open alpha]]></summary>
         <content type="html"><![CDATA[<p>Officially launching Botomy in open alpha.</p>
