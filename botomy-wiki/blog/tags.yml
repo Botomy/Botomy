@@ -1,8 +1,0 @@
-hello:
-  label: Hello
-  permalink: /hello
-  description: Intros
-alpha:
-  label: Alpha
-  permalink: /alpha
-  description: Alpha release
