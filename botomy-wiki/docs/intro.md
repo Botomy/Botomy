@@ -4,44 +4,48 @@ sidebar_position: 1
 
 # Tutorial Intro
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Let's discover **Botomy in less than 5 minutes**.
 
 ## Getting Started
 
-Get started by **creating a new site**.
+Get started by **[downloading](https://botomy.vercel.app) and installing the app**.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+Or **try Botomy immediately** in the **[browser](https://botomy.vercel.app/dist/web/index.html)**.
 
-### What you'll need
+### Supported Platforms
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+- MacOS
+- Windows
+- HTML5 (limited support - use at your own risk)
 
-## Generate a new site
+## Practice Offline
 
-Generate a new Docusaurus site using the **classic template**.
+Select "Offline Pratice" and start the "Tutorial" map
 
-The classic template will automatically be added to your project after you run the command:
+## The `play` function
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+Your script must define a `play` function. This function is called on every frame (mostly).
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+The function should return the list of moves (i.e. key presses) that the bot should follow.
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+## Movement
 
-## Start your site
+If you want the bot to move left, then `return ["move_left]`. If you want the bot to move diagonnally up and right, then `return ["move_up", "move_right"]`.
 
-Run the development server:
+## Actions
 
-```bash
-cd my-website
-npm run start
-```
+### Attack
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+`return ["attack"]`
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+### Speak
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+`return [{"speak": "Hello there"}]`
+
+### Use Items
+
+`return [{"use": "feather"}]`
+
+### Redeeming Skill Points
+
+`return [{"redeem_skill": "attack"}]`

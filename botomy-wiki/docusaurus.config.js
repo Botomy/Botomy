@@ -22,6 +22,7 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "Brokkli-Labs", // Usually your GitHub org/user name.
   projectName: "Botomy", // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -80,8 +81,8 @@ const config = {
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/Brokkli-Labs/Botomy",
-            label: "GitHub",
+            href: "https://botomy.vercel.app",
+            label: "App",
             position: "right",
           },
         ],
@@ -111,12 +112,16 @@ const config = {
             title: "More",
             items: [
               {
+                label: "App",
+                href: "https://botomy.vercel.app",
+              },
+              {
                 label: "Blog",
                 to: "/blog",
               },
               {
-                label: "GitHub",
-                href: "https://github.com/Brokkli-Labs/Botomy",
+                label: "Report Issues",
+                href: "https://github.com/Brokkli-Labs/Botomy/issues",
               },
             ],
           },
