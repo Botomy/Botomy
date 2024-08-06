@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Quickstart Tutorial
 
-## Start Offline Tutorial
+## Start a game
 
 Go into the **Offline Practice** mode and select the "Tutorial" map.
 
