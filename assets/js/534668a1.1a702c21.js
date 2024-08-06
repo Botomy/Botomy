@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbotomy_wiki=self.webpackChunkbotomy_wiki||[]).push([[869],{324:e=>{e.exports=JSON.parse('{"tags":[{"label":"Hello","permalink":"/Botomy/blog/tags/hello","description":"Intros","count":1},{"label":"Alpha","permalink":"/Botomy/blog/tags/alpha","description":"Alpha release","count":1}]}')}}]);

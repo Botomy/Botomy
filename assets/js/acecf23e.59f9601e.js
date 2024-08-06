@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbotomy_wiki=self.webpackChunkbotomy_wiki||[]).push([[903],{1912:o=>{o.exports=JSON.parse('{"blogBasePath":"/Botomy/blog","blogTitle":"Blog"}')}}]);
