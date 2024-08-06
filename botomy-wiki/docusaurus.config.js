@@ -98,7 +98,7 @@ const config = {
             items: [
               {
                 label: "Docs",
-                to: "/docs/",
+                to: "/docs/getting-started/install",
               },
             ],
           },
