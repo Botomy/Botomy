@@ -12,7 +12,7 @@ Press "Start"
 
 ## Use the script play mode
 
-Select the `script` tab (probably already selected).
+Select the `ScriptEditor` tab (probably already selected).
 
 Press "Run" to start executing the default script. You should see your character say "hello there"
 

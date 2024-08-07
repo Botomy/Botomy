@@ -14,7 +14,7 @@ You can only run one mode at a time. Pressing **RUN** in one mode will stop exec
 
 There are three supported play modes (see below):
 
-### Script
+### ScriptEditor
 
 The language used in **script** mode is [GDScript](https://docs.godotengine.org/en/4.2/tutorials/scripting/gdscript/gdscript_basics.html).
 
@@ -28,7 +28,7 @@ The `play(level_data)` function is called by the game engine (_mostly_) on every
 
 The function should return the list of moves (i.e. key presses) that the bot should follow.
 
-### API
+### ApiCall
 
 This mode makes a POST call to the specificed url. It passes in a `level_data` object and expects a list of moves returned.
 
