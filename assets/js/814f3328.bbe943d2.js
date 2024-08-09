@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbotomy_wiki=self.webpackChunkbotomy_wiki||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"New release 0.21.0","permalink":"/Botomy/blog/release-0.21.0","unlisted":false},{"title":"Hello World","permalink":"/Botomy/blog/hello-world","unlisted":false}]}')}}]);

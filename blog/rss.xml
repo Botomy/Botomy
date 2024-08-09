@@ -4,10 +4,24 @@
         <title>Botomy Blog</title>
         <link>https://botomy.vercel.app/Botomy/blog</link>
         <description>Botomy Blog</description>
-        <lastBuildDate>Mon, 05 Aug 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 09 Aug 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[New release 0.21.0]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/release-0.21.0</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/release-0.21.0</guid>
+            <pubDate>Fri, 09 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[New enemy + breaking changes]]></description>
+            <content:encoded><![CDATA[<p>New release w/ breaking changes</p>
+<p>Version 0.21.0 introduces a new "tiny" enemy.</p>
+<p>Breaking changes:
+<code>level_data</code> structure has changed. All map items are consolidated under the <code>level_data.items</code> property to allow for easier item changes and additions later on.</p>]]></content:encoded>
+            <category>Releases</category>
+            <category>Breaking Changes</category>
+            <category>Alpha</category>
+        </item>
         <item>
             <title><![CDATA[Hello World]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/hello-world</link>

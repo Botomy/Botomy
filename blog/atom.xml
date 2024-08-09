@@ -2,11 +2,29 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://botomy.vercel.app/Botomy/blog</id>
     <title>Botomy Blog</title>
-    <updated>2024-08-05T00:00:00.000Z</updated>
+    <updated>2024-08-09T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://botomy.vercel.app/Botomy/blog"/>
     <subtitle>Botomy Blog</subtitle>
     <icon>https://botomy.vercel.app/Botomy/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[New release 0.21.0]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/release-0.21.0</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/release-0.21.0"/>
+        <updated>2024-08-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[New enemy + breaking changes]]></summary>
+        <content type="html"><![CDATA[<p>New release w/ breaking changes</p>
+<p>Version 0.21.0 introduces a new "tiny" enemy.</p>
+<p>Breaking changes:
+<code>level_data</code> structure has changed. All map items are consolidated under the <code>level_data.items</code> property to allow for easier item changes and additions later on.</p>]]></content>
+        <author>
+            <name>Jason Ma</name>
+            <uri>https://github.com/jasonfma</uri>
+        </author>
+        <category label="Releases" term="Releases"/>
+        <category label="Breaking Changes" term="Breaking Changes"/>
+        <category label="Alpha" term="Alpha"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello World]]></title>
         <id>https://botomy.vercel.app/Botomy/blog/hello-world</id>
