@@ -6,3 +6,11 @@ alpha:
   label: Alpha
   permalink: /alpha
   description: Alpha release
+release:
+  label: Releases
+  permalink: /releases
+  description: Release announcements
+breaking-changes:
+  label: Breaking Changes
+  permalink: /breaking-changes
+  description: Breaking changes

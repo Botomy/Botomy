@@ -25,3 +25,7 @@ There is a limit to how many you can carry at the same time
 Coins are pretty. They give you more points.
 
 Typically, different colored coins indicate different values. In descending order: gold, blue, red.
+
+## Speed Zappers
+
+Speed Zappers will slow down anyone caught in it's blast. The affect stacks but the duration is fixed based on first impact.

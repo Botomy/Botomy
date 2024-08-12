@@ -116,9 +116,9 @@ e.g. `return [{"speak": "Hello there"}]`
 
 ### Use Items
 
-| <small>**script**:`{"use": "<item>"}` **manual**:`z(feather)/x(big_potion)`</small>
+| <small>**script**:`{"use": "<item>"}` **manual**:`z(feather)/x(big_potion)/d(speed_zapper)`</small>
 
-There are two items availale for use in the game - `big_potion`s and `feather`s. Once you collect the items, you can use them.
+There are three items availale for use in the game - `big_potion`s, `feather`s, and `speed_zapper`s. Once you collect the items, you can use them.
 
 To use them, return a `use` action with the specified item.
 
@@ -129,6 +129,8 @@ e.g.
 Feathers - increase your movement speed
 
 Big Potions - replenish your health
+
+Speed Zappers - a weapon you can fire that will slow down anything in it's blast radius
 :::
 
 :::tip

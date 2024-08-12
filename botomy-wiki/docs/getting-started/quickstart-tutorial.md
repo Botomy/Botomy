@@ -154,4 +154,10 @@ Your character is now able to move towards a coin. Go forth and implement more f
 
 :::tip
 Is your character bobbing up and down and back and forth? Try modifying the code to detect if the character is in line with the coin already. This may require you to have a margin of error (i.e. sometimes it's better to say 11 ~= 10)
+
+Also in GDScript there are some handy functions
+
+| To compare floats, use the is_equal_approx() and is_zero_approx() functions instead.
+
+https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#operators
 :::
