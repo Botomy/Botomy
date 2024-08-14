@@ -54,6 +54,16 @@
             <category>releases</category>
         </item>
         <item>
+            <title><![CDATA[0.25.0 Patch]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.25.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.25.0-release</guid>
+            <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Lower kill xp]]></description>
+            <content:encoded><![CDATA[<p>Lower kill xp to help with balance. Lower data bandwidth.</p>
+<p>xp func - base is 60 and max is 6<em>60 (60</em>0.91<em>exp(0.0943</em>level))</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
             <title><![CDATA[New release 0.21.0]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/release-0.21.0</link>
             <guid>https://botomy.vercel.app/Botomy/blog/release-0.21.0</guid>

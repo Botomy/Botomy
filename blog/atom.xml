@@ -69,6 +69,20 @@
         <category label="releases" term="releases"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[0.25.0 Patch]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.25.0-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.25.0-release"/>
+        <updated>2024-08-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Lower kill xp]]></summary>
+        <content type="html"><![CDATA[<p>Lower kill xp to help with balance. Lower data bandwidth.</p>
+<p>xp func - base is 60 and max is 6<em>60 (60</em>0.91<em>exp(0.0943</em>level))</p>]]></content>
+        <author>
+            <name>Jason Ma</name>
+            <uri>https://github.com/jasonfma</uri>
+        </author>
+        <category label="releases" term="releases"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[New release 0.21.0]]></title>
         <id>https://botomy.vercel.app/Botomy/blog/release-0.21.0</id>
         <link href="https://botomy.vercel.app/Botomy/blog/release-0.21.0"/>
