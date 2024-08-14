@@ -24,6 +24,13 @@ If you are killed, you will not lose xp.
   duration: 30, //mins
 ```
 
+### Map
+
+```
+size: ~21540x~15785
+offset: ~380x~380
+```
+
 ### Player
 
 ```
