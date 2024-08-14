@@ -44,6 +44,16 @@
             <category>releases</category>
         </item>
         <item>
+            <title><![CDATA[0.24.0 Patch]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.24.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.24.0-release</guid>
+            <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Fix cloaking?]]></description>
+            <content:encoded><![CDATA[<p>Fix cloaking in server games (hopefully)</p>
+<p>Sync cloak duration so it stops flashing weirdly</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
             <title><![CDATA[New release 0.21.0]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/release-0.21.0</link>
             <guid>https://botomy.vercel.app/Botomy/blog/release-0.21.0</guid>

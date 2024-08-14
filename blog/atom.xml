@@ -55,6 +55,20 @@
         <category label="releases" term="releases"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[0.24.0 Patch]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.24.0-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.24.0-release"/>
+        <updated>2024-08-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Fix cloaking?]]></summary>
+        <content type="html"><![CDATA[<p>Fix cloaking in server games (hopefully)</p>
+<p>Sync cloak duration so it stops flashing weirdly</p>]]></content>
+        <author>
+            <name>Jason Ma</name>
+            <uri>https://github.com/jasonfma</uri>
+        </author>
+        <category label="releases" term="releases"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[New release 0.21.0]]></title>
         <id>https://botomy.vercel.app/Botomy/blog/release-0.21.0</id>
         <link href="https://botomy.vercel.app/Botomy/blog/release-0.21.0"/>
