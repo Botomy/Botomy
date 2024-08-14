@@ -1,0 +1,14 @@
+---
+title: 0.23.1 Patch
+description: Kill reward calc in fight world
+slug: 0.23.1-release
+authors: cintari
+tags: [releases]
+hide_table_of_contents: false
+---
+0.23.1 Use an equation to calc player kill reward in fight world
+
+<!-- truncate -->
+
+Some exponential curve as the level increases (presumably the player is harder to kill). So you get a reward up to 5x the base (120).
+1 + (0.541*exp(0.1*level))

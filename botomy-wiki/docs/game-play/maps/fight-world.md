@@ -34,7 +34,7 @@ offset: ~380x~380
 ### Player
 
 ```
-  kill: { xp_points: 120 }
+  kill: { xp_points: 120 * (some complicated multiplier based on the level of the player that was killed - 5x at level 20) }
   death: { xp_points: 0 }
   damage: 15
   starting_hp: 100
