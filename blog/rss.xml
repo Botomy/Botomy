@@ -4,10 +4,45 @@
         <title>Botomy Blog</title>
         <link>https://botomy.vercel.app/Botomy/blog</link>
         <description>Botomy Blog</description>
-        <lastBuildDate>Fri, 09 Aug 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 13 Aug 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[0.22.0 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.22.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.22.0-release</guid>
+            <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[New game play mechanics]]></description>
+            <content:encoded><![CDATA[<p>0.22.0 Release - Cloaking</p>
+<p>This release introduces a new power up - the ring!</p>
+<p>This ring allows a play to cloak. Once cloaked, a player is not visible to other players or enemies.</p>
+<p>Attacking will decloak.</p>
+<p>Shields cannot be raised when cloaked. Cloaking will take down your shield.</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
+            <title><![CDATA[0.23.0 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.23.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.23.0-release</guid>
+            <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[New level_data]]></description>
+            <content:encoded><![CDATA[<p>0.23.0 Additional level data around speed</p>
+<p>Adds <code>is_zapped</code> property to players and enemies</p>
+<p>Adds <code>is_boosted</code> property to players</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
+            <title><![CDATA[0.23.1 Patch]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.23.1-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.23.1-release</guid>
+            <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Kill reward calc in fight world]]></description>
+            <content:encoded><![CDATA[<p>0.23.1 Use an equation to calc player kill reward in fight world</p>
+<p>Some exponential curve as the level increases (presumably the player is harder to kill). So you get a reward up to 5x the base (120).
+1 + (0.541<em>exp(0.1</em>level))</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
         <item>
             <title><![CDATA[New release 0.21.0]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/release-0.21.0</link>
