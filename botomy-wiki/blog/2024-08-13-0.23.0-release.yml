@@ -1,0 +1,15 @@
+---
+title: 0.23.0 Release
+description: New level_data
+slug: 0.23.0-release
+authors: cintari
+tags: [releases]
+hide_table_of_contents: false
+---
+0.23.0 Additional level data around speed
+
+<!-- truncate -->
+
+Adds `is_zapped` property to players and enemies
+
+Adds `is_boosted` property to players

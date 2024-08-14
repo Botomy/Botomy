@@ -1,0 +1,19 @@
+---
+title: 0.22.0 Release
+description: New game play mechanics
+slug: 0.22.0-release
+authors: cintari
+tags: [releases]
+hide_table_of_contents: false
+---
+0.22.0 Release - Cloaking
+
+<!-- truncate -->
+
+This release introduces a new power up - the ring!
+
+This ring allows a play to cloak. Once cloaked, a player is not visible to other players or enemies.
+
+Attacking will decloak.
+
+Shields cannot be raised when cloaked. Cloaking will take down your shield.
