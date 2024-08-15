@@ -27,7 +27,9 @@ Typically, different colored coins indicate different values. In descending orde
 ## Speed Zappers
 
 `{"use": "speed_zapper"}`
-Speed Zappers will slow down anyone caught in it's blast. The affect stacks but the duration is fixed based on first impact.
+Speed Zappers will slow down anyone caught in it's blast. The affect stacks (additive) but the duration is fixed based on first impact.
+
+`radius = 950`
 
 ## Rings
 

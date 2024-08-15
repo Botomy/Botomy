@@ -9,7 +9,9 @@ sidebar_position: 2
 ```
   game_info: {
     map: <name>,
-    game_type: <rpg/racing>
+    game_type: <rpg/racing>,
+    state: <STARTING/STARTED/ENDING/ENDED/MATCH_COMPLETED>,
+    time_left_s, // time left in the round in secs
   }
 ```
 
@@ -73,9 +75,11 @@ sidebar_position: 2
     is_shield_ready,
     shield_raised,
     direction: <"left"/"right">,
+    is_zapping,
     is_attacking,
     is_zapped,
     is_boosted,
+    speech,
     score,
     levelling: { // only in fight world
       level,
@@ -100,8 +104,10 @@ sidebar_position: 2
       shield_raised,
       direction: <"left"/"right">,
       is_attacking,
+      is_zapping,
       is_zapped,
       is_boosted,
+      speech,
       score,
       levelling: { // only in fight world
         level,
@@ -122,4 +128,23 @@ sidebar_position: 2
       is_zapped,
     }
   ]
+```
+
+## stats
+
+```
+  stats: {
+    "<player_id_1>": {
+      score,
+      kills,
+      deaths,
+      kd_ratio,
+    }
+    "<player_id_2>": {
+      score,
+      kills,
+      deaths,
+      kd_ratio,
+    }
+  }
 ```
