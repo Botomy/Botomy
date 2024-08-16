@@ -14,3 +14,7 @@ breaking-changes:
   label: Breaking Changes
   permalink: /breaking-changes
   description: Breaking changes
+thoughts:
+  label: Thoughts
+  permalink: /thoughts
+  description: Ramblings

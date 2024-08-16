@@ -70,6 +70,14 @@ If you want the character to move diagonnally up and right, then `return ["move_
 
 :::
 
+## Dash
+
+| <small>**script**:`dash`, **manual**:`a`</small>
+
+Dash will temporarily increase your player's speed in whatever direction they are moving.
+
+There is a `1s` cooldown on this ability.
+
 ## Actions
 
 In addition to movement, a character can take actions.

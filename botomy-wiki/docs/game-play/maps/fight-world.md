@@ -40,6 +40,9 @@ offset: ~380x~380
   starting_hp: 100
   starting_speed: 15000
   attack_slowdown: 0.6, // move at 60% speed while attacking
+  dash_speed: 50000,
+  dash_duration: 0.1s,
+  dash_cooldown: 1s,
 ```
 
 ### Coins

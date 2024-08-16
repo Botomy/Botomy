@@ -79,6 +79,8 @@ sidebar_position: 2
     is_attacking,
     is_zapped,
     is_boosted,
+    is_dashing,
+    is_dash_ready,
     speech,
     score,
     levelling: { // only in fight world
@@ -107,6 +109,7 @@ sidebar_position: 2
       is_zapping,
       is_zapped,
       is_boosted,
+      is_dashing,
       speech,
       score,
       levelling: { // only in fight world
@@ -126,6 +129,7 @@ sidebar_position: 2
       position: {x, y},
       health,
       is_zapped,
+      direction: <left/right>,
     }
   ]
 ```
