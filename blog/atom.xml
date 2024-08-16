@@ -8,17 +8,16 @@
     <subtitle>Botomy Blog</subtitle>
     <icon>https://botomy.vercel.app/Botomy/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[0.26.4 Release]]></title>
-        <id>https://botomy.vercel.app/Botomy/blog/0.26.4-release</id>
-        <link href="https://botomy.vercel.app/Botomy/blog/0.26.4-release"/>
+        <title type="html"><![CDATA[0.27.0 Release]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.27.0-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.27.0-release"/>
         <updated>2024-08-16T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Bug fixes]]></summary>
-        <content type="html"><![CDATA[<p>Fix bugs around item use and skill point redemption. Oh yeah more data.</p>
+        <summary type="html"><![CDATA[Dashing!]]></summary>
+        <content type="html"><![CDATA[<p>Add the ability for a player to dash</p>
 <ul>
-<li>fix bug when trying to use multiple items at a time</li>
-<li>fix bug when trying to redeem multiple skill points at a time</li>
-<li>add skill points to minotaur fight in tutorial</li>
-<li>add <code>direction</code> property to enemy</li>
+<li><code>return ["dash"]</code> or use the <code>a</code> key</li>
+<li>dash in whatever direction fraction of time <code>0.1s</code></li>
+<li>dash speed is <code>50000</code></li>
 </ul>]]></content>
         <author>
             <name>Jason Ma</name>
