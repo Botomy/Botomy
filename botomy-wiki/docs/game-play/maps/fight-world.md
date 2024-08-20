@@ -27,8 +27,8 @@ If you are killed, you will not lose xp.
 ### Map
 
 ```
-size: ~21540x~15785
-offset: ~380x~380
+size: ~21600x~15360
+offset: 0
 ```
 
 ### Player

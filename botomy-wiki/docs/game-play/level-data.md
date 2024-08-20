@@ -81,6 +81,7 @@ sidebar_position: 2
     is_boosted,
     is_dashing,
     is_dash_ready,
+    is_colliding,
     speech,
     score,
     levelling: { // only in fight world
