@@ -4,10 +4,34 @@
         <title>Botomy Blog</title>
         <link>https://botomy.vercel.app/Botomy/blog</link>
         <description>Botomy Blog</description>
-        <lastBuildDate>Fri, 16 Aug 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 20 Aug 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[0.29.0 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.29.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.29.0-release</guid>
+            <pubDate>Tue, 20 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Bug fixes and dash tweaks]]></description>
+            <content:encoded><![CDATA[<p>Dash is faster and more frequent.
+Fix enemy attack while dead.
+<code>is_attacking</code> now available on enemies (except wolf)</p>
+<p>Dash speed is 100000 with a 0.25s cooldown.
+Enemy <code>is_attacking</code> property (except wolves that are just running and attacking at the same time).
+Enemy used to kill you while dead but no longer.</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
+            <title><![CDATA[0.28.1 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.28.1-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.28.1-release</guid>
+            <pubDate>Mon, 19 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[New maps and is_colliding]]></description>
+            <content:encoded><![CDATA[<p>New backgrounds. Add <code>is_colliding</code> property to player</p>
+<p><code>is_colliding</code> is true if the player is touching a wall, enemy, or other player</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
         <item>
             <title><![CDATA[0.27.0 Release]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/0.27.0-release</link>
