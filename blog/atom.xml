@@ -26,6 +26,20 @@ Enemy used to kill you while dead but no longer.</p>]]></content>
         <category label="releases" term="releases"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[0.30.0 Release]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.30.0-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.30.0-release"/>
+        <updated>2024-08-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Respawn delay]]></summary>
+        <content type="html"><![CDATA[<p>Add a 3sec respawn delay to balance out people who don't die</p>
+<p>You should be rewarded for not dying (or punished for dying)</p>]]></content>
+        <author>
+            <name>Jason Ma</name>
+            <uri>https://github.com/jasonfma</uri>
+        </author>
+        <category label="releases" term="releases"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[0.28.1 Release]]></title>
         <id>https://botomy.vercel.app/Botomy/blog/0.28.1-release</id>
         <link href="https://botomy.vercel.app/Botomy/blog/0.28.1-release"/>
