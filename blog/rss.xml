@@ -9,13 +9,16 @@
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
-            <title><![CDATA[0.30.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.30.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.30.0-release</guid>
+            <title><![CDATA[0.31.0 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.31.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.31.0-release</guid>
             <pubDate>Thu, 22 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[Respawn delay]]></description>
-            <content:encoded><![CDATA[<p>Add a 3sec respawn delay to balance out people who don't die</p>
-<p>You should be rewarded for not dying (or punished for dying)</p>]]></content:encoded>
+            <description><![CDATA[Smaller fight world]]></description>
+            <content:encoded><![CDATA[<p>Smaller fight world for more interesting interactions.</p>
+<p>Map is now 6720x6720 with no offset.
+Total items and monsters have been greatly reduced - as well as spawn area size</p>
+<p>Additional changes:
+Coin world map is now 8640x4320 with no offset</p>]]></content:encoded>
             <category>releases</category>
         </item>
         <item>

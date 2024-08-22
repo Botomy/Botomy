@@ -8,13 +8,16 @@
     <subtitle>Botomy Blog</subtitle>
     <icon>https://botomy.vercel.app/Botomy/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[0.30.0 Release]]></title>
-        <id>https://botomy.vercel.app/Botomy/blog/0.30.0-release</id>
-        <link href="https://botomy.vercel.app/Botomy/blog/0.30.0-release"/>
+        <title type="html"><![CDATA[0.31.0 Release]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.31.0-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.31.0-release"/>
         <updated>2024-08-22T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Respawn delay]]></summary>
-        <content type="html"><![CDATA[<p>Add a 3sec respawn delay to balance out people who don't die</p>
-<p>You should be rewarded for not dying (or punished for dying)</p>]]></content>
+        <summary type="html"><![CDATA[Smaller fight world]]></summary>
+        <content type="html"><![CDATA[<p>Smaller fight world for more interesting interactions.</p>
+<p>Map is now 6720x6720 with no offset.
+Total items and monsters have been greatly reduced - as well as spawn area size</p>
+<p>Additional changes:
+Coin world map is now 8640x4320 with no offset</p>]]></content>
         <author>
             <name>Jason Ma</name>
             <uri>https://github.com/jasonfma</uri>
