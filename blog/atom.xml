@@ -25,6 +25,20 @@ Coin world map is now 8640x4320 with no offset</p>]]></content>
         <category label="releases" term="releases"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[0.32.0 Release]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.32.0-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.32.0-release"/>
+        <updated>2024-08-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Survival mode! (sneak peak)]]></summary>
+        <content type="html"><![CDATA[<p>Sneak peak - Offline only map called Horde. Survival mode with increasingly more difficult waves</p>
+<p>More info coming soon... (and online mode)</p>]]></content>
+        <author>
+            <name>Jason Ma</name>
+            <uri>https://github.com/jasonfma</uri>
+        </author>
+        <category label="releases" term="releases"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[0.29.0 Release]]></title>
         <id>https://botomy.vercel.app/Botomy/blog/0.29.0-release</id>
         <link href="https://botomy.vercel.app/Botomy/blog/0.29.0-release"/>
