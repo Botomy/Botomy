@@ -12,6 +12,12 @@ If you kill someone, you can collect the coins they drop.
 
 ## Important data
 
+### Map
+
+```
+size: 8640x4320
+```
+
 ### Round Time
 
 ```
