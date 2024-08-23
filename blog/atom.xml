@@ -2,11 +2,28 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://botomy.vercel.app/Botomy/blog</id>
     <title>Botomy Blog</title>
-    <updated>2024-08-22T00:00:00.000Z</updated>
+    <updated>2024-08-23T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://botomy.vercel.app/Botomy/blog"/>
     <subtitle>Botomy Blog</subtitle>
     <icon>https://botomy.vercel.app/Botomy/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[0.33.1 Release]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.33.1-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.33.1-release"/>
+        <updated>2024-08-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Survival mode multiplayer]]></summary>
+        <content type="html"><![CDATA[<p>Horde is available for online/multiplayer play. Good luck!</p>
+<p>Known issues:</p>
+<ul>
+<li>portals don't all show... just one. but it all works (hopefully)</li>
+</ul>]]></content>
+        <author>
+            <name>Jason Ma</name>
+            <uri>https://github.com/jasonfma</uri>
+        </author>
+        <category label="releases" term="releases"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[0.31.0 Release]]></title>
         <id>https://botomy.vercel.app/Botomy/blog/0.31.0-release</id>
