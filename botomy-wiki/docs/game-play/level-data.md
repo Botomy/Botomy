@@ -71,6 +71,7 @@ sidebar_position: 2
     ],
     max_health,
     health,
+    attack_damage,
     is_cloaked,
     is_shield_ready,
     shield_raised,
@@ -104,6 +105,7 @@ sidebar_position: 2
       display_name,
       position: {x, y},
       health,
+      attack_damage,
       shield_raised,
       direction: <"left"/"right">,
       is_attacking,
@@ -129,6 +131,7 @@ sidebar_position: 2
       id,
       position: {x, y},
       health,
+      attack_damage,
       is_zapped,
       direction: <left/right>,
     }
