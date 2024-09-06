@@ -22,6 +22,24 @@
             <category>releases</category>
         </item>
         <item>
+            <title><![CDATA[0.34.1 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.34.1-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.34.1-release</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Patches and attack_damage]]></description>
+            <content:encoded><![CDATA[<p><code>attack_damage</code> available on enemies and players
+some bug fixes</p>
+<p>Fixed the portals
+Fixed enemy not ignoring dead players properly
+Fixed enemy health buffs on later stages of survival mode
+Added <code>attack_damage</code> property to enemies and players
+Username is now cached
+User's script is now cached and reloaded
+Leaderboard for Horde level now up
+Shadows!</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
             <title><![CDATA[0.31.0 Release]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/0.31.0-release</link>
             <guid>https://botomy.vercel.app/Botomy/blog/0.31.0-release</guid>

@@ -25,6 +25,28 @@
         <category label="releases" term="releases"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[0.34.1 Release]]></title>
+        <id>https://botomy.vercel.app/Botomy/blog/0.34.1-release</id>
+        <link href="https://botomy.vercel.app/Botomy/blog/0.34.1-release"/>
+        <updated>2024-08-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Patches and attack_damage]]></summary>
+        <content type="html"><![CDATA[<p><code>attack_damage</code> available on enemies and players
+some bug fixes</p>
+<p>Fixed the portals
+Fixed enemy not ignoring dead players properly
+Fixed enemy health buffs on later stages of survival mode
+Added <code>attack_damage</code> property to enemies and players
+Username is now cached
+User's script is now cached and reloaded
+Leaderboard for Horde level now up
+Shadows!</p>]]></content>
+        <author>
+            <name>Jason Ma</name>
+            <uri>https://github.com/jasonfma</uri>
+        </author>
+        <category label="releases" term="releases"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[0.31.0 Release]]></title>
         <id>https://botomy.vercel.app/Botomy/blog/0.31.0-release</id>
         <link href="https://botomy.vercel.app/Botomy/blog/0.31.0-release"/>
