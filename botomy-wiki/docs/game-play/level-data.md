@@ -138,6 +138,25 @@ sidebar_position: 2
   ]
 ```
 
+## obstacles
+
+`x,y` coordinates of tiles that are obstacles on the map.
+Each object is 48x48.
+
+```
+  obstacles: [
+    {
+      x,
+      y,
+    },
+    {
+      x,
+      y,
+    },
+    ...
+  ]
+```
+
 ## stats
 
 ```
