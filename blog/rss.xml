@@ -40,6 +40,20 @@ Shadows!</p>]]></content:encoded>
             <category>releases</category>
         </item>
         <item>
+            <title><![CDATA[0.35.0 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.35.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.35.0-release</guid>
+            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Obstacle data]]></description>
+            <content:encoded><![CDATA[<p><code>obstacles</code> available on level data</p>
+<p><code>obstacles</code> property on level data. Only obstacles right now are the map borders.</p>
+<ul>
+<li>excluded from race world</li>
+</ul>
+<p>Also fixed <code>is_attacking</code> for skull wolf (always attacks while running)</p>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
             <title><![CDATA[0.31.0 Release]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/0.31.0-release</link>
             <guid>https://botomy.vercel.app/Botomy/blog/0.31.0-release</guid>
