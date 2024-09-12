@@ -83,6 +83,10 @@ sidebar_position: 2
     is_dashing,
     is_dash_ready,
     is_colliding,
+    is_frozen,
+    is_pushed,
+    unleashing_shockwave,
+    is_special_ready,
     speech,
     score,
     levelling: { // only in fight world
@@ -113,6 +117,9 @@ sidebar_position: 2
       is_zapped,
       is_boosted,
       is_dashing,
+      is_frozen,
+      is_pushed,
+      unleashing_shockwave,
       speech,
       score,
       levelling: { // only in fight world
@@ -133,6 +140,8 @@ sidebar_position: 2
       health,
       attack_damage,
       is_zapped,
+      is_frozen,
+      is_pushed,
       direction: <left/right>,
     }
   ]
@@ -152,6 +161,21 @@ Each object is 48x48.
     {
       x,
       y,
+    },
+    ...
+  ]
+```
+
+## hazards
+
+Hazards are things that can hurt you - bombs, icicles, etc.
+
+```
+  hazards: [
+    {
+      position,
+      status,
+      type,
     },
     ...
   ]

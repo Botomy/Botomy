@@ -99,12 +99,12 @@ In most game modes, there is a speed penalty when your character is attacking. (
 
 ### Raise Shield
 
-| <small>**script**:`raise_shield` **manual**:`s`</small>
+| <small>**script**:`shield` **manual**:`s`</small>
 
 Your character can defend itself by raising a shield. While the shield is up, your character will recieve no damage
 
 e.g.
-`return ["raise_shield"]`
+`return ["shield"]`
 
 :::info
 Shields have a short lifespan. They break when hit or when they run out of energy.
@@ -124,7 +124,7 @@ e.g. `return [{"speak": "Hello there"}]`
 
 ### Use Items
 
-| <small>**script**:`{"use": "<item>"}` **manual**:`z(feather)/x(big_potion)/d(speed_zapper)/f(ring)`</small>
+| <small>**script**:`{"use": "<item>"}` **manual**:`z(feather)/x(big_potion)/c(speed_zapper)/v(ring)`</small>
 
 There are three items availale for use in the game - `big_potion`s, `feather`s, `ring`s and `speed_zapper`s. Once you collect the items, you can use them.
 
@@ -148,7 +148,7 @@ Rings - cloaks your player to hide from enemies and other players
 
 ### Redeeming Skill Points
 
-| <small>**script**:`{"redeem_skill_point": "<skill_type>"}` **manual**:`c(attack)/v(speed)/b(health)`</small>
+| <small>**script**:`{"redeem_skill_point": "<skill_type>"}` **manual**:`e(attack)/w(speed)/q(health)`</small>
 
 In some maps (i.e. Fight World), you can gain `xp` and level up. Each level will come with `skill points` you can redeem to boost your characters abilities.
 
@@ -160,6 +160,54 @@ e.g.
 :::tip
 Come up with a strategy to build up your characters skill. Speed allows you to collect items and escape attacks while health and attack may give you the upper hand in battle.
 :::
+
+### Special Attack
+
+| <small>**script**:`special` **manual**:`d`</small>
+
+Use whichever special attack is equipped on the player
+
+e.g.
+`return ["special"]`
+
+:::tip
+Specials have a cooldown so use them wisely
+:::
+
+:::info
+You won't lose a power up after you're killed. It seems more fun that way (for now?)
+:::
+
+#### Bomb
+
+```
+	"max_damage": 200,
+	"damage_factor": 2.5, // factor of the player's current attack damage
+	"cooldown": 1.5,
+```
+
+:::warn
+Bombs can do self damage. Be careful after you've dropped a bomb.
+:::
+
+#### Freeze
+
+```
+	"cooldown": 1.0,
+	"duration": 1.5, // how long an enemy will be frozen for (sec)
+	"max_damage": 20,
+	"damage_factor": 0.33, // factor of the player's current attack damage
+```
+
+#### Shockwave
+
+```
+	"duration": 0.2,
+	"cooldown": 1.5,
+	"speed": 1000,
+	"max_damage": 15,
+	"damage_factor": 0.2, // factor of the player's current attack damage
+```
 
 ## Debugging
 
