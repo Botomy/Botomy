@@ -4,28 +4,61 @@
         <title>Botomy Blog</title>
         <link>https://botomy.vercel.app/Botomy/blog</link>
         <description>Botomy Blog</description>
-        <lastBuildDate>Fri, 23 Aug 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 12 Sep 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
-            <title><![CDATA[0.33.1 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.33.1-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.33.1-release</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[Survival mode multiplayer]]></description>
-            <content:encoded><![CDATA[<p>Horde is available for online/multiplayer play. Good luck!</p>
-<p>Known issues:</p>
+            <title><![CDATA[0.41.0 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.41.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.41.0-release</guid>
+            <pubDate>Thu, 12 Sep 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Major updates!]]></description>
+            <content:encoded><![CDATA[<p>Power ups - bombs, ice blasts, and shockwaves!
+New HUD - action indicators, and more!
+Breaking changes - remapped keys and changed some script outputs</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="chests">Chests<a class="hash-link" aria-label="Direct link to Chests" title="Direct link to Chests" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#chests">​</a></h2>
+<p>There are now treasure chests that appear. These chests contain powerups that will give your player a special attack. Chests must be broken open.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="power-ups">Power Ups<a class="hash-link" aria-label="Direct link to Power Ups" title="Direct link to Power Ups" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#power-ups">​</a></h2>
+<p>Use an equipped power up with the action <code>special</code>. There is a cooldown and you can check by the property <code>level_data.own_player.is_special_ready</code></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="bomb">Bomb<a class="hash-link" aria-label="Direct link to Bomb" title="Direct link to Bomb" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#bomb">​</a></h3>
+<p>Bombs will be dropped behind the player. Be careful! Their explosion can injure the player that dropped the bomb.</p>
+<p>These will show up in <code>level_data.hazards</code></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="freeze">Freeze<a class="hash-link" aria-label="Direct link to Freeze" title="Direct link to Freeze" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#freeze">​</a></h3>
+<p>This gives the player the ability to shoot icicles in the direction they are traveling. If hit by an icicle, a player or enemy will be frozen in place.</p>
+<p>These will show up in <code>level_data.hazards</code> and <code>level_data.enemies/players/is_frozen</code></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="shockwave">Shockwave<a class="hash-link" aria-label="Direct link to Shockwave" title="Direct link to Shockwave" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#shockwave">​</a></h3>
+<p>Releasing a shockwave will push all enemies, players, and bombs away from the player.</p>
+<p>These will show up in <code>level_data.players.unleashing_shockwave</code> and <code>level_data.enemies/players/is_pushed</code></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hud-updates">HUD Updates<a class="hash-link" aria-label="Direct link to HUD Updates" title="Direct link to HUD Updates" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#hud-updates">​</a></h2>
+<p>Easily select the play mode you want to use.</p>
+<p>Action indicators will highlight what action is being called by script, api, or manual mode.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="breaking-changes">Breaking changes<a class="hash-link" aria-label="Direct link to Breaking changes" title="Direct link to Breaking changes" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#breaking-changes">​</a></h2>
 <ul>
-<li>portals don't all show... just one. but it all works (hopefully)</li>
+<li>manual mode keys remapped</li>
+<li>Script action to use the shield went from <code>raise_shield</code> to <code>shield</code></li>
 </ul>]]></content:encoded>
+            <category>releases</category>
+        </item>
+        <item>
+            <title><![CDATA[0.35.0 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.35.0-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.35.0-release</guid>
+            <pubDate>Mon, 09 Sep 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Obstacle data]]></description>
+            <content:encoded><![CDATA[<p><code>obstacles</code> available on level data</p>
+<p><code>obstacles</code> property on level data. Only obstacles right now are the map borders.</p>
+<ul>
+<li>excluded from race world</li>
+</ul>
+<p>Also fixed <code>is_attacking</code> for skull wolf (always attacks while running)</p>]]></content:encoded>
             <category>releases</category>
         </item>
         <item>
             <title><![CDATA[0.34.1 Release]]></title>
             <link>https://botomy.vercel.app/Botomy/blog/0.34.1-release</link>
             <guid>https://botomy.vercel.app/Botomy/blog/0.34.1-release</guid>
-            <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+            <pubDate>Fri, 06 Sep 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Patches and attack_damage]]></description>
             <content:encoded><![CDATA[<p><code>attack_damage</code> available on enemies and players
 some bug fixes</p>
@@ -40,17 +73,16 @@ Shadows!</p>]]></content:encoded>
             <category>releases</category>
         </item>
         <item>
-            <title><![CDATA[0.35.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.35.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.35.0-release</guid>
+            <title><![CDATA[0.33.1 Release]]></title>
+            <link>https://botomy.vercel.app/Botomy/blog/0.33.1-release</link>
+            <guid>https://botomy.vercel.app/Botomy/blog/0.33.1-release</guid>
             <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[Obstacle data]]></description>
-            <content:encoded><![CDATA[<p><code>obstacles</code> available on level data</p>
-<p><code>obstacles</code> property on level data. Only obstacles right now are the map borders.</p>
+            <description><![CDATA[Survival mode multiplayer]]></description>
+            <content:encoded><![CDATA[<p>Horde is available for online/multiplayer play. Good luck!</p>
+<p>Known issues:</p>
 <ul>
-<li>excluded from race world</li>
-</ul>
-<p>Also fixed <code>is_attacking</code> for skull wolf (always attacks while running)</p>]]></content:encoded>
+<li>portals don't all show... just one. but it all works (hopefully)</li>
+</ul>]]></content:encoded>
             <category>releases</category>
         </item>
         <item>
