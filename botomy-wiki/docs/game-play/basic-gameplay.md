@@ -72,7 +72,7 @@ If you want the character to move diagonnally up and right, then `return ["move_
 
 ## Dash
 
-| <small>**script**:`dash`, **manual**:`a`</small>
+| <small>**script**:`dash`, **manual**:`d`</small>
 
 Dash will temporarily increase your player's speed in whatever direction they are moving.
 
@@ -163,7 +163,7 @@ Come up with a strategy to build up your characters skill. Speed allows you to c
 
 ### Special Attack
 
-| <small>**script**:`special` **manual**:`d`</small>
+| <small>**script**:`special` **manual**:`f`</small>
 
 Use whichever special attack is equipped on the player
 
