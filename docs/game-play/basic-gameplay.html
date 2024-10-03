@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.4.0">
 <title data-rh="true">Basic Gameplay | Botomy</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://botomy.vercel.app/Botomy/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://botomy.vercel.app/Botomy/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://botomy.vercel.app/Botomy/docs/game-play/basic-gameplay"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Basic Gameplay | Botomy"><meta data-rh="true" name="description" content="Play modes"><meta data-rh="true" property="og:description" content="Play modes"><link data-rh="true" rel="icon" href="/Botomy/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://botomy.vercel.app/Botomy/docs/game-play/basic-gameplay"><link data-rh="true" rel="alternate" href="https://botomy.vercel.app/Botomy/docs/game-play/basic-gameplay" hreflang="en"><link data-rh="true" rel="alternate" href="https://botomy.vercel.app/Botomy/docs/game-play/basic-gameplay" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/Botomy/blog/rss.xml" title="Botomy RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/Botomy/blog/atom.xml" title="Botomy Atom Feed"><link rel="stylesheet" href="/Botomy/assets/css/styles.288017f7.css">
-<script src="/Botomy/assets/js/runtime~main.b08903f9.js" defer="defer"></script>
+<script src="/Botomy/assets/js/runtime~main.eb94a865.js" defer="defer"></script>
 <script src="/Botomy/assets/js/main.ef23f8da.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -27,15 +27,12 @@
 <p>This mode allows you to use keyboard input to control your character.</p>
 <div><p>This mode can get very boring.</p></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="movement">Movement<a class="hash-link" aria-label="Direct link to Movement" title="Direct link to Movement" href="/Botomy/docs/game-play/basic-gameplay#movement">​</a></h2>
-<p>| <small><strong>script</strong>:<code>move_left</code>,<code>move_right</code>,<code>move_up</code>,<code>move_down</code>, <strong>manual</strong>:<code>arrow keys</code></small></p>
-<p>There are four different directions your character can move in - left, right, up, and down.</p>
-<p><code>move_left</code>
-<code>move_right</code>
-<code>move_up</code>
-<code>move_down</code></p>
+<p>| <small><strong>script</strong>:<code>move_to</code> <strong>manual</strong>:<code>arrow keys</code></small></p>
+<p>Your player will move to a given x,y target.
+<code>move_to: {x, y}</code></p>
 <p>e.g.
-<code>return [&quot;move_left&quot;]</code></p>
-<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>If you want the character to move diagonnally up and right, then <code>return [&quot;move_up&quot;, &quot;move_right&quot;]</code>.</p></div></div>
+<code>return [{&quot;move_to&quot;: {&quot;x&quot;: 10, &quot;y&quot;: 20}}]</code></p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>Your player will navigate to the target using basic astar pathfinding (built into the engine)</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="dash">Dash<a class="hash-link" aria-label="Direct link to Dash" title="Direct link to Dash" href="/Botomy/docs/game-play/basic-gameplay#dash">​</a></h2>
 <p>| <small><strong>script</strong>:<code>dash</code>, <strong>manual</strong>:<code>d</code></small></p>
 <p>Dash will temporarily increase your player&#x27;s speed in whatever direction they are moving.</p>
