@@ -16,18 +16,18 @@ Select the `ScriptEditor` tab (probably already selected).
 
 Press "Run" to start executing the default script. You should see your character say "hello there"
 
-## Collect a coin
+## Collect an item
 
-1. Get the location of a coin
+1. Get the location of an item
 
 ```python
 func play(level_data):
 # highlight-start
-	# get the first coin in the array
-	var coin = level_data.coins[0]
+	# get the first item in the array
+	var item = level_data.items[0]
 
-	# print the x,y coordinates of the coin
-	print(coin.position)
+	# print the x,y coordinates of the item
+	print(item.position)
 # highlight-end
 	return []
 ```
@@ -37,11 +37,11 @@ func play(level_data):
 ```python
 func play(level_data):
 # highlight-start
-	# get the first coin in the array
-	var coin = level_data.coins[0]
+	# get the first item in the array
+	var item = level_data.items[0]
 
-	# print the x,y coordinates of the coin
-	debug(coin.position)
+	# print the x,y coordinates of the item
+	debug(item.position)
 
 	# highlight-start
 	var own_player = level_data.own_player
@@ -50,71 +50,44 @@ func play(level_data):
 	return []
 ```
 
-3. Determine what direction the coin is relative to your character
+4. Build the command to move towards the item
 
 ```python
 func play(level_data):
-	# get the first coin in the array
-	var coin = level_data.coins[0]
+	# get the first item in the array
+	var item = level_data.items[0]
 
-	# print the x,y coordinates of the coin
-	debug(coin.position)
-
-	var own_player = level_data.own_player
-	debug(own_player.position)
-
-	# highlight-start
-	if own_player.position.x > coin.position.x:
-  	debug("coin is left of character")
-	else:
-  	debug("coin is right of character")
-
-	if own_player.position.y > coin.position.y:
-  	debug("coin is above character")
-	else:
-		debug("coin is below character")
-	# highlight-end
-	return []
-```
-
-4. Return the moves to get to the coin
-
-```python
-func play(level_data):
-	# get the first coin in the array
-	var coin = level_data.coins[0]
-
-	# print the x,y coordinates of the coin
-	debug(coin.position)
+	# print the x,y coordinates of the item
+	debug(item.position)
 
 	var own_player = level_data.own_player
 	print(own_player.position)
 
 	# highlight-start
 	var moves = []
-	moves.append({"move_to": coin.position})
+	moves.append({"move_to": item.position})
 	debug(moves)
 
 	# highlight-end
 	return []
 ```
 
-5. Go pick up the coin!
+5. Go pick up the item!
 
 ```python
 func play(level_data):
-	# get the first coin in the array
-	var coin = level_data.coins[0]
+	# get the first item in the array
+	var item = level_data.items[0]
 
-	# print the x,y coordinates of the coin
-	debug(coin.position)
+	# print the x,y coordinates of the item
+	debug(item.position)
 
 	var own_player = level_data.own_player
 	print(own_player.position)
 
 
 	var moves = []
-	moves.append({"move_to": coin.position})
+	moves.append({"move_to": item.position})
 	debug(moves)
 
 	# highlight-start
@@ -124,12 +97,11 @@ func play(level_data):
 
 ### Congratulations
 
-Your character is now able to move towards a coin. Go forth and implement more functionality. Conquer more worlds!
+Your character is now able to move towards an item. Go forth and implement more functionality. Conquer more worlds!
 
 :::tip
-Is your character bobbing up and down and back and forth? Try modifying the code to detect if the character is in line with the coin already. This may require you to have a margin of error (i.e. sometimes it's better to say 11 ~= 10)
 
-Also in GDScript there are some handy functions
+In GDScript there are some handy functions
 
 | To compare floats, use the is_equal_approx() and is_zero_approx() functions instead.
 
