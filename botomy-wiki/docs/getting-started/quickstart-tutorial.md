@@ -92,20 +92,7 @@ func play(level_data):
 
 	# highlight-start
 	var moves = []
-	if own_player.position.x > coin.position.x:
-		debug("coin is left of character")
-		moves.append("move_left")
-	else:
-		debug("coin is right of character")
-		moves.append("move_right")
-
-	if own_player.position.y > coin.position.y:
-		debug("coin is above character")
-		moves.append("move_up")
-	else:
-		debug("coin is below character")
-		moves.append("move_down")
-
+	moves.append({"move_to": coin.position})
 	debug(moves)
 
 	# highlight-end
@@ -127,20 +114,7 @@ func play(level_data):
 
 
 	var moves = []
-	if own_player.position.x > coin.position.x:
-		debug("coin is left of character")
-		moves.append("move_left")
-	else:
-		debug("coin is right of character")
-		moves.append("move_right")
-
-	if own_player.position.y > coin.position.y:
-		debug("coin is above character")
-		moves.append("move_up")
-	else:
-		debug("coin is below character")
-		moves.append("move_down")
-
+	moves.append({"move_to": coin.position})
 	debug(moves)
 
 	# highlight-start

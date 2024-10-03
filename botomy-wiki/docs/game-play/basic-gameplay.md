@@ -52,21 +52,17 @@ This mode can get very boring.
 
 ## Movement
 
-| <small>**script**:`move_left`,`move_right`,`move_up`,`move_down`, **manual**:`arrow keys`</small>
+| <small>**script**:`move_to` **manual**:`arrow keys`</small>
 
-There are four different directions your character can move in - left, right, up, and down.
-
-`move_left`
-`move_right`
-`move_up`
-`move_down`
+Your player will move to a given x,y target.
+`move_to: {x, y}`
 
 e.g.
-`return ["move_left"]`
+`return [{"move_to": {"x": 10, "y": 20}}]`
 
 :::info
 
-If you want the character to move diagonnally up and right, then `return ["move_up", "move_right"]`.
+Your player will navigate to the target using basic astar pathfinding (built into the engine)
 
 :::
 
