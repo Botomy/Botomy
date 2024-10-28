@@ -107,3 +107,55 @@ In GDScript there are some handy functions
 
 https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#operators
 :::
+
+## Starter Bot
+
+Here's a basic functional to start hacking!
+
+```
+func get_closest_item(position, items):
+	var min_dist = INF
+	var target = null
+	for item in items:
+		var dist = dist_squared_to(position, item.position)
+		if dist < min_dist:
+			min_dist = dist
+			target = item
+	return target
+
+func dist_squared_to(a, b):
+	return pow(a.x - b.x,2) + pow(a.y-b.y,2)
+
+func play(level_data):
+	var moves = []
+	var own_player = level_data.own_player
+	var items = level_data.items
+	var enemies = level_data.enemies
+
+	var potential_targets = []
+
+	# check if we have room to collect more big_potions otherwise ignore items
+	if own_player.items.big_potions.size() < 6:
+		potential_targets.append_array(items)
+
+	potential_targets.append_array(enemies)
+
+	var target = get_closest_item(own_player.position, potential_targets)
+
+	if not target == null:
+		moves.append({"move_to": target.position})
+
+		# if the target has health then it's probably something that should be killed
+		if target.has("health") and target.health > 0 and dist_squared_to(own_player.position, target.position) < 15000:
+			moves.append("attack")
+			moves.append({"use":"speed_zapper"})
+			moves.append("shield")
+
+	if own_player.health < own_player.max_health:
+		moves.append({"use": "big_potion"})
+
+	if own_player.levelling.available_skill_points > 0:
+		moves.append({"redeem_skill_point": "health"})
+
+	return moves
+```
