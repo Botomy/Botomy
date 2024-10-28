@@ -27,7 +27,7 @@ func play(level_data):
 	var item = level_data.items[0]
 
 	# print the x,y coordinates of the item
-	print(item.position)
+	debug(item.position)
 # highlight-end
 	return []
 ```
@@ -61,7 +61,7 @@ func play(level_data):
 	debug(item.position)
 
 	var own_player = level_data.own_player
-	print(own_player.position)
+	debug(own_player.position)
 
 	# highlight-start
 	var moves = []
@@ -83,7 +83,7 @@ func play(level_data):
 	debug(item.position)
 
 	var own_player = level_data.own_player
-	print(own_player.position)
+	debug(own_player.position)
 
 
 	var moves = []
