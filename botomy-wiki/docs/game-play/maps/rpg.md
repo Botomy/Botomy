@@ -1,23 +1,33 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 ---
 
-# Horde
+# RPG
 
-How many stages can you complete? Each stage gets progressively harder.
+The player with the most xp at the end of the round wins.
 
-:::tip
-Levelling is in play so level up as fast as you can.
+Increase your xp by killing things and collecting coins.
+
+As your xp increases, you reach new levels. Each new level comes with a skill point you can redeem for - attack, speed, or health.
+
+:::info
+There are limits to how much you can max each skill tree
 :::
 
-The game ends when all players are dead.
+If you are killed, you will not lose xp.
 
 ## Important data
+
+### Round Time
+
+```
+  duration: 30, //mins
+```
 
 ### Map
 
 ```
-size: 2400x2400
+size: varies
 ```
 
 ### Player
@@ -40,15 +50,6 @@ size: 2400x2400
   gold: {
     xp_points: 200
   },
-```
-
-### Feathers
-
-```
-  duration: 2.0, // secs
-  boost: 1.0, // 100% of your current speed (i.e. double speed)
-  max_carry: 5,
-  xp_points: 12,
 ```
 
 ### Big Potions
@@ -89,34 +90,34 @@ size: 2400x2400
 
 ```
   "max_levels": 20,
-  "max_xp": 70000,
+  "max_xp": 150000,
   "max_attack_level": 10,
   "max_speed_level": 5,
   "max_health_level": 8,
   "attack_increase": 7,
-  "speed_increase": 2000,
+  "speed_increase": 500,
   "health_increase": 30,
   "bands": {
-    "1":0,
-    "2":700,
-    "3":1575,
-    "4":2800,
-    "5":4375,
-    "6":6300,
-    "7":8575,
-    "8":11200,
-    "9":14175,
-    "10":17500,
-    "11":21175,
-    "12":25200,
-    "13":29575,
-    "14":34300,
-    "15":39375,
-    "16":44800,
-    "17":50575,
-    "18":56700,
-    "19":63175,
-    "20":70000,
+			"1":0,
+			"2":1500,
+			"3":3375,
+			"4":6000,
+			"5":9375,
+			"6":13500,
+			"7":18375,
+			"8":24000,
+			"9":30375,
+			"10":37500,
+			"11":45375,
+			"12":54000,
+			"13":63375,
+			"14":73500,
+			"15":84375,
+			"16":96000,
+			"17":108375,
+			"18":121500,
+			"19":135375,
+			"20":150000
   }
 ```
 

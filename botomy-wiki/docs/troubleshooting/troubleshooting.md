@@ -10,6 +10,8 @@ I don't have a developer license from Apple yet so I can't sign the build.
 
 To open, right-click and press open from the menu.
 
+For newer MacOS versions, you must go to Privacy & Security settings to allow the app to open (after you tried opening it)
+
 Yes - I'll get a developer license soon.
 
 ## Script errors

@@ -9,15 +9,6 @@ Big potions (maybe there will be little potions in the future?) heal you to 100%
 There is a limit to how many you can carry at the same time
 :::
 
-## Feathers
-
-`{"use": "feather"}`
-Feathers give your character a movement speed boost. These stack - i.e. you can use multiple at a time to increase the speed boost duration.
-
-:::info
-There is a limit to how many you can carry at the same time
-:::
-
 ## Coins
 
 Coins are pretty. They give you more points.

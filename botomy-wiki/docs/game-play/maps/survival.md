@@ -1,33 +1,23 @@
 ---
-sidebar_position: 1
+sidebar_position: 4
 ---
 
-# Fight World
+# Survial
 
-The player with the most xp at the end of the round wins.
+How many stages can you complete? Each stage gets progressively harder.
 
-Increase your xp by killing things and collecting coins.
-
-As your xp increases, you reach new levels. Each new level comes with a skill point you can redeem for - attack, speed, or health.
-
-:::info
-There are limits to how much you can max each skill tree
+:::tip
+Levelling is in play so level up as fast as you can.
 :::
 
-If you are killed, you will not lose xp.
+The game ends when all players are dead.
 
 ## Important data
-
-### Round Time
-
-```
-  duration: 30, //mins
-```
 
 ### Map
 
 ```
-size: 6720x6720
+size: 2400x2400
 ```
 
 ### Player
@@ -50,15 +40,6 @@ size: 6720x6720
   gold: {
     xp_points: 200
   },
-```
-
-### Feathers
-
-```
-  duration: 2.0, // secs
-  boost: 1.0, // 100% of your current speed (i.e. double speed)
-  max_carry: 5,
-  xp_points: 12,
 ```
 
 ### Big Potions
@@ -104,7 +85,7 @@ size: 6720x6720
   "max_speed_level": 5,
   "max_health_level": 8,
   "attack_increase": 7,
-  "speed_increase": 2000,
+  "speed_increase": 500,
   "health_increase": 30,
   "bands": {
     "1":0,

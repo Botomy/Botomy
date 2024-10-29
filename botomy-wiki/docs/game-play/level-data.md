@@ -9,9 +9,10 @@ sidebar_position: 2
 ```
   game_info: {
     map: <name>,
-    game_type: <rpg/racing>,
+    game_type: <rpg/survival>,
     state: <STARTING/STARTED/ENDING/ENDED/MATCH_COMPLETED>,
-    time_left_s, // time left in the round in secs
+    time_left_s, // time left in the round in secs,
+    friendly_fire: true/false,
   }
 ```
 
@@ -25,13 +26,6 @@ sidebar_position: 2
       position: {x, y},
       value,
       points,
-    },
-    {
-      type: "feather",
-      id,
-      position: {x, y},
-      value, // speed boost percentage
-      duration, // in seconds
     },
     {
       type: "big_potion",
@@ -83,6 +77,7 @@ sidebar_position: 2
     is_dashing,
     is_dash_ready,
     is_colliding,
+    collisions : [{ relative_pos: { x, y }, type }]
     is_frozen,
     is_pushed,
     unleashing_shockwave,
@@ -120,6 +115,7 @@ sidebar_position: 2
       is_frozen,
       is_pushed,
       unleashing_shockwave,
+      special_equipped,
       speech,
       score,
       levelling: { // only in fight world
@@ -173,9 +169,12 @@ Hazards are things that can hurt you - bombs, icicles, etc.
 ```
   hazards: [
     {
+      id,
       position,
-      status,
+      attack_damage,
+      status: <charging/active/idle>,
       type,
+      owner_id,
     },
     ...
   ]
