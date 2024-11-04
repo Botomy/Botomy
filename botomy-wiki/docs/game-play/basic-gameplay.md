@@ -202,9 +202,9 @@ Bombs can do self damage. Be careful after you've dropped a bomb.
 
 ## Debugging
 
-There is a single function to print messages to the console - `debug(msg)`
+There is a single function to print messages to the console - `print_message(msg)`
 :::tip
-`debug(level_data)` to see what information your function gets every frame. This will help you decide what moves to return
+`print_message(level_data)` to see what information your function gets every frame. This will help you decide what moves to return
 :::
 
 :::warning
