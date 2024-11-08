@@ -27,7 +27,7 @@ func play(level_data):
 	var item = level_data.items[0]
 
 	# print the x,y coordinates of the item
-	debug(item.position)
+	print_message(item.position)
 # highlight-end
 	return []
 ```
@@ -41,11 +41,11 @@ func play(level_data):
 	var item = level_data.items[0]
 
 	# print the x,y coordinates of the item
-	debug(item.position)
+	print_message(item.position)
 
 	# highlight-start
 	var own_player = level_data.own_player
-	debug(own_player.position)
+	print_message(own_player.position)
 	# highlight-end
 	return []
 ```
@@ -58,15 +58,15 @@ func play(level_data):
 	var item = level_data.items[0]
 
 	# print the x,y coordinates of the item
-	debug(item.position)
+	print_message(item.position)
 
 	var own_player = level_data.own_player
-	debug(own_player.position)
+	print_message(own_player.position)
 
 	# highlight-start
 	var moves = []
 	moves.append({"move_to": item.position})
-	debug(moves)
+	print_message(moves)
 
 	# highlight-end
 	return []
@@ -80,15 +80,15 @@ func play(level_data):
 	var item = level_data.items[0]
 
 	# print the x,y coordinates of the item
-	debug(item.position)
+	print_message(item.position)
 
 	var own_player = level_data.own_player
-	debug(own_player.position)
+	print_message(own_player.position)
 
 
 	var moves = []
 	moves.append({"move_to": item.position})
-	debug(moves)
+	print_message(moves)
 
 	# highlight-start
 	return moves
@@ -146,7 +146,7 @@ func play(level_data):
 		moves.append({"move_to": target.position})
 
 		# if the target has health then it's probably something that should be killed
-		if target.has("health") and target.health > 0 and dist_squared_to(own_player.position, target.position) < 15000:
+		if target.has("health") and target.health > 0 and dist_squared_to(own_player.position, target.position) < 15625:
 			moves.append("attack")
 			moves.append({"use":"speed_zapper"})
 			moves.append("shield")
