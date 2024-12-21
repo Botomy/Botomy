@@ -33,15 +33,42 @@ size: varies
 ### Player
 
 ```
-  kill: { xp_points: 60 * (some complicated multiplier based on the level of the player that was killed - 6x at level 20) }
+  kill: { xp_points: *see below }
   death: { xp_points: 0 }
   damage: 15
   starting_hp: 100
-  starting_speed: 15000
+  starting_speed: 415
   attack_slowdown: 0.6, // move at 60% speed while attacking
-  dash_speed: 50000,
+  dash_speed: 1500,
   dash_duration: 0.1s,
-  dash_cooldown: 1s,
+  dash_cooldown: 0.25s,
+  multi_dash_limit: 2,
+  multi_dash_cooldown: 4s,
+```
+
+```
+const kill_reward_for_level = {
+	1: 82,
+	2: 95,
+	3: 109,
+	4: 126,
+	5: 144,
+	6: 166,
+	7: 191,
+	8: 220,
+	9: 253,
+	10: 291,
+	11: 335,
+	12: 386,
+	13: 444,
+	14: 511,
+	15: 587,
+	16: 676,
+	17: 777,
+	18: 894,
+	19: 1029,
+	20: 1184
+}
 ```
 
 ### Coins
@@ -65,7 +92,7 @@ size: varies
 ```
   duration: 2.0, // secs
   slowdown: 0.3, // 30% of speed (i.e. movement is 70% of speed)
-  max_slowdown: 0.9, // 90% of speed (i.e. movement is 10% of speed)
+  max_slowdown: 0.3, // 90% of speed (i.e. movement is 10% of speed)
   max_carry: 5,
   xp_points: 12,
 ```
@@ -73,7 +100,7 @@ size: varies
 ### Rings
 
 ```
-  duration: 1.0, // secs
+  duration: 5.0, // secs
   max_carry: 5,
   xp_points: 12,
 ```
@@ -95,7 +122,7 @@ size: varies
   "max_speed_level": 5,
   "max_health_level": 8,
   "attack_increase": 7,
-  "speed_increase": 500,
+  "speed_increase": 25,
   "health_increase": 30,
   "bands": {
 			"1":0,
@@ -125,8 +152,8 @@ size: varies
 
 ```
   weapon: 10
-  hp: 65
-  speed: 20000
+  hp: 30
+  speed: 330
   xp_points: 80
 ```
 
@@ -135,7 +162,7 @@ size: varies
 ```
   weapon: 30
   hp: 100
-  speed: 15000
+  speed: 250
   xp_points: 100
 ```
 
@@ -144,7 +171,7 @@ size: varies
 ```
   weapon: 50
   hp: 50
-  speed: 50000
+  speed: 830
   xp_points: 300
 ```
 
@@ -153,6 +180,6 @@ size: varies
 ```
   weapon: 50
   hp: 400
-  speed: 10000
+  speed: 165
   xp_points: 600
 ```

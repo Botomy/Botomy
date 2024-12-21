@@ -27,11 +27,13 @@ size: 2400x2400
   death: { xp_points: 0 }
   damage: 15
   starting_hp: 100
-  starting_speed: 15000
+  starting_speed: 415
   attack_slowdown: 0.6, // move at 60% speed while attacking
-  dash_speed: 50000,
+  dash_speed: 1500,
   dash_duration: 0.1s,
-  dash_cooldown: 1s,
+  dash_cooldown: 0.25s,
+  multi_dash_limit: 2,
+  multi_dash_cooldown: 4s,
 ```
 
 ### Coins
@@ -55,7 +57,7 @@ size: 2400x2400
 ```
   duration: 2.0, // secs
   slowdown: 0.3, // 30% of speed (i.e. movement is 70% of speed)
-  max_slowdown: 0.9, // 90% of speed (i.e. movement is 10% of speed)
+  max_slowdown: 0.3, // 90% of speed (i.e. movement is 10% of speed)
   max_carry: 5,
   xp_points: 12,
 ```
@@ -63,7 +65,7 @@ size: 2400x2400
 ### Rings
 
 ```
-  duration: 1.0, // secs
+  duration: 5.0, // secs
   max_carry: 5,
   xp_points: 12,
 ```
@@ -85,7 +87,7 @@ size: 2400x2400
   "max_speed_level": 5,
   "max_health_level": 8,
   "attack_increase": 7,
-  "speed_increase": 500,
+  "speed_increase": 30,
   "health_increase": 30,
   "bands": {
     "1":0,

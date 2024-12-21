@@ -59,7 +59,6 @@ sidebar_position: 2
     position: {x, y},
     items: [
       big_potions: [ {value} ],
-      feathers: [ {value, duration }],
       speed_zappers: [ { value, duration }],
       rings: [ { duration }],
     ],
@@ -188,13 +187,29 @@ Hazards are things that can hurt you - bombs, icicles, etc.
       score,
       kills,
       deaths,
+      coins,
       kd_ratio,
+      xps,
+      wolf_kills,
+      ghoul_kills,
+      tiny_kills,
+      minotaur_kills,
+      player_kills,
+      self_destructs,
     }
     "<player_id_2>": {
       score,
       kills,
       deaths,
+      coins,
       kd_ratio,
+      xps,
+      wolf_kills,
+      ghoul_kills,
+      tiny_kills,
+      minotaur_kills,
+      player_kills,
+      self_destructs,
     }
   }
 ```
