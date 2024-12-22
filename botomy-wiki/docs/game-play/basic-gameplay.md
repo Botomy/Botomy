@@ -188,6 +188,7 @@ Bombs can do self damage. Be careful after you've dropped a bomb.
 	"duration": 1.5, // how long an enemy will be frozen for (sec)
 	"max_damage": 20,
 	"damage_factor": 0.33, // factor of the player's current attack damage
+	"damage_absorption_factor": 0.1, // how much damage is asborbed by the ice when frozen (i.e. when frozen, damage is received at 90%)
 ```
 
 #### Shockwave
