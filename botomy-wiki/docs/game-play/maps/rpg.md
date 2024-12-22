@@ -49,27 +49,56 @@ size: varies
 ```
 const kill_reward_for_level = {
 	1: 82,
-	2: 95,
-	3: 109,
-	4: 126,
-	5: 144,
-	6: 166,
-	7: 191,
-	8: 220,
-	9: 253,
-	10: 291,
-	11: 335,
-	12: 386,
-	13: 444,
-	14: 511,
-	15: 587,
-	16: 676,
-	17: 777,
-	18: 894,
-	19: 1029,
-	20: 1184
+	2: 114,
+	3: 216,
+	4: 317,
+	5: 419,
+	6: 520,
+	7: 621,
+	8: 723,
+	9: 824,
+	10: 926,
+	11: 1027,
+	12: 1129,
+	13: 1230,
+	14: 1331,
+	15: 1433,
+	16: 1534,
+	17: 1636,
+	18: 1737,
+	19: 1838,
+	20: 2000,
+	21: 2000,
+	22: 2000,
+	23: 2000,
+	24: 2000,
+	25: 2000,
+	26: 2000,
+	27: 2000,
+	28: 2000,
+	29: 2000,
+	30: 2000,
 }
 ```
+
+XP reward does not change beyond level 20 because there are no additional buffs given - a level 30 player will theoretically be just as easy to kill when they were at level 20.
+The level difference bonus/penalty still applies (see below).
+
+There is a 3.33% bonus/penalty for every level difference in the opponent you kill starting with a level difference of 2.
+
+e.g.
+
+player level: 1
+enemy level: 2
+0% bonus
+
+player level: 1
+enemy level: 3
+6.66% bonus
+
+player level: 3
+enemy level: 1
+6.66% penalty
 
 ### Coins
 
@@ -115,6 +144,8 @@ const kill_reward_for_level = {
 
 ### Levelling
 
+There are 30 levels. Players gain a skill point for each new level reached up to level 20.
+
 ```
   "max_levels": 20,
   "max_xp": 150000,
@@ -144,7 +175,17 @@ const kill_reward_for_level = {
 			"17":108375,
 			"18":121500,
 			"19":135375,
-			"20":150000
+			"20":150000,
+			"21": 165375,
+			"22": 181500,
+			"23": 198375,
+			"24": 216000,
+			"25": 234375,
+			"26": 253500,
+			"27": 273375,
+			"28": 294000,
+			"29": 315375,
+			"30": 337500
   }
 ```
 
