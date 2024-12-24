@@ -184,11 +184,11 @@ Bombs can do self damage. Be careful after you've dropped a bomb.
 #### Freeze
 
 ```
-	"cooldown": 1.0,
-	"duration": 1.5, // how long an enemy will be frozen for (sec)
+	"cooldown": 1.5,
+	"duration": 1.0, // how long an enemy will be frozen for (sec)
 	"max_damage": 20,
 	"damage_factor": 0.33, // factor of the player's current attack damage
-	"damage_absorption_factor": 0.1, // how much damage is asborbed by the ice when frozen (i.e. when frozen, damage is received at 90%)
+	"damage_absorption_factor": 0.3, // how much damage is asborbed by the ice when frozen (i.e. when frozen, damage is received at 70%)
 ```
 
 #### Shockwave
@@ -196,9 +196,35 @@ Bombs can do self damage. Be careful after you've dropped a bomb.
 ```
 	"duration": 0.2,
 	"cooldown": 1.5,
-	"speed": 1000,
+	"speed": 1500,
 	"max_damage": 15,
 	"damage_factor": 0.2, // factor of the player's current attack damage
+```
+
+## Kill Streaks
+
+If your player gets high enough kill streaks, it will begin overclocking. Overclocking lasts for 15s.
+Each additional kill will reset the 15s timer.
+
+### Speed
+
+```
+	"streak": 50,
+	"value": 1.3, # overclocked speed is 1.3 times the base speed
+```
+
+### Damage
+
+```
+	"streak": 100,
+	"value": 1.2, # overclocked damage is 1.2 times the base damage
+```
+
+### Health Regen
+
+```
+	"streak": 150,
+	"value": 10, # overclocked health regen points per second
 ```
 
 ## Debugging
