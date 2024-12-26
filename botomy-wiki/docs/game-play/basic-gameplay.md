@@ -209,21 +209,21 @@ Each additional kill will reset the 15s timer.
 ### Speed
 
 ```
-	"streak": 50,
+	"streak": 60,
 	"value": 1.3, # overclocked speed is 1.3 times the base speed
 ```
 
 ### Damage
 
 ```
-	"streak": 100,
+	"streak": 120,
 	"value": 1.2, # overclocked damage is 1.2 times the base damage
 ```
 
 ### Health Regen
 
 ```
-	"streak": 150,
+	"streak": 180,
 	"value": 10, # overclocked health regen points per second
 ```
 

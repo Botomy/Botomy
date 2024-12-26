@@ -13,6 +13,7 @@ sidebar_position: 2
     state: <STARTING/STARTED/ENDING/ENDED/MATCH_COMPLETED>,
     time_left_s, // time left in the round in secs,
     friendly_fire: true/false,
+    latency, // ping ms to server (every second)
   }
 ```
 
@@ -64,6 +65,7 @@ sidebar_position: 2
     ],
     max_health,
     health,
+    base_speed, // base speed before penalities or boosts
     attack_damage,
     is_cloaked,
     is_shield_ready,
@@ -89,7 +91,10 @@ sidebar_position: 2
       attack, // redeemed attack points
       speed, // redeemed speed points
       health, // redeemed health points
-    }
+    },
+    is_overclocking,
+    overclock_duration,
+    has_health_regen,
   }
 ```
 
@@ -103,6 +108,7 @@ sidebar_position: 2
       display_name,
       position: {x, y},
       health,
+      base_speed, // base speed before penalities or boosts
       attack_damage,
       shield_raised,
       direction: <"left"/"right">,
@@ -120,6 +126,8 @@ sidebar_position: 2
       levelling: { // only in fight world
         level,
       },
+      is_overclocking,
+      has_health_regen,
     }
   ]
 ```
@@ -189,6 +197,8 @@ Hazards are things that can hurt you - bombs, icicles, etc.
       deaths,
       coins,
       kd_ratio,
+      kill_streak,
+      overclocks,
       xps,
       wolf_kills,
       ghoul_kills,
@@ -203,6 +213,8 @@ Hazards are things that can hurt you - bombs, icicles, etc.
       deaths,
       coins,
       kd_ratio,
+      kill_streak,
+      overclocks,
       xps,
       wolf_kills,
       ghoul_kills,
