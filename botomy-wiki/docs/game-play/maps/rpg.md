@@ -43,7 +43,7 @@ size: varies
   dash_duration: 0.1s,
   dash_cooldown: 0.25s,
   multi_dash_limit: 2,
-  multi_dash_cooldown: 4s,
+  multi_dash_cooldown: 1s,
 ```
 
 ```

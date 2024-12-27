@@ -72,6 +72,8 @@ Your player will navigate to the target using basic astar pathfinding (built int
 
 Dash will temporarily increase your player's speed in whatever direction they are moving.
 
+Dash is a battle mechanic. It is only enabled if there are enemies within 300 radius of the player.
+
 There is a `1s` cooldown on this ability.
 
 ## Actions
