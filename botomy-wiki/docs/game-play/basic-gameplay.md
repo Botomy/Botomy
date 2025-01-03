@@ -229,6 +229,13 @@ Each additional kill will reset the 15s timer.
 	"value": 10, # overclocked health regen points per second
 ```
 
+### Super
+
+```
+	"streak": 250,
+	"value": 9001, # value of attack damage
+```
+
 ## Debugging
 
 There is a single function to print messages to the console - `print_message(msg)`

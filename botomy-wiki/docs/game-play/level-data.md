@@ -33,6 +33,7 @@ sidebar_position: 2
       id,
       position: {x, y},
       value, // not used
+      points,
     },
     {
       type: "speed_zapper",
@@ -40,12 +41,14 @@ sidebar_position: 2
       position: {x, y},
       value, // speed zap percentage
       duration, // in seconds
+      points,
     },
     {
       type: "ring",
       id,
       position: {x, y},
       duration, // in seconds
+      points,
     },
   ]
 ```
@@ -71,12 +74,12 @@ sidebar_position: 2
     is_shield_ready,
     shield_raised,
     direction: <"left"/"right">,
-    is_zapping,
     is_attacking,
     is_zapped,
     is_boosted,
     is_dashing,
     is_dash_ready,
+    is_zap_ready,
     is_colliding,
     collisions : [{ relative_pos: { x, y }, type }]
     is_frozen,
@@ -95,6 +98,7 @@ sidebar_position: 2
     is_overclocking,
     overclock_duration,
     has_health_regen,
+    points, // base points (without penalties/bonuses applied)
   }
 ```
 
@@ -113,7 +117,6 @@ sidebar_position: 2
       shield_raised,
       direction: <"left"/"right">,
       is_attacking,
-      is_zapping,
       is_zapped,
       is_boosted,
       is_dashing,
@@ -128,6 +131,7 @@ sidebar_position: 2
       },
       is_overclocking,
       has_health_regen,
+      points, // base points (without penalties/bonuses applied)
     }
   ]
 ```
@@ -146,6 +150,7 @@ sidebar_position: 2
       is_frozen,
       is_pushed,
       direction: <left/right>,
+      points,
     }
   ]
 ```
@@ -171,7 +176,7 @@ Each object is 48x48.
 
 ## hazards
 
-Hazards are things that can hurt you - bombs, icicles, etc.
+Hazards are things that can hurt you - bombs, icicles, lightning storms, etc.
 
 ```
   hazards: [
