@@ -238,11 +238,11 @@ Each additional kill will reset the 15s timer.
 
 ## Debugging
 
-There is a single function to print messages to the console - `print_message(msg)`
-:::tip
-`print_message(level_data)` to see what information your function gets every frame. This will help you decide what moves to return
-:::
+You can send some information to the debug panel in game. Return a "debug_info" object in your api response array
 
-:::warning
-Any script level error (e.g. syntax) will not be displayed. You will only see a `script error message` (good luck!)
-:::
+```
+	"debug_info": {
+		"target_id": <id of the target object>,
+		"message": <80 char limit>,
+	}
+```
