@@ -243,6 +243,6 @@ You can send some information to the debug panel in game. Return a "debug_info" 
 ```
 	"debug_info": {
 		"target_id": <id of the target object>,
-		"message": <80 char limit>,
+		"message": <150 char limit>,
 	}
 ```
