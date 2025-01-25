@@ -12,21 +12,7 @@ To enable a play mode, select the tab and press **RUN**. You can stop execution 
 You can only run one mode at a time. Pressing **RUN** in one mode will stop execution in another mode.
 :::
 
-There are three supported play modes (see below):
-
-### ScriptEditor
-
-The language used in **script** mode is [GDScript](https://docs.godotengine.org/en/4.2/tutorials/scripting/gdscript/gdscript_basics.html).
-
-Your script must define a `play` function that takes a single argument (`level_data`).
-
-:::info
-
-The `play(level_data)` function is called by the game engine (_mostly_) on every frame .
-
-:::
-
-The function should return the list of moves (i.e. key presses) that the bot should follow.
+There are two supported play modes (see below):
 
 ### ApiCall
 
@@ -211,28 +197,28 @@ Each additional kill will reset the 15s timer.
 ### Speed
 
 ```
-	"streak": 60,
+	"streak": 20,
 	"value": 1.3, # overclocked speed is 1.3 times the base speed
 ```
 
 ### Damage
 
 ```
-	"streak": 120,
+	"streak": 50,
 	"value": 1.2, # overclocked damage is 1.2 times the base damage
 ```
 
 ### Health Regen
 
 ```
-	"streak": 180,
+	"streak": 80,
 	"value": 10, # overclocked health regen points per second
 ```
 
 ### Super
 
 ```
-	"streak": 250,
+	"streak": 125,
 	"value": 9001, # value of attack damage
 ```
 
