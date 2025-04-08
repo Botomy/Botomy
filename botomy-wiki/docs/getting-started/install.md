@@ -6,12 +6,10 @@ sidebar_position: 1
 
 ## Download the app
 
-Get started by **[downloading](https://botomy.vercel.app) and installing the app**.
-
-Or **try Botomy immediately** in the **[browser](https://botomy.vercel.app/dist/web/index.html)**.
+Get started by **[downloading](https://store.steampowered.com/app/3566430/Botomy/?beta=1) and installing the app**.
 
 ### Supported Platforms
 
-- MacOS
-- Windows
-- HTML5 (limited support - use at your own risk)
+- MacOS 64 bit
+- Windows 64 bit
+- Linux x86
