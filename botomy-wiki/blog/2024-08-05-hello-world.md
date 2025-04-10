@@ -11,4 +11,5 @@ Officially launching Botomy in open alpha.
 
 <!-- truncate -->
 
-Checkout https://botomy.vercel.app
+(Edited url:)
+Checkout https://botomy.com

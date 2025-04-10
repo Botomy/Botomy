@@ -31,11 +31,24 @@ The Node.js starter includes:
 - TypeScript definitions for game data
   :::
 
-:::tip Coming Soon: Python Starter
-The Python starter project will include:
+### Python Starter
 
-- FastAPI server
-- Basic bot implementation
+```bash
+git clone https://github.com/Brokkli-Labs/botomy-python-starter
+cd botomy-python-starter
+pip install -r requirements.txt
+uvicorn main:app --port 3000 --reload
+```
+
+A FastAPI server will start on port 8000 and calls the `play` function in `play.py`
+
+Modify `play.py` to program your bot.
+
+:::tip Python Features
+The Python starter includes:
+
+- FastAPI server setup
+- Basic bot logic template
 - Type hints for game data
   :::
 

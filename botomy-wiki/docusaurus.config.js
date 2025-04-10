@@ -13,7 +13,7 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://botomy.vercel.app",
+  url: "https://botomy.com",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/Botomy",
@@ -84,7 +84,7 @@ const config = {
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://botomy.vercel.app",
+            href: "https://botomy.com",
             label: "App",
             position: "right",
           },
@@ -116,7 +116,7 @@ const config = {
             items: [
               {
                 label: "App",
-                href: "https://botomy.vercel.app",
+                href: "https://botomy.com",
               },
               {
                 label: "Blog",
