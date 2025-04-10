@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Botomy Blog</title>
-        <link>https://botomy.vercel.app/Botomy/blog</link>
+        <link>https://botomy.com/Botomy/blog</link>
         <description>Botomy Blog</description>
         <lastBuildDate>Thu, 12 Sep 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,30 +10,30 @@
         <language>en</language>
         <item>
             <title><![CDATA[0.41.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.41.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.41.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.41.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.41.0-release</guid>
             <pubDate>Thu, 12 Sep 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Major updates!]]></description>
             <content:encoded><![CDATA[<p>Power ups - bombs, ice blasts, and shockwaves!
 New HUD - action indicators, and more!
 Breaking changes - remapped keys and changed some script outputs</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="chests">Chests<a class="hash-link" aria-label="Direct link to Chests" title="Direct link to Chests" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#chests">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="chests">Chests<a class="hash-link" aria-label="Direct link to Chests" title="Direct link to Chests" href="https://botomy.com/Botomy/blog/0.41.0-release#chests">​</a></h2>
 <p>There are now treasure chests that appear. These chests contain powerups that will give your player a special attack. Chests must be broken open.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="power-ups">Power Ups<a class="hash-link" aria-label="Direct link to Power Ups" title="Direct link to Power Ups" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#power-ups">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="power-ups">Power Ups<a class="hash-link" aria-label="Direct link to Power Ups" title="Direct link to Power Ups" href="https://botomy.com/Botomy/blog/0.41.0-release#power-ups">​</a></h2>
 <p>Use an equipped power up with the action <code>special</code>. There is a cooldown and you can check by the property <code>level_data.own_player.is_special_ready</code></p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="bomb">Bomb<a class="hash-link" aria-label="Direct link to Bomb" title="Direct link to Bomb" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#bomb">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="bomb">Bomb<a class="hash-link" aria-label="Direct link to Bomb" title="Direct link to Bomb" href="https://botomy.com/Botomy/blog/0.41.0-release#bomb">​</a></h3>
 <p>Bombs will be dropped behind the player. Be careful! Their explosion can injure the player that dropped the bomb.</p>
 <p>These will show up in <code>level_data.hazards</code></p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="freeze">Freeze<a class="hash-link" aria-label="Direct link to Freeze" title="Direct link to Freeze" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#freeze">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="freeze">Freeze<a class="hash-link" aria-label="Direct link to Freeze" title="Direct link to Freeze" href="https://botomy.com/Botomy/blog/0.41.0-release#freeze">​</a></h3>
 <p>This gives the player the ability to shoot icicles in the direction they are traveling. If hit by an icicle, a player or enemy will be frozen in place.</p>
 <p>These will show up in <code>level_data.hazards</code> and <code>level_data.enemies/players/is_frozen</code></p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="shockwave">Shockwave<a class="hash-link" aria-label="Direct link to Shockwave" title="Direct link to Shockwave" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#shockwave">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="shockwave">Shockwave<a class="hash-link" aria-label="Direct link to Shockwave" title="Direct link to Shockwave" href="https://botomy.com/Botomy/blog/0.41.0-release#shockwave">​</a></h3>
 <p>Releasing a shockwave will push all enemies, players, and bombs away from the player.</p>
 <p>These will show up in <code>level_data.players.unleashing_shockwave</code> and <code>level_data.enemies/players/is_pushed</code></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hud-updates">HUD Updates<a class="hash-link" aria-label="Direct link to HUD Updates" title="Direct link to HUD Updates" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#hud-updates">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hud-updates">HUD Updates<a class="hash-link" aria-label="Direct link to HUD Updates" title="Direct link to HUD Updates" href="https://botomy.com/Botomy/blog/0.41.0-release#hud-updates">​</a></h2>
 <p>Easily select the play mode you want to use.</p>
 <p>Action indicators will highlight what action is being called by script, api, or manual mode.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="breaking-changes">Breaking changes<a class="hash-link" aria-label="Direct link to Breaking changes" title="Direct link to Breaking changes" href="https://botomy.vercel.app/Botomy/blog/0.41.0-release#breaking-changes">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="breaking-changes">Breaking changes<a class="hash-link" aria-label="Direct link to Breaking changes" title="Direct link to Breaking changes" href="https://botomy.com/Botomy/blog/0.41.0-release#breaking-changes">​</a></h2>
 <ul>
 <li>manual mode keys remapped</li>
 <li>Script action to use the shield went from <code>raise_shield</code> to <code>shield</code></li>
@@ -42,8 +42,8 @@ Breaking changes - remapped keys and changed some script outputs</p>
         </item>
         <item>
             <title><![CDATA[0.35.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.35.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.35.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.35.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.35.0-release</guid>
             <pubDate>Mon, 09 Sep 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Obstacle data]]></description>
             <content:encoded><![CDATA[<p><code>obstacles</code> available on level data</p>
@@ -56,8 +56,8 @@ Breaking changes - remapped keys and changed some script outputs</p>
         </item>
         <item>
             <title><![CDATA[0.34.1 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.34.1-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.34.1-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.34.1-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.34.1-release</guid>
             <pubDate>Fri, 06 Sep 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Patches and attack_damage]]></description>
             <content:encoded><![CDATA[<p><code>attack_damage</code> available on enemies and players
@@ -74,8 +74,8 @@ Shadows!</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.33.1 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.33.1-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.33.1-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.33.1-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.33.1-release</guid>
             <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Survival mode multiplayer]]></description>
             <content:encoded><![CDATA[<p>Horde is available for online/multiplayer play. Good luck!</p>
@@ -87,8 +87,8 @@ Shadows!</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.31.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.31.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.31.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.31.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.31.0-release</guid>
             <pubDate>Thu, 22 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Smaller fight world]]></description>
             <content:encoded><![CDATA[<p>Smaller fight world for more interesting interactions.</p>
@@ -100,8 +100,8 @@ Coin world map is now 8640x4320 with no offset</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.32.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.32.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.32.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.32.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.32.0-release</guid>
             <pubDate>Thu, 22 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Survival mode! (sneak peak)]]></description>
             <content:encoded><![CDATA[<p>Sneak peak - Offline only map called Horde. Survival mode with increasingly more difficult waves</p>
@@ -110,8 +110,8 @@ Coin world map is now 8640x4320 with no offset</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.29.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.29.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.29.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.29.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.29.0-release</guid>
             <pubDate>Tue, 20 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Bug fixes and dash tweaks]]></description>
             <content:encoded><![CDATA[<p>Dash is faster and more frequent.
@@ -124,8 +124,8 @@ Enemy used to kill you while dead but no longer.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.30.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.30.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.30.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.30.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.30.0-release</guid>
             <pubDate>Tue, 20 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Respawn delay]]></description>
             <content:encoded><![CDATA[<p>Add a 3sec respawn delay to balance out people who don't die</p>
@@ -134,8 +134,8 @@ Enemy used to kill you while dead but no longer.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.28.1 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.28.1-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.28.1-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.28.1-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.28.1-release</guid>
             <pubDate>Mon, 19 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[New maps and is_colliding]]></description>
             <content:encoded><![CDATA[<p>New backgrounds. Add <code>is_colliding</code> property to player</p>
@@ -144,8 +144,8 @@ Enemy used to kill you while dead but no longer.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.27.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.27.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.27.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.27.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.27.0-release</guid>
             <pubDate>Fri, 16 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Dashing!]]></description>
             <content:encoded><![CDATA[<p>Add the ability for a player to dash</p>
@@ -158,8 +158,8 @@ Enemy used to kill you while dead but no longer.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[0.26.2 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.26.2-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.26.2-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.26.2-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.26.2-release</guid>
             <pubDate>Thu, 15 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[More useful tutorial]]></description>
             <content:encoded><![CDATA[<p>Tutorial has buttons to skip stages so you can hone against the enemies.
@@ -170,8 +170,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[0.26.4 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.26.4-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.26.4-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.26.4-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.26.4-release</guid>
             <pubDate>Thu, 15 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Bug fixes]]></description>
             <content:encoded><![CDATA[<p>Fix bugs around item use and skill point redemption. Oh yeah more data.</p>
@@ -185,8 +185,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[0.26.0 Patch]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.26.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.26.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.26.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.26.0-release</guid>
             <pubDate>Wed, 14 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Added to level_data]]></description>
             <content:encoded><![CDATA[<p>New in level_data: stats, game state info, and player data</p>
@@ -195,8 +195,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[0.22.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.22.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.22.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.22.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.22.0-release</guid>
             <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[New game play mechanics]]></description>
             <content:encoded><![CDATA[<p>0.22.0 Release - Cloaking</p>
@@ -208,8 +208,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[0.23.0 Release]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.23.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.23.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.23.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.23.0-release</guid>
             <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[New level_data]]></description>
             <content:encoded><![CDATA[<p>0.23.0 Additional level data around speed</p>
@@ -219,8 +219,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[0.23.1 Patch]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.23.1-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.23.1-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.23.1-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.23.1-release</guid>
             <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Kill reward calc in fight world]]></description>
             <content:encoded><![CDATA[<p>0.23.1 Use an equation to calc player kill reward in fight world</p>
@@ -230,8 +230,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[0.24.0 Patch]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.24.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.24.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.24.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.24.0-release</guid>
             <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Fix cloaking?]]></description>
             <content:encoded><![CDATA[<p>Fix cloaking in server games (hopefully)</p>
@@ -240,8 +240,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[0.25.0 Patch]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/0.25.0-release</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/0.25.0-release</guid>
+            <link>https://botomy.com/Botomy/blog/0.25.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.25.0-release</guid>
             <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Lower kill xp]]></description>
             <content:encoded><![CDATA[<p>Lower kill xp to help with balance. Lower data bandwidth.</p>
@@ -250,8 +250,8 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[New release 0.21.0]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/release-0.21.0</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/release-0.21.0</guid>
+            <link>https://botomy.com/Botomy/blog/release-0.21.0</link>
+            <guid>https://botomy.com/Botomy/blog/release-0.21.0</guid>
             <pubDate>Fri, 09 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[New enemy + breaking changes]]></description>
             <content:encoded><![CDATA[<p>New release w/ breaking changes</p>
@@ -264,12 +264,13 @@ Increase spawn area in fight world</p>
         </item>
         <item>
             <title><![CDATA[Hello World]]></title>
-            <link>https://botomy.vercel.app/Botomy/blog/hello-world</link>
-            <guid>https://botomy.vercel.app/Botomy/blog/hello-world</guid>
+            <link>https://botomy.com/Botomy/blog/hello-world</link>
+            <guid>https://botomy.com/Botomy/blog/hello-world</guid>
             <pubDate>Mon, 05 Aug 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Launching the open alpha]]></description>
             <content:encoded><![CDATA[<p>Officially launching Botomy in open alpha.</p>
-<p>Checkout <a href="https://botomy.vercel.app/" target="_blank" rel="noopener noreferrer">https://botomy.vercel.app</a></p>]]></content:encoded>
+<p>(Edited url:)
+Checkout <a href="https://botomy.com/" target="_blank" rel="noopener noreferrer">https://botomy.com</a></p>]]></content:encoded>
             <category>Hello</category>
             <category>Alpha</category>
         </item>
