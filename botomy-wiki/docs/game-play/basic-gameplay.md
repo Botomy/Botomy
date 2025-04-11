@@ -36,7 +36,9 @@ This mode allows you to use keyboard input to control your character.
 This mode can get very boring.
 :::
 
-## Movement
+## Basic Movement
+
+### move_to
 
 | <small>**script**:`move_to` **manual**:`arrow keys`</small>
 
@@ -52,21 +54,9 @@ Your player will navigate to the target using basic astar pathfinding (built int
 
 :::
 
-## Dash
+## Basic Combat
 
-| <small>**script**:`dash`, **manual**:`d`</small>
-
-Dash will temporarily increase your player's speed in whatever direction they are moving.
-
-Dash is a battle mechanic. It is only enabled if there are enemies within 300 radius of the player.
-
-There is a `1s` cooldown on this ability.
-
-## Actions
-
-In addition to movement, a character can take actions.
-
-### Attack
+### attack
 
 | <small>**script**:`attack` **manual**:`space bar`</small>
 
@@ -81,7 +71,7 @@ In most game modes, there is a speed penalty when your character is attacking. (
 
 :::
 
-### Raise Shield
+### shield
 
 | <small>**script**:`shield` **manual**:`s`</small>
 
@@ -98,13 +88,40 @@ Shields have a short lifespan. They break when hit or when they run out of energ
 Shields have a cooldown so use them wisely
 :::
 
-### Speak
+### dash
 
-| <small>**script**:`{"speak": "Hello there!}` **manual**:`not supported`</small>
+| <small>**script**:`dash`, **manual**:`d`</small>
 
-Your character can speak. Returning the speak action will display the message next to your character for all to see.
+Dash will temporarily increase your player's speed in whatever direction they are moving.
 
-e.g. `return [{"speak": "Hello there"}]`
+Dash is a combat mechanic. It is only enabled if there are enemies within 300 radius of the player.
+
+There is a `1s` cooldown on this ability.
+
+:::tip
+Use this to surprise attack an enemy, or escape an attack.
+:::
+
+### special
+
+| <small>**script**:`special` **manual**:`f`</small>
+
+Use whichever special attack is equipped on the player. See [Power Ups](/docs/game-play/power-ups) section below for details on available special attacks (Bomb, Freeze, Shockwave).
+
+e.g.
+`return ["special"]`
+
+:::tip
+Specials have a cooldown so use them wisely
+:::
+
+:::info
+You won't lose a power up after you're killed. It seems more fun that way (for now?)
+:::
+
+## Actions
+
+In addition to movement, a character can take actions.
 
 ### Use Items
 
@@ -125,11 +142,19 @@ Speed Zappers - a weapon you can fire that will slow down anything in it's blast
 
 Rings - cloaks your player to hide from enemies and other players
 
+### Speak
+
+| <small>**script**:`{"speak": "Hello there!}` **manual**:`not supported`</small>
+
+Your character can speak. Returning the speak action will display the message next to your character for all to see.
+
+e.g. `return [{"speak": "Hello there"}]`
+
 ### Redeeming Skill Points
 
 | <small>**script**:`{"redeem_skill_point": "<skill_type>"}` **manual**:`e(attack)/w(speed)/q(health)`</small>
 
-In some maps (i.e. Fight World), you can gain `xp` and level up. Each level will come with `skill points` you can redeem to boost your characters abilities.
+As you gain `xp`, your character levels up. Each level (up to level 20) will come with `skill points` you can redeem to boost your characters abilities.
 
 You can apply skill points to `health`, `speed`, or `attack`.
 
@@ -140,89 +165,13 @@ e.g.
 Come up with a strategy to build up your characters skill. Speed allows you to collect items and escape attacks while health and attack may give you the upper hand in battle.
 :::
 
-### Special Attack
-
-| <small>**script**:`special` **manual**:`f`</small>
-
-Use whichever special attack is equipped on the player
-
-e.g.
-`return ["special"]`
-
-:::tip
-Specials have a cooldown so use them wisely
-:::
-
 :::info
-You won't lose a power up after you're killed. It seems more fun that way (for now?)
+Skill points are rewarded for levelling up until you reach Level 20. Beyond that you no longer receive additional skill points.
 :::
-
-#### Bomb
-
-```
-	"max_damage": 200,
-	"damage_factor": 2.5, // factor of the player's current attack damage
-	"cooldown": 1.5,
-```
-
-:::warn
-Bombs can do self damage. Be careful after you've dropped a bomb.
-:::
-
-#### Freeze
-
-```
-	"cooldown": 1.5,
-	"duration": 1.0, // how long an enemy will be frozen for (sec)
-	"max_damage": 20,
-	"damage_factor": 0.33, // factor of the player's current attack damage
-	"damage_absorption_factor": 0.3, // how much damage is asborbed by the ice when frozen (i.e. when frozen, damage is received at 70%)
-```
-
-#### Shockwave
-
-```
-	"duration": 0.2,
-	"cooldown": 1.5,
-	"speed": 1500,
-	"max_damage": 15,
-	"damage_factor": 0.2, // factor of the player's current attack damage
-```
-
-## Kill Streaks
-
-If your player gets high enough kill streaks, it will begin overclocking. Overclocking lasts for 15s.
-Each additional kill will reset the 15s timer.
-
-### Speed
-
-```
-	"streak": 20,
-	"value": 1.3, # overclocked speed is 1.3 times the base speed
-```
-
-### Damage
-
-```
-	"streak": 50,
-	"value": 1.2, # overclocked damage is 1.2 times the base damage
-```
-
-### Health Regen
-
-```
-	"streak": 80,
-	"value": 10, # overclocked health regen points per second
-```
-
-### Super
-
-```
-	"streak": 125,
-	"value": 9001, # value of attack damage
-```
 
 ## Debugging
+
+| <small>**script**:`debug_info` **manual**:`not supported`</small>
 
 You can send some information to the debug panel in game. Return a "debug_info" object in your api response array
 

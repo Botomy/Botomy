@@ -88,7 +88,7 @@ sidebar_position: 2
     is_special_ready,
     speech,
     score,
-    levelling: { // only in fight world
+    levelling: {
       level,
       available_skill_points,
       attack, // redeemed attack points
@@ -126,7 +126,7 @@ sidebar_position: 2
       special_equipped,
       speech,
       score,
-      levelling: { // only in fight world
+      levelling: {
         level,
       },
       is_overclocking,

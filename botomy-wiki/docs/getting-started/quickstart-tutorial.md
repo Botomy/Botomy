@@ -69,10 +69,14 @@ def play(level_data: dict) -> list:
     return moves
 ```
 
-You will see your character moving to the top left
+You will see your character moving to the top left.
 
 :::tip
-The coordinate system is "raster coordinate system" where the origin is at the top left and the y-axis increases downwards
+Every object in the game has a position making it easy to move towards whatever you like.
+:::
+
+:::tip
+The coordinate system is "raster coordinate system" where the origin is at the top left and the y-axis increases downwards.
 :::
 
 ### Combat
@@ -125,8 +129,14 @@ def play(level_data: dict) -> list:
 You will see your character attacking while moving.
 
 :::tip
+Try other combat mechanics like "shield", and "dash". See more here [Basic Gameplay](/docs/game-play/basic-gameplay)
+:::
+
+:::tip
 Your API is called multiple times per frame. This means your bot can make multiple moves per frame. The game will execute them in real time.
 :::
+
+### Debugging
 
 ## Next Steps
 
