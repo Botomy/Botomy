@@ -9,7 +9,7 @@ sidebar_position: 2
 ```
   game_info: {
     map: <name>,
-    game_type: <rpg/survival>,
+    game_type: <ffa/survival>,
     state: <STARTING/STARTED/ENDING/ENDED/MATCH_COMPLETED>,
     time_left_s, // time left in the round in secs,
     friendly_fire: true/false,

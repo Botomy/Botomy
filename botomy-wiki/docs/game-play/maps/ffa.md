@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# RPG
+# Free For All
 
 The player with the most xp at the end of the round wins.
 
