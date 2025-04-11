@@ -4,62 +4,131 @@ sidebar_position: 2
 
 # Quickstart Tutorial
 
-## Start a game
+## How It Works
 
-Select **Practice**
+Botomy uses a client-server architecture:
 
-## Download Starter Projects
+1. The game (client) sends level data to your bot server via POST requests
+2. Your server processes the data and returns a list of moves
+3. The game executes those moves for your character
 
-### Node.js Starter
+## Getting Started
 
-```bash
-git clone https://github.com/Brokkli-Labs/botomy-node-starter
-cd botomy-node-starter
-npm install
-npm start
+1. Download a starter project:
+
+   - [TypeScript Starter](https://github.com/Brokkli-Labs/botomy-node-starter)
+   - [Python Starter](https://github.com/Brokkli-Labs/botomy-python-starter)
+
+2. Start your server (follow the repo's README instructions). It should be running on port 3000.
+
+3. In Botomy:
+   - Press **RUN**
+   - You should see your character say "Hello Botomy!"
+
+## Making Your First Bot
+
+Let's modify the default code to make your character move and attack:
+
+### Basic Movement
+
+In your server, return a position for your player to move towards:
+
+API RESPONSE
+
+```
+[
+  {
+    "move_to": {
+      "x": <x_coord>,
+      "y": <y_coord>,
+    }
+  }
+]
 ```
 
-A server on port 3000 and calls the `play` function in `src/play.ts`
+```typescript
+// TypeScript example modifying src/play.ts
+function play(levelData: LevelData) {
+  const moves = [];
 
-Modify `src/play.ts` to program your bot.
+  // Move to coordinate (100, 100)
+  moves.push({ move_to: { x: 100, y: 100 } });
 
-:::tip Node.js Features
-The Node.js starter includes:
-
-- Express server setup
-- Basic bot logic template
-- TypeScript definitions for game data
-  :::
-
-### Python Starter
-
-```bash
-git clone https://github.com/Brokkli-Labs/botomy-python-starter
-cd botomy-python-starter
-pip install -r requirements.txt
-uvicorn main:app --port 3000 --reload
+  return moves;
+}
 ```
 
-A FastAPI server will start on port 8000 and calls the `play` function in `play.py`
+```python
+# Python example modifying play.py
+def play(level_data: dict) -> list:
+    moves = []
 
-Modify `play.py` to program your bot.
+    # Move to coordinate (100, 100)
+    moves.append({"move_to": {"x": 100, "y": 100}})
 
-:::tip Python Features
-The Python starter includes:
+    return moves
+```
 
-- FastAPI server setup
-- Basic bot logic template
-- Type hints for game data
-  :::
+You will see your character moving to the top left
 
-:::tip Next Steps
+:::tip
+The coordinate system is "raster coordinate system" where the origin is at the top left and the y-axis increases downwards
+:::
 
-- Review [Basic Gameplay](/docs/game-play/basic-gameplay)
-- Join our [Discord](https://discord.gg/TTdkaA63zX) for help
-  :::
+### Combat
 
-## Use the API play mode
+Return the attack move
 
-Select the `ApiCall` tab (probably already selected).
+API RESPONSE
 
-Press "Run" to start executing the default script. You should see your character say "Hello Botomy!"
+```
+[
+  {
+    "move_to": {
+      "x": <x_coord>,
+      "y": <y_coord>,
+    }
+  },
+  "attack"
+]
+```
+
+```typescript
+// TypeScript example modifying src/play.ts
+function play(levelData: LevelData) {
+  const moves = [];
+
+  // Move to coordinate (100, 100)
+  moves.push({ move_to: { x: 100, y: 100 } });
+
+  // Attack
+  moves.push("attack");
+
+  return moves;
+}
+```
+
+```python
+# Python example modifying play.py
+def play(level_data: dict) -> list:
+    moves = []
+
+    # Move to coordinate (100, 100)
+    moves.append({"move_to": {"x": 100, "y": 100}})
+
+    # Attack
+    moves.append("attack")
+
+    return moves
+```
+
+You will see your character attacking while moving.
+
+:::tip
+Your API is called multiple times per frame. This means your bot can make multiple moves per frame. The game will execute them in real time.
+:::
+
+## Next Steps
+
+- Review [Basic Gameplay](/docs/game-play/basic-gameplay) for all available moves
+- Join our [Discord](https://discord.gg/TTdkaA63zX) for help and to share your bots!

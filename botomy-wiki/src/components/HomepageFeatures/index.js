@@ -18,8 +18,8 @@ const FeatureList = [
     Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
     description: (
       <>
-        From collecting treasures and killing monsters, to racing to the finish
-        line, there are multiple game types to play.
+        Battle other players for highest xp scores or work together to survive
+        waves of enemies.
       </>
     ),
   },
