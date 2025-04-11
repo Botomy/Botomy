@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Download the app
 
-Get started by **[downloading](https://store.steampowered.com/app/3566430/Botomy/?beta=1)** and installing the app from [Steam](https://store.steampowered.com/about/).
+Get started by **[downloading](https://store.steampowered.com/app/3566430/Botomy)** and installing the app from [Steam](https://store.steampowered.com/about/).
 
 ### Supported Platforms
 
