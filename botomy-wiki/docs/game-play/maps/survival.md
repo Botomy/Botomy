@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Survial
+# Survival
 
 How many stages can you complete? Each stage gets progressively harder.
 
