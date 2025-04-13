@@ -20,7 +20,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "Brokkli-Labs", // Usually your GitHub org/user name.
+  organizationName: "Botomy", // Usually your GitHub org/user name.
   projectName: "Botomy", // Usually your repo name.
   trailingSlash: false,
 
@@ -124,7 +124,7 @@ const config = {
               },
               {
                 label: "Report Issues",
-                href: "https://github.com/Brokkli-Labs/Botomy/issues",
+                href: "https://github.com/botomy/Botomy/issues",
               },
             ],
           },

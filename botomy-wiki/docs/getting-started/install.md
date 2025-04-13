@@ -24,11 +24,11 @@ Follow the README instructions to setup the server of your choosing
 
 ### TypeScript
 
-https://github.com/Brokkli-Labs/botomy-node-starter
+https://github.com/botomy/botomy-node-starter
 
 ### Python
 
-https://github.com/Brokkli-Labs/botomy-python-starter
+https://github.com/botomy/botomy-python-starter
 
 :::tip
 Don't see a starter that works for you? Join our [Discord server](https://discord.gg/TTdkaA63zX) and we'll be happy to spin one up for you!

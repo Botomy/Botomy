@@ -16,8 +16,8 @@ Botomy uses a client-server architecture:
 
 1. Download a starter project:
 
-   - [TypeScript Starter](https://github.com/Brokkli-Labs/botomy-node-starter)
-   - [Python Starter](https://github.com/Brokkli-Labs/botomy-python-starter)
+   - [TypeScript Starter](https://github.com/botomy/botomy-node-starter)
+   - [Python Starter](https://github.com/botomy/botomy-python-starter)
 
 2. Start your server (follow the repo's README instructions). It should be running on port 3000.
 
