@@ -4,7 +4,14 @@ sidebar_position: 2
 
 # Levelling
 
-As you play, you'll gain experience points (XP) and level up. Here's how the levelling system works:
+Starting as a level 1 player, you'll need to level up quickly to survive. Gain experience (XP) by:
+
+- Eliminating enemies and players
+- Collecting coins and items
+
+Each level makes you stronger through skill points to increase your health, speed, and damage.
+
+Here's how the levelling system works:
 
 ## Level Progression
 

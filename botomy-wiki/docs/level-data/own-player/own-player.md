@@ -16,14 +16,14 @@ The `own_player` object contains detailed information about your player:
     "y": 200
   },
   "items": {                    // Inventory count
-    "big_potions": 1,
+    "big_potions": 0,
     "speed_zappers": 0,
-    "rings": 2
+    "rings": 0
   },
   "max_health": 100,            // Maximum health points
-  "health": 75,                // Current health points
-  "base_speed": 400,           // Base movement speed
-  "attack_damage": 25,         // Base attack damage
+  "health": 100,                // Current health points
+  "base_speed": 415,           // Base movement speed
+  "attack_damage": 15,         // Base attack damage
   "is_cloaked": false,         // Invisibility status
   "is_shield_ready": true,     // Shield ability available
   "shield_raised": false,      // Shield currently active
@@ -35,12 +35,7 @@ The `own_player` object contains detailed information about your player:
   "is_dash_ready": true,      // Dash ability available
   "is_zap_ready": true,       // Speed zap ability available
   "is_colliding": false,      // Collision detection
-  "collisions": [             // Active collisions
-    {
-      "relative_pos": { "x": 10, "y": 0 },
-      "type": "bomb"
-    }
-  ],
+  "collisions": [],           // Active collisions
   "is_frozen": false,         // Frozen status
   "is_pushed": false,         // Being pushed
   "unleashing_shockwave": false, // Special attack active
@@ -48,12 +43,13 @@ The `own_player` object contains detailed information about your player:
   "speech": "Hello!",         // Current speech bubble
   "score": 1000,             // Current score
   "levelling": {             // Level progression
-    "level": 3,
-    "available_skill_points": 1,
-    "attack": 2,             // Attack skill points used
-    "speed": 1,              // Speed skill points used
+    "level": 1,
+    "available_skill_points": 0,
+    "attack": 0,             // Attack skill points used
+    "speed": 0,              // Speed skill points used
     "health": 0              // Health skill points used
   },
+  "special_equipped": "",    // Special powerup equipped (bomb, freeze, or shockwave)
   "is_overclocking": false,  // Overclock status
   "overclock_duration": 0,   // Remaining overclock time
   "has_health_regen": false,  // Health regeneration active

@@ -17,7 +17,7 @@ The `hazards` array contains information about active hazards on the map:
       "x": 100,
       "y": 200
     },
-    "attack_damage": 50,        // Damage dealt when triggered
+    "attack_damage": 50,        // Damage dealt
     "status": "charging",       // Current state (charging/active/idle)
     "owner_id": "Player1"       // ID of player who created hazard
   }

@@ -17,8 +17,8 @@ The `players` array contains information about other players in the game. This i
       "y": 400
     },
     "health": 100,               // Current health points
-    "base_speed": 400,           // Base movement speed
-    "attack_damage": 25,         // Base attack damage
+    "base_speed": 415,           // Base movement speed
+    "attack_damage": 15,         // Base attack damage
     "shield_raised": false,      // Shield currently active
     "direction": "right",        // Facing direction left/right
     "is_attacking": false,       // Attack animation active
@@ -28,11 +28,11 @@ The `players` array contains information about other players in the game. This i
     "is_frozen": false,         // Frozen status
     "is_pushed": false,         // Being pushed
     "unleashing_shockwave": false, // Special attack active
-    "special_equipped": "bomb",  // Current special attack
+    "special_equipped": "",  // Current special attack (bomb, shockwave, or freeze)
     "speech": "Hello!",         // Current speech bubble
     "score": 1000,             // Current score
     "levelling": {
-      "level": 3               // Player's current level
+      "level": 1              // Player's current level
     },
     "is_overclocking": false,  // Overclock status
     "has_health_regen": false,  // Health regeneration active
