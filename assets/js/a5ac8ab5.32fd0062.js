@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbotomy_wiki=self.webpackChunkbotomy_wiki||[]).push([[3551],{1496:o=>{o.exports=JSON.parse('{"metadata":{"permalink":"/Botomy/blog/page/3","page":3,"postsPerPage":10,"totalPages":3,"totalCount":21,"previousPage":"/Botomy/blog/page/2","blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

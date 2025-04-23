@@ -4,10 +4,39 @@
         <title>Botomy Blog</title>
         <link>https://botomy.com/Botomy/blog</link>
         <description>Botomy Blog</description>
-        <lastBuildDate>Thu, 12 Sep 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 23 Apr 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[0.75.0 Release]]></title>
+            <link>https://botomy.com/Botomy/blog/0.75.0-release</link>
+            <guid>https://botomy.com/Botomy/blog/0.75.0-release</guid>
+            <pubDate>Wed, 23 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Major updates!]]></description>
+            <content:encoded><![CDATA[<p>Getting ready for launch!
+Steam integrations, document updates, and onboarding</p>
+<p>It's been awhile since the last blog update and much has changed. I've removed scripting mode, tweaked many gameplay mechanics, and launched a Steam page.</p>
+<p>I'll write a longer post later but here are some major features for launch:</p>
+<ul>
+<li>API mode (script mode is gone) - players must set up a local development environemnt to run an endpoint for the game to call. Starter projects are provided in typescript and python</li>
+<li>Free for All and Survival game modes (RPG has been renamed to FFA)</li>
+<li>Tutorial - walk through the basics</li>
+<li>Steam Lobbies - rather than roll my own, I've switched over to Steam. You can now invite friends to play through Steam</li>
+<li>Steam Achievements - Adding a bunch of achievements via Steam</li>
+<li>Global servers - spun up Seoul, Frankfurt, Sao Paulo, N. California, and Ohio based on wishlists on Steam</li>
+</ul>
+<p>Working on next:</p>
+<ul>
+<li>more documentation and maybe some videos to help</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="breaking-changes">Breaking changes<a class="hash-link" aria-label="Direct link to Breaking changes" title="Direct link to Breaking changes" href="https://botomy.com/Botomy/blog/0.75.0-release#breaking-changes">​</a></h2>
+<ul>
+<li>0.41.0 -&gt; 0.74.0 a lot</li>
+<li>0.74.0 -&gt; 0.75.0 <code>own_player.items[item_type]</code> is now a inventory count rather than a list of objects</li>
+</ul>]]></content:encoded>
+            <category>releases</category>
+        </item>
         <item>
             <title><![CDATA[0.41.0 Release]]></title>
             <link>https://botomy.com/Botomy/blog/0.41.0-release</link>
@@ -260,18 +289,6 @@ Increase spawn area in fight world</p>
 <code>level_data</code> structure has changed. All map items are consolidated under the <code>level_data.items</code> property to allow for easier item changes and additions later on.</p>]]></content:encoded>
             <category>Releases</category>
             <category>Breaking Changes</category>
-            <category>Alpha</category>
-        </item>
-        <item>
-            <title><![CDATA[Hello World]]></title>
-            <link>https://botomy.com/Botomy/blog/hello-world</link>
-            <guid>https://botomy.com/Botomy/blog/hello-world</guid>
-            <pubDate>Mon, 05 Aug 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[Launching the open alpha]]></description>
-            <content:encoded><![CDATA[<p>Officially launching Botomy in open alpha.</p>
-<p>(Edited url:)
-Checkout <a href="https://botomy.com/" target="_blank" rel="noopener noreferrer">https://botomy.com</a></p>]]></content:encoded>
-            <category>Hello</category>
             <category>Alpha</category>
         </item>
     </channel>
