@@ -129,7 +129,7 @@ def play(level_data: dict) -> list:
 You will see your character attacking while moving.
 
 :::tip
-Try other combat mechanics like "shield", and "dash". See more here [Basic Gameplay](/docs/game-play/basic-gameplay)
+Try other combat mechanics like "shield", and "dash". See more here [How to Play](/docs/gameplay/how-to-play)
 :::
 
 :::tip
@@ -140,5 +140,5 @@ Your API is called multiple times per frame. This means your bot can make multip
 
 ## Next Steps
 
-- Review [Basic Gameplay](/docs/game-play/basic-gameplay) for all available moves
+- Review [How to Play](/docs/gameplay/how-to-play) for all available moves
 - Join our [Discord](https://discord.gg/TTdkaA63zX) for help and to share your bots!
