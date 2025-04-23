@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Level Data
 
-The `level_data` object contains the following top-level properties:
+The `level_data` object gets sent to your API endpoint every frame. It contains the following top-level properties:
 
 ```json
 {
