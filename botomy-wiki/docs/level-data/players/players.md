@@ -20,7 +20,7 @@ The `players` array contains information about other players in the game. This i
     "base_speed": 400,           // Base movement speed
     "attack_damage": 25,         // Base attack damage
     "shield_raised": false,      // Shield currently active
-    "direction": "right",        // Facing direction
+    "direction": "right",        // Facing direction left/right
     "is_attacking": false,       // Attack animation active
     "is_zapped": false,         // Affected by speed zapper
     "is_boosted": false,        // Speed boost active
@@ -35,7 +35,7 @@ The `players` array contains information about other players in the game. This i
       "level": 3               // Player's current level
     },
     "is_overclocking": false,  // Overclock status
-    "has_health_regen": true,  // Health regeneration active
+    "has_health_regen": false,  // Health regeneration active
     "points": 800             // Base XP awarded when killed (before level difference modifiers)
   }
 ]

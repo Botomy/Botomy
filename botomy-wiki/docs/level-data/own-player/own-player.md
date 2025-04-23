@@ -56,7 +56,7 @@ The `own_player` object contains detailed information about your player:
   },
   "is_overclocking": false,  // Overclock status
   "overclock_duration": 0,   // Remaining overclock time
-  "has_health_regen": true,  // Health regeneration active
+  "has_health_regen": false,  // Health regeneration active
   "points": 800             // Base XP awarded when killed (before level difference modifiers)
 }
 ```

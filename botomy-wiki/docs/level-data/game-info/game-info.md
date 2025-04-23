@@ -21,8 +21,8 @@ The `game_info` object contains information about the current game state:
 
 Available game types include:
 
-- `ffa` - Free-for-all combat mode
-- `survival` - Wave-based enemy combat
+- `ffa` - Free-for-all combat mode. Highest XP wins.
+- `survival` - Wave-based enemy combat. Enemies increase in difficulty.
 
 ## Game States
 
