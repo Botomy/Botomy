@@ -16,17 +16,36 @@ Get started by **[downloading](https://store.steampowered.com/app/3566430/Botomy
 
 ## Set up your local development environment
 
-Your "game controller" is an API server running outside of the game.
+Your "game controller" is an API server running outside of the game. The server must:
+
+- Accept POST requests at the root endpoint (`/`)
+- Accept level data in the request body
+- Return an array of moves
 
 Set up your own API server or choose one of our official starter projects to begin coding your bot.
 
-Follow the README instructions to setup the server of your choosing
-
 ### TypeScript
+
+```typescript
+// Example endpoint
+app.post('/', (req, res) => {
+  const levelData = req.body;
+  const moves = play(levelData);
+  res.json(moves);
+});
+```
 
 https://github.com/botomy/botomy-node-starter
 
 ### Python
+
+```python
+# Example endpoint
+@app.post("/")
+async def handle_moves(level_data: dict):
+    moves = play(level_data)
+    return moves
+```
 
 https://github.com/botomy/botomy-python-starter
 

@@ -6,6 +6,8 @@ sidebar_position: 1
 
 Coins are collectible items that award xp points when picked up.
 
+![Coin](./images/coin.gif)
+
 ```json
 {
   "id": "Coin1",           // Unique item identifier

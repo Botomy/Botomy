@@ -6,6 +6,8 @@ sidebar_position: 2
 
 Big potions restore your health to maximum when used.
 
+![Big Potion](./images/big_potion.gif)
+
 ```json
 {
   "id": "BigPotion1",        // Unique item identifier

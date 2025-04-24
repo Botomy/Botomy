@@ -23,12 +23,16 @@ Power-ups grant special abilities when collected.
 
 ### Bomb
 
+![Bomb Power Up](./images/coal.png)
+
 - Drops explosives that create an area of effect blast with radius 128
 - Deals 2.5x your attack_damage (maximum 200) to enemies and players caught in the blast
 - Has a short delay before detonation
 - Can act as obstacles
 
 ### Freeze
+
+![Freeze Power Up](./images/crystal.png)
 
 - Fires icicles in the direction you're moving
 - Deals 0.33x your attack_damage (maximum 20) to enemies and players
@@ -41,6 +45,8 @@ Power-ups grant special abilities when collected.
 - Players can destroy incoming icicles by attacking them
 
 ### Shockwave
+
+![Shockwave Power Up](./images/topaz.png)
 
 - Unleashes a circular wave of force with radius 225
 - Deals 0.2x your attack_damage (maximum 15) to enemies and players

@@ -6,6 +6,8 @@ sidebar_position: 5
 
 Chests contain random power-ups when opened.
 
+![Chest](./images/chest.gif)
+
 ```json
 {
   "id": "Chest1",        // Unique item identifier

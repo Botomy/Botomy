@@ -8,6 +8,19 @@ sidebar_position: 2
 
 Botomy uses a client-server architecture:
 
+```mermaid
+sequenceDiagram
+    participant Game Client
+    participant Bot Server
+
+    loop Every Frame
+        Game Client->>Bot Server: POST / (level_data)
+        Note right of Bot Server: Process game state<br/>Decide next moves
+        Bot Server-->>Game Client: Return moves array
+        Note left of Game Client: Execute moves
+    end
+```
+
 1. The game (client) sends level data to your bot server via POST requests
 2. Your server processes the data and returns a list of moves
 3. The game executes those moves for your character
@@ -22,8 +35,11 @@ Botomy uses a client-server architecture:
 2. Start your server (follow the repo's README instructions). It should be running on port 3000.
 
 3. In Botomy:
+
    - Press **RUN**
    - You should see your character say "Hello Botomy!"
+
+   ![Run Button](./images/run.png)
 
 ## Making Your First Bot
 

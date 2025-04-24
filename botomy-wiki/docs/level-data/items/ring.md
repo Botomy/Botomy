@@ -6,6 +6,8 @@ sidebar_position: 4
 
 Rings grant temporary cloak when used.
 
+![Ring](./images/ring.png)
+
 ```json
 {
   "id": "Ring1",        // Unique item identifier

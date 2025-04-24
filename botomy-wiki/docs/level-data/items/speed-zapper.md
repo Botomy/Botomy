@@ -6,6 +6,8 @@ sidebar_position: 3
 
 Speed zappers create a lightning storm that slows down enemies caught in its radius.
 
+![Speed Zapper](./images/speed_zapper.gif)
+
 ```json
 {
   "id": "Zapper1",        // Unique item identifier

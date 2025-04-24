@@ -8,11 +8,32 @@ sidebar_position: 1
 
 Botomy uses a client-server architecture where:
 
+```mermaid
+sequenceDiagram
+    participant Game Client
+    participant Bot Server
+
+    loop Every Frame
+        Game Client->>Bot Server: POST / (level_data)
+        Note right of Bot Server: Process game state<br/>Decide next moves
+        Bot Server-->>Game Client: Return moves array
+        Note left of Game Client: Execute moves
+    end
+```
+
 1. The game client sends level data to your bot server via HTTP POST requests
 2. Your server processes the data and returns a list of moves
 3. The game executes those moves for your character
 
 Each frame, the game sends updated level data and expects new moves in response.
+
+:::warning Real-Time Gameplay
+The game runs in real-time:
+
+- Your server must respond quickly to keep up
+- The game will not pause while waiting for your response
+- If your server is too slow, you may miss opportunities to act
+  :::
 
 ## Basic Movement
 
