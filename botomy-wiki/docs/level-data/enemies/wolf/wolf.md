@@ -10,9 +10,13 @@ Fast melee attacker with quick attack rate.
 
 ## Stats
 
-- Health: 30
-- Attack Damage: 10
-- XP Points: 80
+```json
+{
+  "health": 30,          // Maximum health points
+  "attack_damage": 10,   // Damage per hit
+  "points": 80           // XP awarded when killed
+}
+```
 
 ## Behavior
 

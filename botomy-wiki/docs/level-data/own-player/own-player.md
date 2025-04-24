@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # Own Player
 
+![Player](./images/player.gif)
+
 The `own_player` object contains detailed information about your player:
 
 ```json

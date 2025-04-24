@@ -4,6 +4,8 @@ sidebar_position: 3
 
 # Players
 
+![Player](./images/player.gif)
+
 The `players` array contains information about other players in the game. This is a subset of the information available for your own player:
 
 ```json

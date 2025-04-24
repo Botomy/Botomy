@@ -9,15 +9,22 @@ sidebar_position: 2
 Balanced attacker with medium stats.
 
 ## Stats
-- Health: 100
-- Attack Damage: 30
-- XP Points: 100
+
+```json
+{
+  "health": 100,         // Maximum health points
+  "attack_damage": 30,   // Damage per hit
+  "points": 100          // XP awarded when killed
+}
+```
 
 ## Behavior
+
 - Balanced attacker with medium stats
 - Stronger than a lvl 1 player
 
 ## Strategy
+
 - Level up before engaging
 - Use shields and potions
 - Keep your distance and attack strategically

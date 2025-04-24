@@ -10,9 +10,13 @@ Heavy hitting tank with high health.
 
 ## Stats
 
-- Health: 400
-- Attack Damage: 50
-- XP Points: 600
+```json
+{
+  "health": 400,         // Maximum health points
+  "attack_damage": 50,   // Damage per hit
+  "points": 600          // XP awarded when killed
+}
+```
 
 ## Behavior
 
