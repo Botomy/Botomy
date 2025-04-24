@@ -43,32 +43,27 @@ sequenceDiagram
 
 ## Making Your First Bot
 
-Let's modify the default code to make your character move and attack:
+Let's start with a simple task - collecting a coin!
 
 ### Basic Movement
 
-In your server, return a position for your player to move towards:
+The first thing you need to do is collect a coin. Let's modify the code to:
 
-API RESPONSE
-
-```
-[
-  {
-    "move_to": {
-      "x": <x_coord>,
-      "y": <y_coord>,
-    }
-  }
-]
-```
+1. Find a coin
+2. Move to the coin
 
 ```typescript
 // TypeScript example modifying src/play.ts
 function play(levelData: LevelData) {
   const moves = [];
 
-  // Move to coordinate (100, 100)
-  moves.push({ move_to: { x: 100, y: 100 } });
+  // Find a coin
+  const coin = levelData.items.find(item => item.type === "coin");
+
+  if (coin) {
+    // Move to the coin's position
+    moves.push({ move_to: { x: coin.position.x, y: coin.position.y } });
+  }
 
   return moves;
 }
@@ -79,13 +74,35 @@ function play(levelData: LevelData) {
 def play(level_data: dict) -> list:
     moves = []
 
-    # Move to coordinate (100, 100)
-    moves.append({"move_to": {"x": 100, "y": 100}})
+    # Find the coins
+    coins = [item for item in level_data["items"] if item["type"] == "coin"]
+    if coins:
+        coin = coins[0]
+        # Move to the coin's position
+        moves.append({"move_to": {"x": coin["position"]["x"], "y": coin["position"]["y"]}})
 
     return moves
 ```
 
-You will see your character moving to the top left.
+When you run this code:
+
+1. Your bot will find the first coin in the list
+2. Move towards its position
+3. Collect it automatically when close enough
+4. Gain XP points from the collection
+
+API RESPONSE
+
+```
+[
+  {
+    "move_to": {
+      "x": <x_coord>,
+      "y": <y_coord>,
+    }
+  },
+]
+```
 
 :::tip
 Every object in the game has a position making it easy to move towards whatever you like.
@@ -97,7 +114,50 @@ The coordinate system is "raster coordinate system" where the origin is at the t
 
 ### Combat
 
-Return the attack move
+Attacking enemy monsters and players is essential to levelling up. Let's modify the code to:
+
+1. Move to an enemy
+2. Attack
+
+```typescript
+// TypeScript example modifying src/play.ts
+function play(levelData: LevelData) {
+  const moves = [];
+
+  // Find an enemy
+  if (levelData.enemies && levelData.enemies.length > 0) {
+    const enemy = levelData.enemies[0];
+
+    // Move to the enemy's position
+    moves.push({ move_to: { x: enemy.position.x, y: enemy.position.y } });
+
+    // Attack
+    moves.push("attack");
+  }
+
+  return moves;
+}
+```
+
+```python
+# Python example modifying play.py
+def play(level_data: dict) -> list:
+    moves = []
+
+    # Find the enemies
+    enemies = level_data["enemies"]
+    if enemies:
+        enemy = enemies[0]
+        # Move to the enemy's position
+        moves.append({"move_to": {"x": enemy["position"]["x"], "y": enemy["position"]["y"]}})
+
+        # Attack
+        moves.append("attack")
+
+    return moves
+```
+
+You will see your character attacking while moving towards the enemy.
 
 API RESPONSE
 
@@ -112,37 +172,6 @@ API RESPONSE
   "attack"
 ]
 ```
-
-```typescript
-// TypeScript example modifying src/play.ts
-function play(levelData: LevelData) {
-  const moves = [];
-
-  // Move to coordinate (100, 100)
-  moves.push({ move_to: { x: 100, y: 100 } });
-
-  // Attack
-  moves.push("attack");
-
-  return moves;
-}
-```
-
-```python
-# Python example modifying play.py
-def play(level_data: dict) -> list:
-    moves = []
-
-    # Move to coordinate (100, 100)
-    moves.append({"move_to": {"x": 100, "y": 100}})
-
-    # Attack
-    moves.append("attack")
-
-    return moves
-```
-
-You will see your character attacking while moving.
 
 :::tip
 Try other combat mechanics like "shield", and "dash". See more here [How to Play](/docs/gameplay/how-to-play)
