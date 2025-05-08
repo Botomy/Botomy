@@ -6,40 +6,36 @@ sidebar_position: 2
 
 ## How It Works
 
-Botomy uses a client-server architecture:
+Botomy uses a client-server architecture where your code receives game state and returns moves to execute.
 
 ```mermaid
 sequenceDiagram
     participant Game Client
-    participant Bot Server
+    participant Bot Code
 
     loop Every Frame
-        Game Client->>Bot Server: POST / (level_data)
-        Note right of Bot Server: Process game state<br/>Decide next moves
-        Bot Server-->>Game Client: Return moves array
+        Game Client->>Bot Code: Send level_data JSON
+        Note right of Bot Code: Process game state<br/>Decide next moves
+        Bot Code-->>Game Client: Return moves array JSON
         Note left of Game Client: Execute moves
     end
 ```
 
-1. The game (client) sends level data to your bot server via POST requests
-2. Your server processes the data and returns a list of moves
-3. The game executes those moves for your character
-
 ## Getting Started
 
-1. Download a starter project:
+### In-Game Editor (Basic)
 
+1. Launch Botomy
+2. Click "Code Editor"
+3. You'll see a JavaScript editor ready to go!
+
+### External Server (Advanced)
+
+1. Download a starter project:
    - [TypeScript Starter](https://github.com/botomy/botomy-node-starter)
    - [Python Starter](https://github.com/botomy/botomy-python-starter)
-
-2. Start your server (follow the repo's README instructions). It should be running on port 3000.
-
-3. In Botomy:
-
-   - Press **RUN**
-   - You should see your character say "Hello Botomy!"
-
-   ![Run Button](./images/run.png)
+2. Start your server on port 3000
+3. In Botomy, click "API Mode"
 
 ## Making Your First Bot
 
@@ -47,30 +43,49 @@ Let's start with a simple task - collecting a coin!
 
 ### Basic Movement
 
-The first thing you need to do is collect a coin. Let's modify the code to:
+```javascript
+// JavaScript (In-Game Editor)
+export default function play(levelData) {
+    const moves = [];
 
-1. Find a coin
-2. Move to the coin
+    // Find a coin
+    const coin = levelData.items.find(item => item.type === "coin");
+
+    if (coin) {
+        // Move to the coin's position
+        moves.push({
+            move_to: {
+                x: coin.position.x,
+                y: coin.position.y
+            }
+        });
+    }
+
+    return moves;
+}
+```
 
 ```typescript
-// TypeScript example modifying src/play.ts
+// TypeScript (External Server)
+// example modifying src/play.ts
 function play(levelData: LevelData) {
-  const moves = [];
+    const moves = [];
 
-  // Find a coin
-  const coin = levelData.items.find(item => item.type === "coin");
+    // Find a coin
+    const coin = levelData.items.find(item => item.type === "coin");
 
-  if (coin) {
-    // Move to the coin's position
-    moves.push({ move_to: { x: coin.position.x, y: coin.position.y } });
-  }
+    if (coin) {
+        // Move to the coin's position
+        moves.push({ move_to: { x: coin.position.x, y: coin.position.y } });
+    }
 
-  return moves;
+    return moves;
 }
 ```
 
 ```python
-# Python example modifying play.py
+# Python (External Server)
+# example modifying play.py
 def play(level_data: dict) -> list:
     moves = []
 
@@ -114,33 +129,55 @@ The coordinate system is "raster coordinate system" where the origin is at the t
 
 ### Combat
 
-Attacking enemy monsters and players is essential to levelling up. Let's modify the code to:
+```javascript
+// JavaScript (In-Game Editor)
+function play(levelData) {
+    const moves = [];
 
-1. Move to an enemy
-2. Attack
+    // Find an enemy
+    if (levelData.enemies && levelData.enemies.length > 0) {
+        const enemy = levelData.enemies[0];
+
+        // Move to the enemy's position
+        moves.push({
+            move_to: {
+                x: enemy.position.x,
+                y: enemy.position.y
+            }
+        });
+
+        // Attack
+        moves.push("attack");
+    }
+
+    return moves;
+}
+```
 
 ```typescript
-// TypeScript example modifying src/play.ts
+// TypeScript (External Server)
+// example modifying src/play.ts
 function play(levelData: LevelData) {
-  const moves = [];
+    const moves = [];
 
-  // Find an enemy
-  if (levelData.enemies && levelData.enemies.length > 0) {
-    const enemy = levelData.enemies[0];
+    // Find an enemy
+    if (levelData.enemies && levelData.enemies.length > 0) {
+        const enemy = levelData.enemies[0];
 
-    // Move to the enemy's position
-    moves.push({ move_to: { x: enemy.position.x, y: enemy.position.y } });
+        // Move to the enemy's position
+        moves.push({ move_to: { x: enemy.position.x, y: enemy.position.y } });
 
-    // Attack
-    moves.push("attack");
-  }
+        // Attack
+        moves.push("attack");
+    }
 
-  return moves;
+    return moves;
 }
 ```
 
 ```python
-# Python example modifying play.py
+# Python (External Server)
+# example modifying play.py
 def play(level_data: dict) -> list:
     moves = []
 
@@ -174,14 +211,12 @@ API RESPONSE
 ```
 
 :::tip
-Try other combat mechanics like "shield", and "dash". See more here [How to Play](/docs/gameplay/how-to-play)
-:::
 
-:::tip
-Your API is called multiple times per frame. This means your bot can make multiple moves per frame. The game will execute them in real time.
-:::
-
-### Debugging
+- Your code is called multiple times per frame
+- You can return multiple moves per call
+- The game executes moves in real-time
+- Use the in-game console to help with debugging
+  :::
 
 ## Next Steps
 

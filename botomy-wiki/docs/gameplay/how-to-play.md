@@ -11,12 +11,12 @@ Botomy uses a client-server architecture where:
 ```mermaid
 sequenceDiagram
     participant Game Client
-    participant Bot Server
+    participant Bot Code
 
     loop Every Frame
-        Game Client->>Bot Server: POST / (level_data)
-        Note right of Bot Server: Process game state<br/>Decide next moves
-        Bot Server-->>Game Client: Return moves array
+        Game Client->>Bot Code: Send level_data JSON
+        Note right of Bot Code: Process game state<br/>Decide next moves
+        Bot Code-->>Game Client: Return moves array JSON
         Note left of Game Client: Execute moves
     end
 ```

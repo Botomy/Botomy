@@ -14,43 +14,39 @@ Get started by **[downloading](https://store.steampowered.com/app/3566430/Botomy
 - Windows x86_64
 - Linux x86_64
 
-## Set up your local development environment
+## Getting Started
 
-Your "game controller" is an API server running outside of the game. The server must:
+### Option 1: In-Game Editor (Basic)
+
+The game includes a built-in JavaScript code editor where you can write and run your bot code directly.
+
+1. Launch Botomy
+2. Click "Script Mode"
+3. Start coding your bot in JavaScript
+
+No additional setup required!
+
+### Option 2: External Server (Advanced)
+
+For more advanced development, you can run your bot as an external API server in your preferred language:
+
+- [TypeScript Starter](https://github.com/botomy/botomy-node-starter)
+- [Python Starter](https://github.com/botomy/botomy-python-starter)
+
+Your server must:
 
 - Accept POST requests at the root endpoint (`/`)
 - Accept level data in the request body
 - Return an array of moves
 
-Set up your own API server or choose one of our official starter projects to begin coding your bot.
+To connect your server:
 
-### TypeScript
-
-```typescript
-// Example endpoint
-app.post('/', (req, res) => {
-  const levelData = req.body;
-  const moves = play(levelData);
-  res.json(moves);
-});
-```
-
-https://github.com/botomy/botomy-node-starter
-
-### Python
-
-```python
-# Example endpoint
-@app.post("/")
-async def handle_moves(level_data: dict):
-    moves = play(level_data)
-    return moves
-```
-
-https://github.com/botomy/botomy-python-starter
+1. Launch Botomy
+2. Click "API Mode" to enable external connections
+3. Make sure your server is running on port 3000
 
 :::tip
-Don't see a starter that works for you? Join our [Discord server](https://discord.gg/TTdkaA63zX) and we'll be happy to spin one up for you!
+New to coding? Start with the in-game editor - it's the easiest way to begin!
 :::
 
 See the [Quickstart Tutorial](/docs/getting-started/quickstart-tutorial) for next steps.
