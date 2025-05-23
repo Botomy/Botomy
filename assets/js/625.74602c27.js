@@ -1,6 +1,6 @@
 "use strict";
-exports.id = 141;
-exports.ids = [141];
+exports.id = 625;
+exports.ids = [625];
 exports.modules = {
 
 /***/ 53:
@@ -12855,357 +12855,6 @@ const createText = (el, text = "", {
 
 /***/ }),
 
-/***/ 141:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   diagram: () => (/* binding */ diagram)
-/* harmony export */ });
-/* harmony import */ var _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7899);
-/* harmony import */ var dagre_d3_es_src_graphlib_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(697);
-/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6312);
-/* harmony import */ var _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6079);
-/* harmony import */ var _index_3862675e_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8995);
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4353);
-/* harmony import */ var _braintree_sanitize_url__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6750);
-/* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9418);
-/* harmony import */ var dagre_d3_es_src_dagre_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1176);
-/* harmony import */ var dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4075);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const SHAPE_STATE = "rect";
-const SHAPE_STATE_WITH_DESC = "rectWithTitle";
-const SHAPE_START = "start";
-const SHAPE_END = "end";
-const SHAPE_DIVIDER = "divider";
-const SHAPE_GROUP = "roundedWithTitle";
-const SHAPE_NOTE = "note";
-const SHAPE_NOTEGROUP = "noteGroup";
-const CSS_DIAGRAM = "statediagram";
-const CSS_STATE = "state";
-const CSS_DIAGRAM_STATE = `${CSS_DIAGRAM}-${CSS_STATE}`;
-const CSS_EDGE = "transition";
-const CSS_NOTE = "note";
-const CSS_NOTE_EDGE = "note-edge";
-const CSS_EDGE_NOTE_EDGE = `${CSS_EDGE} ${CSS_NOTE_EDGE}`;
-const CSS_DIAGRAM_NOTE = `${CSS_DIAGRAM}-${CSS_NOTE}`;
-const CSS_CLUSTER = "cluster";
-const CSS_DIAGRAM_CLUSTER = `${CSS_DIAGRAM}-${CSS_CLUSTER}`;
-const CSS_CLUSTER_ALT = "cluster-alt";
-const CSS_DIAGRAM_CLUSTER_ALT = `${CSS_DIAGRAM}-${CSS_CLUSTER_ALT}`;
-const PARENT = "parent";
-const NOTE = "note";
-const DOMID_STATE = "state";
-const DOMID_TYPE_SPACER = "----";
-const NOTE_ID = `${DOMID_TYPE_SPACER}${NOTE}`;
-const PARENT_ID = `${DOMID_TYPE_SPACER}${PARENT}`;
-const G_EDGE_STYLE = "fill:none";
-const G_EDGE_ARROWHEADSTYLE = "fill: #333";
-const G_EDGE_LABELPOS = "c";
-const G_EDGE_LABELTYPE = "text";
-const G_EDGE_THICKNESS = "normal";
-let nodeDb = {};
-let graphItemCount = 0;
-const setConf = function(cnf) {
-  const keys = Object.keys(cnf);
-  for (const key of keys) {
-    cnf[key];
-  }
-};
-const getClasses = function(text, diagramObj) {
-  diagramObj.db.extract(diagramObj.db.getRootDocV2());
-  return diagramObj.db.getClasses();
-};
-function getClassesFromDbInfo(dbInfoItem) {
-  if (dbInfoItem === void 0 || dbInfoItem === null) {
-    return "";
-  } else {
-    if (dbInfoItem.classes) {
-      return dbInfoItem.classes.join(" ");
-    } else {
-      return "";
-    }
-  }
-}
-function stateDomId(itemId = "", counter = 0, type = "", typeSpacer = DOMID_TYPE_SPACER) {
-  const typeStr = type !== null && type.length > 0 ? `${typeSpacer}${type}` : "";
-  return `${DOMID_STATE}-${itemId}${typeStr}-${counter}`;
-}
-const setupNode = (g, parent, parsedItem, diagramStates, diagramDb, altFlag) => {
-  const itemId = parsedItem.id;
-  const classStr = getClassesFromDbInfo(diagramStates[itemId]);
-  if (itemId !== "root") {
-    let shape = SHAPE_STATE;
-    if (parsedItem.start === true) {
-      shape = SHAPE_START;
-    }
-    if (parsedItem.start === false) {
-      shape = SHAPE_END;
-    }
-    if (parsedItem.type !== _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.D) {
-      shape = parsedItem.type;
-    }
-    if (!nodeDb[itemId]) {
-      nodeDb[itemId] = {
-        id: itemId,
-        shape,
-        description: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.e.sanitizeText(itemId, (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.c)()),
-        classes: `${classStr} ${CSS_DIAGRAM_STATE}`
-      };
-    }
-    const newNode = nodeDb[itemId];
-    if (parsedItem.description) {
-      if (Array.isArray(newNode.description)) {
-        newNode.shape = SHAPE_STATE_WITH_DESC;
-        newNode.description.push(parsedItem.description);
-      } else {
-        if (newNode.description.length > 0) {
-          newNode.shape = SHAPE_STATE_WITH_DESC;
-          if (newNode.description === itemId) {
-            newNode.description = [parsedItem.description];
-          } else {
-            newNode.description = [newNode.description, parsedItem.description];
-          }
-        } else {
-          newNode.shape = SHAPE_STATE;
-          newNode.description = parsedItem.description;
-        }
-      }
-      newNode.description = _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.e.sanitizeTextOrArray(newNode.description, (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.c)());
-    }
-    if (newNode.description.length === 1 && newNode.shape === SHAPE_STATE_WITH_DESC) {
-      newNode.shape = SHAPE_STATE;
-    }
-    if (!newNode.type && parsedItem.doc) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.info("Setting cluster for ", itemId, getDir(parsedItem));
-      newNode.type = "group";
-      newNode.dir = getDir(parsedItem);
-      newNode.shape = parsedItem.type === _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.a ? SHAPE_DIVIDER : SHAPE_GROUP;
-      newNode.classes = newNode.classes + " " + CSS_DIAGRAM_CLUSTER + " " + (altFlag ? CSS_DIAGRAM_CLUSTER_ALT : "");
-    }
-    const nodeData = {
-      labelStyle: "",
-      shape: newNode.shape,
-      labelText: newNode.description,
-      // typeof newNode.description === 'object'
-      //   ? newNode.description[0]
-      //   : newNode.description,
-      classes: newNode.classes,
-      style: "",
-      //styles.style,
-      id: itemId,
-      dir: newNode.dir,
-      domId: stateDomId(itemId, graphItemCount),
-      type: newNode.type,
-      padding: 15
-      //getConfig().flowchart.padding
-    };
-    nodeData.centerLabel = true;
-    if (parsedItem.note) {
-      const noteData = {
-        labelStyle: "",
-        shape: SHAPE_NOTE,
-        labelText: parsedItem.note.text,
-        classes: CSS_DIAGRAM_NOTE,
-        // useHtmlLabels: false,
-        style: "",
-        // styles.style,
-        id: itemId + NOTE_ID + "-" + graphItemCount,
-        domId: stateDomId(itemId, graphItemCount, NOTE),
-        type: newNode.type,
-        padding: 15
-        //getConfig().flowchart.padding
-      };
-      const groupData = {
-        labelStyle: "",
-        shape: SHAPE_NOTEGROUP,
-        labelText: parsedItem.note.text,
-        classes: newNode.classes,
-        style: "",
-        // styles.style,
-        id: itemId + PARENT_ID,
-        domId: stateDomId(itemId, graphItemCount, PARENT),
-        type: "group",
-        padding: 0
-        //getConfig().flowchart.padding
-      };
-      graphItemCount++;
-      const parentNodeId = itemId + PARENT_ID;
-      g.setNode(parentNodeId, groupData);
-      g.setNode(noteData.id, noteData);
-      g.setNode(itemId, nodeData);
-      g.setParent(itemId, parentNodeId);
-      g.setParent(noteData.id, parentNodeId);
-      let from = itemId;
-      let to = noteData.id;
-      if (parsedItem.note.position === "left of") {
-        from = noteData.id;
-        to = itemId;
-      }
-      g.setEdge(from, to, {
-        arrowhead: "none",
-        arrowType: "",
-        style: G_EDGE_STYLE,
-        labelStyle: "",
-        classes: CSS_EDGE_NOTE_EDGE,
-        arrowheadStyle: G_EDGE_ARROWHEADSTYLE,
-        labelpos: G_EDGE_LABELPOS,
-        labelType: G_EDGE_LABELTYPE,
-        thickness: G_EDGE_THICKNESS
-      });
-    } else {
-      g.setNode(itemId, nodeData);
-    }
-  }
-  if (parent && parent.id !== "root") {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.trace("Setting node ", itemId, " to be child of its parent ", parent.id);
-    g.setParent(itemId, parent.id);
-  }
-  if (parsedItem.doc) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.trace("Adding nodes children ");
-    setupDoc(g, parsedItem, parsedItem.doc, diagramStates, diagramDb, !altFlag);
-  }
-};
-const setupDoc = (g, parentParsedItem, doc, diagramStates, diagramDb, altFlag) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.trace("items", doc);
-  doc.forEach((item) => {
-    switch (item.stmt) {
-      case _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.b:
-        setupNode(g, parentParsedItem, item, diagramStates, diagramDb, altFlag);
-        break;
-      case _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.D:
-        setupNode(g, parentParsedItem, item, diagramStates, diagramDb, altFlag);
-        break;
-      case _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.S:
-        {
-          setupNode(g, parentParsedItem, item.state1, diagramStates, diagramDb, altFlag);
-          setupNode(g, parentParsedItem, item.state2, diagramStates, diagramDb, altFlag);
-          const edgeData = {
-            id: "edge" + graphItemCount,
-            arrowhead: "normal",
-            arrowTypeEnd: "arrow_barb",
-            style: G_EDGE_STYLE,
-            labelStyle: "",
-            label: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.e.sanitizeText(item.description, (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.c)()),
-            arrowheadStyle: G_EDGE_ARROWHEADSTYLE,
-            labelpos: G_EDGE_LABELPOS,
-            labelType: G_EDGE_LABELTYPE,
-            thickness: G_EDGE_THICKNESS,
-            classes: CSS_EDGE
-          };
-          g.setEdge(item.state1.id, item.state2.id, edgeData, graphItemCount);
-          graphItemCount++;
-        }
-        break;
-    }
-  });
-};
-const getDir = (parsedItem, defaultDir = _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.c) => {
-  let dir = defaultDir;
-  if (parsedItem.doc) {
-    for (let i = 0; i < parsedItem.doc.length; i++) {
-      const parsedItemDoc = parsedItem.doc[i];
-      if (parsedItemDoc.stmt === "dir") {
-        dir = parsedItemDoc.value;
-      }
-    }
-  }
-  return dir;
-};
-const draw = async function(text, id, _version, diag) {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.info("Drawing state diagram (v2)", id);
-  nodeDb = {};
-  diag.db.getDirection();
-  const { securityLevel, state: conf } = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.c)();
-  const nodeSpacing = conf.nodeSpacing || 50;
-  const rankSpacing = conf.rankSpacing || 50;
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.info(diag.db.getRootDocV2());
-  diag.db.extract(diag.db.getRootDocV2());
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.info(diag.db.getRootDocV2());
-  const diagramStates = diag.db.getStates();
-  const g = new dagre_d3_es_src_graphlib_index_js__WEBPACK_IMPORTED_MODULE_0__/* .Graph */ .T({
-    multigraph: true,
-    compound: true
-  }).setGraph({
-    rankdir: getDir(diag.db.getRootDocV2()),
-    nodesep: nodeSpacing,
-    ranksep: rankSpacing,
-    marginx: 8,
-    marginy: 8
-  }).setDefaultEdgeLabel(function() {
-    return {};
-  });
-  setupNode(g, void 0, diag.db.getRootDocV2(), diagramStates, diag.db, true);
-  let sandboxElement;
-  if (securityLevel === "sandbox") {
-    sandboxElement = (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .select */ .Ltv)("#i" + id);
-  }
-  const root = securityLevel === "sandbox" ? (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .select */ .Ltv)(sandboxElement.nodes()[0].contentDocument.body) : (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .select */ .Ltv)("body");
-  const svg = root.select(`[id="${id}"]`);
-  const element = root.select("#" + id + " g");
-  await (0,_index_3862675e_js__WEBPACK_IMPORTED_MODULE_9__.r)(element, g, ["barb"], CSS_DIAGRAM, id);
-  const padding = 8;
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.u.insertTitle(svg, "statediagramTitleText", conf.titleTopMargin, diag.db.getDiagramTitle());
-  const bounds = svg.node().getBBox();
-  const width = bounds.width + padding * 2;
-  const height = bounds.height + padding * 2;
-  svg.attr("class", CSS_DIAGRAM);
-  const svgBounds = svg.node().getBBox();
-  (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.i)(svg, height, width, conf.useMaxWidth);
-  const vBox = `${svgBounds.x - padding} ${svgBounds.y - padding} ${width} ${height}`;
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_8__.l.debug(`viewBox ${vBox}`);
-  svg.attr("viewBox", vBox);
-  const labels = document.querySelectorAll('[id="' + id + '"] .edgeLabel .label');
-  for (const label of labels) {
-    const dim = label.getBBox();
-    const rect = document.createElementNS("http://www.w3.org/2000/svg", SHAPE_STATE);
-    rect.setAttribute("rx", 0);
-    rect.setAttribute("ry", 0);
-    rect.setAttribute("width", dim.width);
-    rect.setAttribute("height", dim.height);
-    label.insertBefore(rect, label.firstChild);
-  }
-};
-const renderer = {
-  setConf,
-  getClasses,
-  draw
-};
-const diagram = {
-  parser: _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.p,
-  db: _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.d,
-  renderer,
-  styles: _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.s,
-  init: (cnf) => {
-    if (!cnf.state) {
-      cnf.state = {};
-    }
-    cnf.state.arrowMarkerAbsolute = cnf.arrowMarkerAbsolute;
-    _styles_6aaf32cf_js__WEBPACK_IMPORTED_MODULE_7__.d.clear();
-  }
-};
-
-
-
-/***/ }),
-
 /***/ 697:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -13249,4482 +12898,6 @@ function baseProperty(key) {
 
 /***/ }),
 
-/***/ 1176:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  Zp: () => (/* reexport */ layout)
-});
-
-// UNUSED EXPORTS: acyclic, normalize, rank
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/forEach.js
-var forEach = __webpack_require__(8058);
-// EXTERNAL MODULE: ./node_modules/lodash-es/uniqueId.js
-var uniqueId = __webpack_require__(5664);
-// EXTERNAL MODULE: ./node_modules/lodash-es/has.js + 1 modules
-var has = __webpack_require__(8585);
-// EXTERNAL MODULE: ./node_modules/lodash-es/constant.js
-var constant = __webpack_require__(9142);
-// EXTERNAL MODULE: ./node_modules/lodash-es/flatten.js
-var flatten = __webpack_require__(4098);
-// EXTERNAL MODULE: ./node_modules/lodash-es/map.js
-var map = __webpack_require__(2341);
-// EXTERNAL MODULE: ./node_modules/lodash-es/range.js + 2 modules
-var range = __webpack_require__(1395);
-// EXTERNAL MODULE: ./node_modules/dagre-d3-es/src/graphlib/index.js
-var graphlib = __webpack_require__(697);
-;// ./node_modules/dagre-d3-es/src/dagre/data/list.js
-/*
- * Simple doubly linked list implementation derived from Cormen, et al.,
- * "Introduction to Algorithms".
- */
-
-
-
-class List {
-  constructor() {
-    var sentinel = {};
-    sentinel._next = sentinel._prev = sentinel;
-    this._sentinel = sentinel;
-  }
-  dequeue() {
-    var sentinel = this._sentinel;
-    var entry = sentinel._prev;
-    if (entry !== sentinel) {
-      unlink(entry);
-      return entry;
-    }
-  }
-  enqueue(entry) {
-    var sentinel = this._sentinel;
-    if (entry._prev && entry._next) {
-      unlink(entry);
-    }
-    entry._next = sentinel._next;
-    sentinel._next._prev = entry;
-    sentinel._next = entry;
-    entry._prev = sentinel;
-  }
-  toString() {
-    var strs = [];
-    var sentinel = this._sentinel;
-    var curr = sentinel._prev;
-    while (curr !== sentinel) {
-      strs.push(JSON.stringify(curr, filterOutLinks));
-      curr = curr._prev;
-    }
-    return '[' + strs.join(', ') + ']';
-  }
-}
-
-function unlink(entry) {
-  entry._prev._next = entry._next;
-  entry._next._prev = entry._prev;
-  delete entry._next;
-  delete entry._prev;
-}
-
-function filterOutLinks(k, v) {
-  if (k !== '_next' && k !== '_prev') {
-    return v;
-  }
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/greedy-fas.js
-
-
-
-
-/*
- * A greedy heuristic for finding a feedback arc set for a graph. A feedback
- * arc set is a set of edges that can be removed to make a graph acyclic.
- * The algorithm comes from: P. Eades, X. Lin, and W. F. Smyth, "A fast and
- * effective heuristic for the feedback arc set problem." This implementation
- * adjusts that from the paper to allow for weighted edges.
- */
-
-
-var DEFAULT_WEIGHT_FN = constant/* default */.A(1);
-
-function greedyFAS(g, weightFn) {
-  if (g.nodeCount() <= 1) {
-    return [];
-  }
-  var state = buildState(g, weightFn || DEFAULT_WEIGHT_FN);
-  var results = doGreedyFAS(state.graph, state.buckets, state.zeroIdx);
-
-  // Expand multi-edges
-  return flatten/* default */.A(
-    map/* default */.A(results, function (e) {
-      return g.outEdges(e.v, e.w);
-    })
-  );
-}
-
-function doGreedyFAS(g, buckets, zeroIdx) {
-  var results = [];
-  var sources = buckets[buckets.length - 1];
-  var sinks = buckets[0];
-
-  var entry;
-  while (g.nodeCount()) {
-    while ((entry = sinks.dequeue())) {
-      removeNode(g, buckets, zeroIdx, entry);
-    }
-    while ((entry = sources.dequeue())) {
-      removeNode(g, buckets, zeroIdx, entry);
-    }
-    if (g.nodeCount()) {
-      for (var i = buckets.length - 2; i > 0; --i) {
-        entry = buckets[i].dequeue();
-        if (entry) {
-          results = results.concat(removeNode(g, buckets, zeroIdx, entry, true));
-          break;
-        }
-      }
-    }
-  }
-
-  return results;
-}
-
-function removeNode(g, buckets, zeroIdx, entry, collectPredecessors) {
-  var results = collectPredecessors ? [] : undefined;
-
-  forEach/* default */.A(g.inEdges(entry.v), function (edge) {
-    var weight = g.edge(edge);
-    var uEntry = g.node(edge.v);
-
-    if (collectPredecessors) {
-      results.push({ v: edge.v, w: edge.w });
-    }
-
-    uEntry.out -= weight;
-    assignBucket(buckets, zeroIdx, uEntry);
-  });
-
-  forEach/* default */.A(g.outEdges(entry.v), function (edge) {
-    var weight = g.edge(edge);
-    var w = edge.w;
-    var wEntry = g.node(w);
-    wEntry['in'] -= weight;
-    assignBucket(buckets, zeroIdx, wEntry);
-  });
-
-  g.removeNode(entry.v);
-
-  return results;
-}
-
-function buildState(g, weightFn) {
-  var fasGraph = new graphlib/* Graph */.T();
-  var maxIn = 0;
-  var maxOut = 0;
-
-  forEach/* default */.A(g.nodes(), function (v) {
-    fasGraph.setNode(v, { v: v, in: 0, out: 0 });
-  });
-
-  // Aggregate weights on nodes, but also sum the weights across multi-edges
-  // into a single edge for the fasGraph.
-  forEach/* default */.A(g.edges(), function (e) {
-    var prevWeight = fasGraph.edge(e.v, e.w) || 0;
-    var weight = weightFn(e);
-    var edgeWeight = prevWeight + weight;
-    fasGraph.setEdge(e.v, e.w, edgeWeight);
-    maxOut = Math.max(maxOut, (fasGraph.node(e.v).out += weight));
-    maxIn = Math.max(maxIn, (fasGraph.node(e.w)['in'] += weight));
-  });
-
-  var buckets = range/* default */.A(maxOut + maxIn + 3).map(function () {
-    return new List();
-  });
-  var zeroIdx = maxIn + 1;
-
-  forEach/* default */.A(fasGraph.nodes(), function (v) {
-    assignBucket(buckets, zeroIdx, fasGraph.node(v));
-  });
-
-  return { graph: fasGraph, buckets: buckets, zeroIdx: zeroIdx };
-}
-
-function assignBucket(buckets, zeroIdx, entry) {
-  if (!entry.out) {
-    buckets[0].enqueue(entry);
-  } else if (!entry['in']) {
-    buckets[buckets.length - 1].enqueue(entry);
-  } else {
-    buckets[entry.out - entry['in'] + zeroIdx].enqueue(entry);
-  }
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/acyclic.js
-
-
-
-
-
-function run(g) {
-  var fas = g.graph().acyclicer === 'greedy' ? greedyFAS(g, weightFn(g)) : dfsFAS(g);
-  forEach/* default */.A(fas, function (e) {
-    var label = g.edge(e);
-    g.removeEdge(e);
-    label.forwardName = e.name;
-    label.reversed = true;
-    g.setEdge(e.w, e.v, label, uniqueId/* default */.A('rev'));
-  });
-
-  function weightFn(g) {
-    return function (e) {
-      return g.edge(e).weight;
-    };
-  }
-}
-
-function dfsFAS(g) {
-  var fas = [];
-  var stack = {};
-  var visited = {};
-
-  function dfs(v) {
-    if (has/* default */.A(visited, v)) {
-      return;
-    }
-    visited[v] = true;
-    stack[v] = true;
-    forEach/* default */.A(g.outEdges(v), function (e) {
-      if (has/* default */.A(stack, e.w)) {
-        fas.push(e);
-      } else {
-        dfs(e.w);
-      }
-    });
-    delete stack[v];
-  }
-
-  forEach/* default */.A(g.nodes(), dfs);
-  return fas;
-}
-
-function undo(g) {
-  forEach/* default */.A(g.edges(), function (e) {
-    var label = g.edge(e);
-    if (label.reversed) {
-      g.removeEdge(e);
-
-      var forwardName = label.forwardName;
-      delete label.reversed;
-      delete label.forwardName;
-      g.setEdge(e.w, e.v, label, forwardName);
-    }
-  });
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/merge.js + 6 modules
-var merge = __webpack_require__(8879);
-// EXTERNAL MODULE: ./node_modules/lodash-es/pick.js + 4 modules
-var pick = __webpack_require__(1942);
-// EXTERNAL MODULE: ./node_modules/lodash-es/defaults.js
-var defaults = __webpack_require__(3068);
-// EXTERNAL MODULE: ./node_modules/lodash-es/isSymbol.js
-var isSymbol = __webpack_require__(1882);
-;// ./node_modules/lodash-es/_baseExtremum.js
-
-
-/**
- * The base implementation of methods like `_.max` and `_.min` which accepts a
- * `comparator` to determine the extremum value.
- *
- * @private
- * @param {Array} array The array to iterate over.
- * @param {Function} iteratee The iteratee invoked per iteration.
- * @param {Function} comparator The comparator used to compare values.
- * @returns {*} Returns the extremum value.
- */
-function baseExtremum(array, iteratee, comparator) {
-  var index = -1,
-      length = array.length;
-
-  while (++index < length) {
-    var value = array[index],
-        current = iteratee(value);
-
-    if (current != null && (computed === undefined
-          ? (current === current && !(0,isSymbol/* default */.A)(current))
-          : comparator(current, computed)
-        )) {
-      var computed = current,
-          result = value;
-    }
-  }
-  return result;
-}
-
-/* harmony default export */ const _baseExtremum = (baseExtremum);
-
-;// ./node_modules/lodash-es/_baseGt.js
-/**
- * The base implementation of `_.gt` which doesn't coerce arguments.
- *
- * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if `value` is greater than `other`,
- *  else `false`.
- */
-function baseGt(value, other) {
-  return value > other;
-}
-
-/* harmony default export */ const _baseGt = (baseGt);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/identity.js
-var identity = __webpack_require__(9008);
-;// ./node_modules/lodash-es/max.js
-
-
-
-
-/**
- * Computes the maximum value of `array`. If `array` is empty or falsey,
- * `undefined` is returned.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Math
- * @param {Array} array The array to iterate over.
- * @returns {*} Returns the maximum value.
- * @example
- *
- * _.max([4, 2, 8, 6]);
- * // => 8
- *
- * _.max([]);
- * // => undefined
- */
-function max(array) {
-  return (array && array.length)
-    ? _baseExtremum(array, identity/* default */.A, _baseGt)
-    : undefined;
-}
-
-/* harmony default export */ const lodash_es_max = (max);
-
-;// ./node_modules/lodash-es/last.js
-/**
- * Gets the last element of `array`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Array
- * @param {Array} array The array to query.
- * @returns {*} Returns the last element of `array`.
- * @example
- *
- * _.last([1, 2, 3]);
- * // => 3
- */
-function last(array) {
-  var length = array == null ? 0 : array.length;
-  return length ? array[length - 1] : undefined;
-}
-
-/* harmony default export */ const lodash_es_last = (last);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseAssignValue.js
-var _baseAssignValue = __webpack_require__(2528);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseForOwn.js
-var _baseForOwn = __webpack_require__(9841);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseIteratee.js + 16 modules
-var _baseIteratee = __webpack_require__(9574);
-;// ./node_modules/lodash-es/mapValues.js
-
-
-
-
-/**
- * Creates an object with the same keys as `object` and values generated
- * by running each own enumerable string keyed property of `object` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, key, object).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns the new mapped object.
- * @see _.mapKeys
- * @example
- *
- * var users = {
- *   'fred':    { 'user': 'fred',    'age': 40 },
- *   'pebbles': { 'user': 'pebbles', 'age': 1 }
- * };
- *
- * _.mapValues(users, function(o) { return o.age; });
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- *
- * // The `_.property` iteratee shorthand.
- * _.mapValues(users, 'age');
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- */
-function mapValues(object, iteratee) {
-  var result = {};
-  iteratee = (0,_baseIteratee/* default */.A)(iteratee, 3);
-
-  (0,_baseForOwn/* default */.A)(object, function(value, key, object) {
-    (0,_baseAssignValue/* default */.A)(result, key, iteratee(value, key, object));
-  });
-  return result;
-}
-
-/* harmony default export */ const lodash_es_mapValues = (mapValues);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/isUndefined.js
-var isUndefined = __webpack_require__(9592);
-;// ./node_modules/lodash-es/_baseLt.js
-/**
- * The base implementation of `_.lt` which doesn't coerce arguments.
- *
- * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if `value` is less than `other`,
- *  else `false`.
- */
-function baseLt(value, other) {
-  return value < other;
-}
-
-/* harmony default export */ const _baseLt = (baseLt);
-
-;// ./node_modules/lodash-es/min.js
-
-
-
-
-/**
- * Computes the minimum value of `array`. If `array` is empty or falsey,
- * `undefined` is returned.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Math
- * @param {Array} array The array to iterate over.
- * @returns {*} Returns the minimum value.
- * @example
- *
- * _.min([4, 2, 8, 6]);
- * // => 2
- *
- * _.min([]);
- * // => undefined
- */
-function min(array) {
-  return (array && array.length)
-    ? _baseExtremum(array, identity/* default */.A, _baseLt)
-    : undefined;
-}
-
-/* harmony default export */ const lodash_es_min = (min);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_root.js
-var _root = __webpack_require__(1917);
-;// ./node_modules/lodash-es/now.js
-
-
-/**
- * Gets the timestamp of the number of milliseconds that have elapsed since
- * the Unix epoch (1 January 1970 00:00:00 UTC).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Date
- * @returns {number} Returns the timestamp.
- * @example
- *
- * _.defer(function(stamp) {
- *   console.log(_.now() - stamp);
- * }, _.now());
- * // => Logs the number of milliseconds it took for the deferred invocation.
- */
-var now = function() {
-  return _root/* default */.A.Date.now();
-};
-
-/* harmony default export */ const lodash_es_now = (now);
-
-;// ./node_modules/dagre-d3-es/src/dagre/util.js
-
-
-
-
-
-/*
- * Adds a dummy node to the graph and return v.
- */
-function addDummyNode(g, type, attrs, name) {
-  var v;
-  do {
-    v = uniqueId/* default */.A(name);
-  } while (g.hasNode(v));
-
-  attrs.dummy = type;
-  g.setNode(v, attrs);
-  return v;
-}
-
-/*
- * Returns a new graph with only simple edges. Handles aggregation of data
- * associated with multi-edges.
- */
-function simplify(g) {
-  var simplified = new graphlib/* Graph */.T().setGraph(g.graph());
-  forEach/* default */.A(g.nodes(), function (v) {
-    simplified.setNode(v, g.node(v));
-  });
-  forEach/* default */.A(g.edges(), function (e) {
-    var simpleLabel = simplified.edge(e.v, e.w) || { weight: 0, minlen: 1 };
-    var label = g.edge(e);
-    simplified.setEdge(e.v, e.w, {
-      weight: simpleLabel.weight + label.weight,
-      minlen: Math.max(simpleLabel.minlen, label.minlen),
-    });
-  });
-  return simplified;
-}
-
-function asNonCompoundGraph(g) {
-  var simplified = new graphlib/* Graph */.T({ multigraph: g.isMultigraph() }).setGraph(g.graph());
-  forEach/* default */.A(g.nodes(), function (v) {
-    if (!g.children(v).length) {
-      simplified.setNode(v, g.node(v));
-    }
-  });
-  forEach/* default */.A(g.edges(), function (e) {
-    simplified.setEdge(e, g.edge(e));
-  });
-  return simplified;
-}
-
-function successorWeights(g) {
-  var weightMap = _.map(g.nodes(), function (v) {
-    var sucs = {};
-    _.forEach(g.outEdges(v), function (e) {
-      sucs[e.w] = (sucs[e.w] || 0) + g.edge(e).weight;
-    });
-    return sucs;
-  });
-  return _.zipObject(g.nodes(), weightMap);
-}
-
-function predecessorWeights(g) {
-  var weightMap = _.map(g.nodes(), function (v) {
-    var preds = {};
-    _.forEach(g.inEdges(v), function (e) {
-      preds[e.v] = (preds[e.v] || 0) + g.edge(e).weight;
-    });
-    return preds;
-  });
-  return _.zipObject(g.nodes(), weightMap);
-}
-
-/*
- * Finds where a line starting at point ({x, y}) would intersect a rectangle
- * ({x, y, width, height}) if it were pointing at the rectangle's center.
- */
-function intersectRect(rect, point) {
-  var x = rect.x;
-  var y = rect.y;
-
-  // Rectangle intersection algorithm from:
-  // http://math.stackexchange.com/questions/108113/find-edge-between-two-boxes
-  var dx = point.x - x;
-  var dy = point.y - y;
-  var w = rect.width / 2;
-  var h = rect.height / 2;
-
-  if (!dx && !dy) {
-    throw new Error('Not possible to find intersection inside of the rectangle');
-  }
-
-  var sx, sy;
-  if (Math.abs(dy) * w > Math.abs(dx) * h) {
-    // Intersection is top or bottom of rect.
-    if (dy < 0) {
-      h = -h;
-    }
-    sx = (h * dx) / dy;
-    sy = h;
-  } else {
-    // Intersection is left or right of rect.
-    if (dx < 0) {
-      w = -w;
-    }
-    sx = w;
-    sy = (w * dy) / dx;
-  }
-
-  return { x: x + sx, y: y + sy };
-}
-
-/*
- * Given a DAG with each node assigned "rank" and "order" properties, this
- * function will produce a matrix with the ids of each node.
- */
-function buildLayerMatrix(g) {
-  var layering = map/* default */.A(range/* default */.A(util_maxRank(g) + 1), function () {
-    return [];
-  });
-  forEach/* default */.A(g.nodes(), function (v) {
-    var node = g.node(v);
-    var rank = node.rank;
-    if (!isUndefined/* default */.A(rank)) {
-      layering[rank][node.order] = v;
-    }
-  });
-  return layering;
-}
-
-/*
- * Adjusts the ranks for all nodes in the graph such that all nodes v have
- * rank(v) >= 0 and at least one node w has rank(w) = 0.
- */
-function normalizeRanks(g) {
-  var min = lodash_es_min(
-    map/* default */.A(g.nodes(), function (v) {
-      return g.node(v).rank;
-    })
-  );
-  forEach/* default */.A(g.nodes(), function (v) {
-    var node = g.node(v);
-    if (has/* default */.A(node, 'rank')) {
-      node.rank -= min;
-    }
-  });
-}
-
-function removeEmptyRanks(g) {
-  // Ranks may not start at 0, so we need to offset them
-  var offset = lodash_es_min(
-    map/* default */.A(g.nodes(), function (v) {
-      return g.node(v).rank;
-    })
-  );
-
-  var layers = [];
-  forEach/* default */.A(g.nodes(), function (v) {
-    var rank = g.node(v).rank - offset;
-    if (!layers[rank]) {
-      layers[rank] = [];
-    }
-    layers[rank].push(v);
-  });
-
-  var delta = 0;
-  var nodeRankFactor = g.graph().nodeRankFactor;
-  forEach/* default */.A(layers, function (vs, i) {
-    if (isUndefined/* default */.A(vs) && i % nodeRankFactor !== 0) {
-      --delta;
-    } else if (delta) {
-      forEach/* default */.A(vs, function (v) {
-        g.node(v).rank += delta;
-      });
-    }
-  });
-}
-
-function addBorderNode(g, prefix, rank, order) {
-  var node = {
-    width: 0,
-    height: 0,
-  };
-  if (arguments.length >= 4) {
-    node.rank = rank;
-    node.order = order;
-  }
-  return addDummyNode(g, 'border', node, prefix);
-}
-
-function util_maxRank(g) {
-  return lodash_es_max(
-    map/* default */.A(g.nodes(), function (v) {
-      var rank = g.node(v).rank;
-      if (!isUndefined/* default */.A(rank)) {
-        return rank;
-      }
-    })
-  );
-}
-
-/*
- * Partition a collection into two groups: `lhs` and `rhs`. If the supplied
- * function returns true for an entry it goes into `lhs`. Otherwise it goes
- * into `rhs.
- */
-function partition(collection, fn) {
-  var result = { lhs: [], rhs: [] };
-  forEach/* default */.A(collection, function (value) {
-    if (fn(value)) {
-      result.lhs.push(value);
-    } else {
-      result.rhs.push(value);
-    }
-  });
-  return result;
-}
-
-/*
- * Returns a new function that wraps `fn` with a timer. The wrapper logs the
- * time it takes to execute the function.
- */
-function util_time(name, fn) {
-  var start = lodash_es_now();
-  try {
-    return fn();
-  } finally {
-    console.log(name + ' time: ' + (lodash_es_now() - start) + 'ms');
-  }
-}
-
-function notime(name, fn) {
-  return fn();
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/add-border-segments.js
-
-
-
-
-
-function addBorderSegments(g) {
-  function dfs(v) {
-    var children = g.children(v);
-    var node = g.node(v);
-    if (children.length) {
-      forEach/* default */.A(children, dfs);
-    }
-
-    if (has/* default */.A(node, 'minRank')) {
-      node.borderLeft = [];
-      node.borderRight = [];
-      for (var rank = node.minRank, maxRank = node.maxRank + 1; rank < maxRank; ++rank) {
-        add_border_segments_addBorderNode(g, 'borderLeft', '_bl', v, node, rank);
-        add_border_segments_addBorderNode(g, 'borderRight', '_br', v, node, rank);
-      }
-    }
-  }
-
-  forEach/* default */.A(g.children(), dfs);
-}
-
-function add_border_segments_addBorderNode(g, prop, prefix, sg, sgNode, rank) {
-  var label = { width: 0, height: 0, rank: rank, borderType: prop };
-  var prev = sgNode[prop][rank - 1];
-  var curr = addDummyNode(g, 'border', label, prefix);
-  sgNode[prop][rank] = curr;
-  g.setParent(curr, sg);
-  if (prev) {
-    g.setEdge(prev, curr, { weight: 1 });
-  }
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/coordinate-system.js
-
-
-
-
-function adjust(g) {
-  var rankDir = g.graph().rankdir.toLowerCase();
-  if (rankDir === 'lr' || rankDir === 'rl') {
-    swapWidthHeight(g);
-  }
-}
-
-function coordinate_system_undo(g) {
-  var rankDir = g.graph().rankdir.toLowerCase();
-  if (rankDir === 'bt' || rankDir === 'rl') {
-    reverseY(g);
-  }
-
-  if (rankDir === 'lr' || rankDir === 'rl') {
-    swapXY(g);
-    swapWidthHeight(g);
-  }
-}
-
-function swapWidthHeight(g) {
-  forEach/* default */.A(g.nodes(), function (v) {
-    swapWidthHeightOne(g.node(v));
-  });
-  forEach/* default */.A(g.edges(), function (e) {
-    swapWidthHeightOne(g.edge(e));
-  });
-}
-
-function swapWidthHeightOne(attrs) {
-  var w = attrs.width;
-  attrs.width = attrs.height;
-  attrs.height = w;
-}
-
-function reverseY(g) {
-  forEach/* default */.A(g.nodes(), function (v) {
-    reverseYOne(g.node(v));
-  });
-
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    forEach/* default */.A(edge.points, reverseYOne);
-    if (has/* default */.A(edge, 'y')) {
-      reverseYOne(edge);
-    }
-  });
-}
-
-function reverseYOne(attrs) {
-  attrs.y = -attrs.y;
-}
-
-function swapXY(g) {
-  forEach/* default */.A(g.nodes(), function (v) {
-    swapXYOne(g.node(v));
-  });
-
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    forEach/* default */.A(edge.points, swapXYOne);
-    if (has/* default */.A(edge, 'x')) {
-      swapXYOne(edge);
-    }
-  });
-}
-
-function swapXYOne(attrs) {
-  var x = attrs.x;
-  attrs.x = attrs.y;
-  attrs.y = x;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/normalize.js
-
-
-
-
-
-/*
- * Breaks any long edges in the graph into short segments that span 1 layer
- * each. This operation is undoable with the denormalize function.
- *
- * Pre-conditions:
- *
- *    1. The input graph is a DAG.
- *    2. Each node in the graph has a "rank" property.
- *
- * Post-condition:
- *
- *    1. All edges in the graph have a length of 1.
- *    2. Dummy nodes are added where edges have been split into segments.
- *    3. The graph is augmented with a "dummyChains" attribute which contains
- *       the first dummy in each chain of dummy nodes produced.
- */
-function normalize_run(g) {
-  g.graph().dummyChains = [];
-  forEach/* default */.A(g.edges(), function (edge) {
-    normalizeEdge(g, edge);
-  });
-}
-
-function normalizeEdge(g, e) {
-  var v = e.v;
-  var vRank = g.node(v).rank;
-  var w = e.w;
-  var wRank = g.node(w).rank;
-  var name = e.name;
-  var edgeLabel = g.edge(e);
-  var labelRank = edgeLabel.labelRank;
-
-  if (wRank === vRank + 1) return;
-
-  g.removeEdge(e);
-
-  var dummy, attrs, i;
-  for (i = 0, ++vRank; vRank < wRank; ++i, ++vRank) {
-    edgeLabel.points = [];
-    attrs = {
-      width: 0,
-      height: 0,
-      edgeLabel: edgeLabel,
-      edgeObj: e,
-      rank: vRank,
-    };
-    dummy = addDummyNode(g, 'edge', attrs, '_d');
-    if (vRank === labelRank) {
-      attrs.width = edgeLabel.width;
-      attrs.height = edgeLabel.height;
-      // @ts-expect-error
-      attrs.dummy = 'edge-label';
-      // @ts-expect-error
-      attrs.labelpos = edgeLabel.labelpos;
-    }
-    g.setEdge(v, dummy, { weight: edgeLabel.weight }, name);
-    if (i === 0) {
-      g.graph().dummyChains.push(dummy);
-    }
-    v = dummy;
-  }
-
-  g.setEdge(v, w, { weight: edgeLabel.weight }, name);
-}
-
-function normalize_undo(g) {
-  forEach/* default */.A(g.graph().dummyChains, function (v) {
-    var node = g.node(v);
-    var origLabel = node.edgeLabel;
-    var w;
-    g.setEdge(node.edgeObj, origLabel);
-    while (node.dummy) {
-      w = g.successors(v)[0];
-      g.removeNode(v);
-      origLabel.points.push({ x: node.x, y: node.y });
-      if (node.dummy === 'edge-label') {
-        origLabel.x = node.x;
-        origLabel.y = node.y;
-        origLabel.width = node.width;
-        origLabel.height = node.height;
-      }
-      v = w;
-      node = g.node(v);
-    }
-  });
-}
-
-;// ./node_modules/lodash-es/minBy.js
-
-
-
-
-/**
- * This method is like `_.min` except that it accepts `iteratee` which is
- * invoked for each element in `array` to generate the criterion by which
- * the value is ranked. The iteratee is invoked with one argument: (value).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Math
- * @param {Array} array The array to iterate over.
- * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
- * @returns {*} Returns the minimum value.
- * @example
- *
- * var objects = [{ 'n': 1 }, { 'n': 2 }];
- *
- * _.minBy(objects, function(o) { return o.n; });
- * // => { 'n': 1 }
- *
- * // The `_.property` iteratee shorthand.
- * _.minBy(objects, 'n');
- * // => { 'n': 1 }
- */
-function minBy(array, iteratee) {
-  return (array && array.length)
-    ? _baseExtremum(array, (0,_baseIteratee/* default */.A)(iteratee, 2), _baseLt)
-    : undefined;
-}
-
-/* harmony default export */ const lodash_es_minBy = (minBy);
-
-;// ./node_modules/dagre-d3-es/src/dagre/rank/util.js
-
-
-
-
-/*
- * Initializes ranks for the input graph using the longest path algorithm. This
- * algorithm scales well and is fast in practice, it yields rather poor
- * solutions. Nodes are pushed to the lowest layer possible, leaving the bottom
- * ranks wide and leaving edges longer than necessary. However, due to its
- * speed, this algorithm is good for getting an initial ranking that can be fed
- * into other algorithms.
- *
- * This algorithm does not normalize layers because it will be used by other
- * algorithms in most cases. If using this algorithm directly, be sure to
- * run normalize at the end.
- *
- * Pre-conditions:
- *
- *    1. Input graph is a DAG.
- *    2. Input graph node labels can be assigned properties.
- *
- * Post-conditions:
- *
- *    1. Each node will be assign an (unnormalized) "rank" property.
- */
-function longestPath(g) {
-  var visited = {};
-
-  function dfs(v) {
-    var label = g.node(v);
-    if (has/* default */.A(visited, v)) {
-      return label.rank;
-    }
-    visited[v] = true;
-
-    var rank = lodash_es_min(
-      map/* default */.A(g.outEdges(v), function (e) {
-        return dfs(e.w) - g.edge(e).minlen;
-      })
-    );
-
-    if (
-      rank === Number.POSITIVE_INFINITY || // return value of _.map([]) for Lodash 3
-      rank === undefined || // return value of _.map([]) for Lodash 4
-      rank === null
-    ) {
-      // return value of _.map([null])
-      rank = 0;
-    }
-
-    return (label.rank = rank);
-  }
-
-  forEach/* default */.A(g.sources(), dfs);
-}
-
-/*
- * Returns the amount of slack for the given edge. The slack is defined as the
- * difference between the length of the edge and its minimum length.
- */
-function slack(g, e) {
-  return g.node(e.w).rank - g.node(e.v).rank - g.edge(e).minlen;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/rank/feasible-tree.js
-
-
-
-
-
-
-/*
- * Constructs a spanning tree with tight edges and adjusted the input node's
- * ranks to achieve this. A tight edge is one that is has a length that matches
- * its "minlen" attribute.
- *
- * The basic structure for this function is derived from Gansner, et al., "A
- * Technique for Drawing Directed Graphs."
- *
- * Pre-conditions:
- *
- *    1. Graph must be a DAG.
- *    2. Graph must be connected.
- *    3. Graph must have at least one node.
- *    5. Graph nodes must have been previously assigned a "rank" property that
- *       respects the "minlen" property of incident edges.
- *    6. Graph edges must have a "minlen" property.
- *
- * Post-conditions:
- *
- *    - Graph nodes will have their rank adjusted to ensure that all edges are
- *      tight.
- *
- * Returns a tree (undirected graph) that is constructed using only "tight"
- * edges.
- */
-function feasibleTree(g) {
-  var t = new graphlib/* Graph */.T({ directed: false });
-
-  // Choose arbitrary node from which to start our tree
-  var start = g.nodes()[0];
-  var size = g.nodeCount();
-  t.setNode(start, {});
-
-  var edge, delta;
-  while (tightTree(t, g) < size) {
-    edge = findMinSlackEdge(t, g);
-    delta = t.hasNode(edge.v) ? slack(g, edge) : -slack(g, edge);
-    shiftRanks(t, g, delta);
-  }
-
-  return t;
-}
-
-/*
- * Finds a maximal tree of tight edges and returns the number of nodes in the
- * tree.
- */
-function tightTree(t, g) {
-  function dfs(v) {
-    forEach/* default */.A(g.nodeEdges(v), function (e) {
-      var edgeV = e.v,
-        w = v === edgeV ? e.w : edgeV;
-      if (!t.hasNode(w) && !slack(g, e)) {
-        t.setNode(w, {});
-        t.setEdge(v, w, {});
-        dfs(w);
-      }
-    });
-  }
-
-  forEach/* default */.A(t.nodes(), dfs);
-  return t.nodeCount();
-}
-
-/*
- * Finds the edge with the smallest slack that is incident on tree and returns
- * it.
- */
-function findMinSlackEdge(t, g) {
-  return lodash_es_minBy(g.edges(), function (e) {
-    if (t.hasNode(e.v) !== t.hasNode(e.w)) {
-      return slack(g, e);
-    }
-  });
-}
-
-function shiftRanks(t, g, delta) {
-  forEach/* default */.A(t.nodes(), function (v) {
-    g.node(v).rank += delta;
-  });
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/isArrayLike.js
-var isArrayLike = __webpack_require__(8446);
-// EXTERNAL MODULE: ./node_modules/lodash-es/keys.js
-var keys = __webpack_require__(7422);
-;// ./node_modules/lodash-es/_createFind.js
-
-
-
-
-/**
- * Creates a `_.find` or `_.findLast` function.
- *
- * @private
- * @param {Function} findIndexFunc The function to find the collection index.
- * @returns {Function} Returns the new find function.
- */
-function createFind(findIndexFunc) {
-  return function(collection, predicate, fromIndex) {
-    var iterable = Object(collection);
-    if (!(0,isArrayLike/* default */.A)(collection)) {
-      var iteratee = (0,_baseIteratee/* default */.A)(predicate, 3);
-      collection = (0,keys/* default */.A)(collection);
-      predicate = function(key) { return iteratee(iterable[key], key, iterable); };
-    }
-    var index = findIndexFunc(collection, predicate, fromIndex);
-    return index > -1 ? iterable[iteratee ? collection[index] : index] : undefined;
-  };
-}
-
-/* harmony default export */ const _createFind = (createFind);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseFindIndex.js
-var _baseFindIndex = __webpack_require__(5707);
-// EXTERNAL MODULE: ./node_modules/lodash-es/toFinite.js + 3 modules
-var toFinite = __webpack_require__(4342);
-;// ./node_modules/lodash-es/toInteger.js
-
-
-/**
- * Converts `value` to an integer.
- *
- * **Note:** This method is loosely based on
- * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted integer.
- * @example
- *
- * _.toInteger(3.2);
- * // => 3
- *
- * _.toInteger(Number.MIN_VALUE);
- * // => 0
- *
- * _.toInteger(Infinity);
- * // => 1.7976931348623157e+308
- *
- * _.toInteger('3.2');
- * // => 3
- */
-function toInteger(value) {
-  var result = (0,toFinite/* default */.A)(value),
-      remainder = result % 1;
-
-  return result === result ? (remainder ? result - remainder : result) : 0;
-}
-
-/* harmony default export */ const lodash_es_toInteger = (toInteger);
-
-;// ./node_modules/lodash-es/findIndex.js
-
-
-
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max;
-
-/**
- * This method is like `_.find` except that it returns the index of the first
- * element `predicate` returns truthy for instead of the element itself.
- *
- * @static
- * @memberOf _
- * @since 1.1.0
- * @category Array
- * @param {Array} array The array to inspect.
- * @param {Function} [predicate=_.identity] The function invoked per iteration.
- * @param {number} [fromIndex=0] The index to search from.
- * @returns {number} Returns the index of the found element, else `-1`.
- * @example
- *
- * var users = [
- *   { 'user': 'barney',  'active': false },
- *   { 'user': 'fred',    'active': false },
- *   { 'user': 'pebbles', 'active': true }
- * ];
- *
- * _.findIndex(users, function(o) { return o.user == 'barney'; });
- * // => 0
- *
- * // The `_.matches` iteratee shorthand.
- * _.findIndex(users, { 'user': 'fred', 'active': false });
- * // => 1
- *
- * // The `_.matchesProperty` iteratee shorthand.
- * _.findIndex(users, ['active', false]);
- * // => 0
- *
- * // The `_.property` iteratee shorthand.
- * _.findIndex(users, 'active');
- * // => 2
- */
-function findIndex(array, predicate, fromIndex) {
-  var length = array == null ? 0 : array.length;
-  if (!length) {
-    return -1;
-  }
-  var index = fromIndex == null ? 0 : lodash_es_toInteger(fromIndex);
-  if (index < 0) {
-    index = nativeMax(length + index, 0);
-  }
-  return (0,_baseFindIndex/* default */.A)(array, (0,_baseIteratee/* default */.A)(predicate, 3), index);
-}
-
-/* harmony default export */ const lodash_es_findIndex = (findIndex);
-
-;// ./node_modules/lodash-es/find.js
-
-
-
-/**
- * Iterates over elements of `collection`, returning the first element
- * `predicate` returns truthy for. The predicate is invoked with three
- * arguments: (value, index|key, collection).
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to inspect.
- * @param {Function} [predicate=_.identity] The function invoked per iteration.
- * @param {number} [fromIndex=0] The index to search from.
- * @returns {*} Returns the matched element, else `undefined`.
- * @example
- *
- * var users = [
- *   { 'user': 'barney',  'age': 36, 'active': true },
- *   { 'user': 'fred',    'age': 40, 'active': false },
- *   { 'user': 'pebbles', 'age': 1,  'active': true }
- * ];
- *
- * _.find(users, function(o) { return o.age < 40; });
- * // => object for 'barney'
- *
- * // The `_.matches` iteratee shorthand.
- * _.find(users, { 'age': 1, 'active': true });
- * // => object for 'pebbles'
- *
- * // The `_.matchesProperty` iteratee shorthand.
- * _.find(users, ['active', false]);
- * // => object for 'fred'
- *
- * // The `_.property` iteratee shorthand.
- * _.find(users, 'active');
- * // => object for 'barney'
- */
-var find = _createFind(lodash_es_findIndex);
-
-/* harmony default export */ const lodash_es_find = (find);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/filter.js + 1 modules
-var filter = __webpack_require__(1662);
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/dijkstra.js
-
-
-
-
-
-var DEFAULT_WEIGHT_FUNC = constant/* default */.A(1);
-
-function dijkstra_dijkstra(g, source, weightFn, edgeFn) {
-  return runDijkstra(
-    g,
-    String(source),
-    weightFn || DEFAULT_WEIGHT_FUNC,
-    edgeFn ||
-      function (v) {
-        return g.outEdges(v);
-      }
-  );
-}
-
-function runDijkstra(g, source, weightFn, edgeFn) {
-  var results = {};
-  var pq = new PriorityQueue();
-  var v, vEntry;
-
-  var updateNeighbors = function (edge) {
-    var w = edge.v !== v ? edge.v : edge.w;
-    var wEntry = results[w];
-    var weight = weightFn(edge);
-    var distance = vEntry.distance + weight;
-
-    if (weight < 0) {
-      throw new Error(
-        'dijkstra does not allow negative edge weights. ' +
-          'Bad edge: ' +
-          edge +
-          ' Weight: ' +
-          weight
-      );
-    }
-
-    if (distance < wEntry.distance) {
-      wEntry.distance = distance;
-      wEntry.predecessor = v;
-      pq.decrease(w, distance);
-    }
-  };
-
-  g.nodes().forEach(function (v) {
-    var distance = v === source ? 0 : Number.POSITIVE_INFINITY;
-    results[v] = { distance: distance };
-    pq.add(v, distance);
-  });
-
-  while (pq.size() > 0) {
-    v = pq.removeMin();
-    vEntry = results[v];
-    if (vEntry.distance === Number.POSITIVE_INFINITY) {
-      break;
-    }
-
-    edgeFn(v).forEach(updateNeighbors);
-  }
-
-  return results;
-}
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/dijkstra-all.js
-
-
-
-
-
-function dijkstraAll(g, weightFunc, edgeFunc) {
-  return _.transform(
-    g.nodes(),
-    function (acc, v) {
-      acc[v] = dijkstra(g, v, weightFunc, edgeFunc);
-    },
-    {}
-  );
-}
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/floyd-warshall.js
-
-
-
-
-var floyd_warshall_DEFAULT_WEIGHT_FUNC = constant/* default */.A(1);
-
-function floydWarshall(g, weightFn, edgeFn) {
-  return runFloydWarshall(
-    g,
-    weightFn || floyd_warshall_DEFAULT_WEIGHT_FUNC,
-    edgeFn ||
-      function (v) {
-        return g.outEdges(v);
-      }
-  );
-}
-
-function runFloydWarshall(g, weightFn, edgeFn) {
-  var results = {};
-  var nodes = g.nodes();
-
-  nodes.forEach(function (v) {
-    results[v] = {};
-    results[v][v] = { distance: 0 };
-    nodes.forEach(function (w) {
-      if (v !== w) {
-        results[v][w] = { distance: Number.POSITIVE_INFINITY };
-      }
-    });
-    edgeFn(v).forEach(function (edge) {
-      var w = edge.v === v ? edge.w : edge.v;
-      var d = weightFn(edge);
-      results[v][w] = { distance: d, predecessor: v };
-    });
-  });
-
-  nodes.forEach(function (k) {
-    var rowK = results[k];
-    nodes.forEach(function (i) {
-      var rowI = results[i];
-      nodes.forEach(function (j) {
-        var ik = rowI[k];
-        var kj = rowK[j];
-        var ij = rowI[j];
-        var altDistance = ik.distance + kj.distance;
-        if (altDistance < ij.distance) {
-          ij.distance = altDistance;
-          ij.predecessor = kj.predecessor;
-        }
-      });
-    });
-  });
-
-  return results;
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseKeys.js + 1 modules
-var _baseKeys = __webpack_require__(1852);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_getTag.js + 3 modules
-var _getTag = __webpack_require__(9779);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseGetTag.js + 2 modules
-var _baseGetTag = __webpack_require__(8496);
-// EXTERNAL MODULE: ./node_modules/lodash-es/isArray.js
-var isArray = __webpack_require__(2049);
-// EXTERNAL MODULE: ./node_modules/lodash-es/isObjectLike.js
-var isObjectLike = __webpack_require__(3098);
-;// ./node_modules/lodash-es/isString.js
-
-
-
-
-/** `Object#toString` result references. */
-var stringTag = '[object String]';
-
-/**
- * Checks if `value` is classified as a `String` primitive or object.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a string, else `false`.
- * @example
- *
- * _.isString('abc');
- * // => true
- *
- * _.isString(1);
- * // => false
- */
-function isString(value) {
-  return typeof value == 'string' ||
-    (!(0,isArray/* default */.A)(value) && (0,isObjectLike/* default */.A)(value) && (0,_baseGetTag/* default */.A)(value) == stringTag);
-}
-
-/* harmony default export */ const lodash_es_isString = (isString);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseProperty.js
-var _baseProperty = __webpack_require__(805);
-;// ./node_modules/lodash-es/_asciiSize.js
-
-
-/**
- * Gets the size of an ASCII `string`.
- *
- * @private
- * @param {string} string The string inspect.
- * @returns {number} Returns the string size.
- */
-var asciiSize = (0,_baseProperty/* default */.A)('length');
-
-/* harmony default export */ const _asciiSize = (asciiSize);
-
-;// ./node_modules/lodash-es/_hasUnicode.js
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsZWJ = '\\u200d';
-
-/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
-
-/**
- * Checks if `string` contains Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a symbol is found, else `false`.
- */
-function hasUnicode(string) {
-  return reHasUnicode.test(string);
-}
-
-/* harmony default export */ const _hasUnicode = (hasUnicode);
-
-;// ./node_modules/lodash-es/_unicodeSize.js
-/** Used to compose unicode character classes. */
-var _unicodeSize_rsAstralRange = '\\ud800-\\udfff',
-    _unicodeSize_rsComboMarksRange = '\\u0300-\\u036f',
-    _unicodeSize_reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    _unicodeSize_rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    _unicodeSize_rsComboRange = _unicodeSize_rsComboMarksRange + _unicodeSize_reComboHalfMarksRange + _unicodeSize_rsComboSymbolsRange,
-    _unicodeSize_rsVarRange = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsAstral = '[' + _unicodeSize_rsAstralRange + ']',
-    rsCombo = '[' + _unicodeSize_rsComboRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
-    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
-    rsNonAstral = '[^' + _unicodeSize_rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    _unicodeSize_rsZWJ = '\\u200d';
-
-/** Used to compose unicode regexes. */
-var reOptMod = rsModifier + '?',
-    rsOptVar = '[' + _unicodeSize_rsVarRange + ']?',
-    rsOptJoin = '(?:' + _unicodeSize_rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
-    rsSeq = rsOptVar + reOptMod + rsOptJoin,
-    rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
-
-/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
-var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
-
-/**
- * Gets the size of a Unicode `string`.
- *
- * @private
- * @param {string} string The string inspect.
- * @returns {number} Returns the string size.
- */
-function unicodeSize(string) {
-  var result = reUnicode.lastIndex = 0;
-  while (reUnicode.test(string)) {
-    ++result;
-  }
-  return result;
-}
-
-/* harmony default export */ const _unicodeSize = (unicodeSize);
-
-;// ./node_modules/lodash-es/_stringSize.js
-
-
-
-
-/**
- * Gets the number of symbols in `string`.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {number} Returns the string size.
- */
-function stringSize(string) {
-  return _hasUnicode(string)
-    ? _unicodeSize(string)
-    : _asciiSize(string);
-}
-
-/* harmony default export */ const _stringSize = (stringSize);
-
-;// ./node_modules/lodash-es/size.js
-
-
-
-
-
-
-/** `Object#toString` result references. */
-var mapTag = '[object Map]',
-    setTag = '[object Set]';
-
-/**
- * Gets the size of `collection` by returning its length for array-like
- * values or the number of own enumerable string keyed properties for objects.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object|string} collection The collection to inspect.
- * @returns {number} Returns the collection size.
- * @example
- *
- * _.size([1, 2, 3]);
- * // => 3
- *
- * _.size({ 'a': 1, 'b': 2 });
- * // => 2
- *
- * _.size('pebbles');
- * // => 7
- */
-function size(collection) {
-  if (collection == null) {
-    return 0;
-  }
-  if ((0,isArrayLike/* default */.A)(collection)) {
-    return lodash_es_isString(collection) ? _stringSize(collection) : collection.length;
-  }
-  var tag = (0,_getTag/* default */.A)(collection);
-  if (tag == mapTag || tag == setTag) {
-    return collection.size;
-  }
-  return (0,_baseKeys/* default */.A)(collection).length;
-}
-
-/* harmony default export */ const lodash_es_size = (size);
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/topsort.js
-
-
-
-
-topsort_topsort.CycleException = topsort_CycleException;
-
-function topsort_topsort(g) {
-  var visited = {};
-  var stack = {};
-  var results = [];
-
-  function visit(node) {
-    if (has/* default */.A(stack, node)) {
-      throw new topsort_CycleException();
-    }
-
-    if (!has/* default */.A(visited, node)) {
-      stack[node] = true;
-      visited[node] = true;
-      forEach/* default */.A(g.predecessors(node), visit);
-      delete stack[node];
-      results.push(node);
-    }
-  }
-
-  forEach/* default */.A(g.sinks(), visit);
-
-  if (lodash_es_size(visited) !== g.nodeCount()) {
-    throw new topsort_CycleException();
-  }
-
-  return results;
-}
-
-function topsort_CycleException() {}
-topsort_CycleException.prototype = new Error(); // must be an instance of Error to pass testing
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/is-acyclic.js
-
-
-
-
-function isAcyclic(g) {
-  try {
-    topsort(g);
-  } catch (e) {
-    if (e instanceof CycleException) {
-      return false;
-    }
-    throw e;
-  }
-  return true;
-}
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/dfs.js
-
-
-
-
-/*
- * A helper that preforms a pre- or post-order traversal on the input graph
- * and returns the nodes in the order they were visited. If the graph is
- * undirected then this algorithm will navigate using neighbors. If the graph
- * is directed then this algorithm will navigate using successors.
- *
- * Order must be one of "pre" or "post".
- */
-function dfs(g, vs, order) {
-  if (!isArray/* default */.A(vs)) {
-    vs = [vs];
-  }
-
-  var navigation = (g.isDirected() ? g.successors : g.neighbors).bind(g);
-
-  var acc = [];
-  var visited = {};
-  forEach/* default */.A(vs, function (v) {
-    if (!g.hasNode(v)) {
-      throw new Error('Graph does not have node: ' + v);
-    }
-
-    doDfs(g, v, order === 'post', visited, navigation, acc);
-  });
-  return acc;
-}
-
-function doDfs(g, v, postorder, visited, navigation, acc) {
-  if (!has/* default */.A(visited, v)) {
-    visited[v] = true;
-
-    if (!postorder) {
-      acc.push(v);
-    }
-    forEach/* default */.A(navigation(v), function (w) {
-      doDfs(g, w, postorder, visited, navigation, acc);
-    });
-    if (postorder) {
-      acc.push(v);
-    }
-  }
-}
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/postorder.js
-
-
-
-
-function postorder(g, vs) {
-  return dfs(g, vs, 'post');
-}
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/preorder.js
-
-
-
-
-function preorder(g, vs) {
-  return dfs(g, vs, 'pre');
-}
-
-// EXTERNAL MODULE: ./node_modules/dagre-d3-es/src/graphlib/graph.js + 9 modules
-var graph = __webpack_require__(3046);
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/prim.js
-
-
-
-
-
-
-function prim(g, weightFunc) {
-  var result = new Graph();
-  var parents = {};
-  var pq = new PriorityQueue();
-  var v;
-
-  function updateNeighbors(edge) {
-    var w = edge.v === v ? edge.w : edge.v;
-    var pri = pq.priority(w);
-    if (pri !== undefined) {
-      var edgeWeight = weightFunc(edge);
-      if (edgeWeight < pri) {
-        parents[w] = v;
-        pq.decrease(w, edgeWeight);
-      }
-    }
-  }
-
-  if (g.nodeCount() === 0) {
-    return result;
-  }
-
-  _.each(g.nodes(), function (v) {
-    pq.add(v, Number.POSITIVE_INFINITY);
-    result.setNode(v);
-  });
-
-  // Start from an arbitrary node
-  pq.decrease(g.nodes()[0], 0);
-
-  var init = false;
-  while (pq.size() > 0) {
-    v = pq.removeMin();
-    if (_.has(parents, v)) {
-      result.setEdge(v, parents[v]);
-    } else if (init) {
-      throw new Error('Input graph is not connected: ' + g);
-    } else {
-      init = true;
-    }
-
-    g.nodeEdges(v).forEach(updateNeighbors);
-  }
-
-  return result;
-}
-
-;// ./node_modules/dagre-d3-es/src/graphlib/alg/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;// ./node_modules/dagre-d3-es/src/dagre/rank/network-simplex.js
-
-
-
-
-
-
-
-
-// Expose some internals for testing purposes
-networkSimplex.initLowLimValues = initLowLimValues;
-networkSimplex.initCutValues = initCutValues;
-networkSimplex.calcCutValue = calcCutValue;
-networkSimplex.leaveEdge = leaveEdge;
-networkSimplex.enterEdge = enterEdge;
-networkSimplex.exchangeEdges = exchangeEdges;
-
-/*
- * The network simplex algorithm assigns ranks to each node in the input graph
- * and iteratively improves the ranking to reduce the length of edges.
- *
- * Preconditions:
- *
- *    1. The input graph must be a DAG.
- *    2. All nodes in the graph must have an object value.
- *    3. All edges in the graph must have "minlen" and "weight" attributes.
- *
- * Postconditions:
- *
- *    1. All nodes in the graph will have an assigned "rank" attribute that has
- *       been optimized by the network simplex algorithm. Ranks start at 0.
- *
- *
- * A rough sketch of the algorithm is as follows:
- *
- *    1. Assign initial ranks to each node. We use the longest path algorithm,
- *       which assigns ranks to the lowest position possible. In general this
- *       leads to very wide bottom ranks and unnecessarily long edges.
- *    2. Construct a feasible tight tree. A tight tree is one such that all
- *       edges in the tree have no slack (difference between length of edge
- *       and minlen for the edge). This by itself greatly improves the assigned
- *       rankings by shorting edges.
- *    3. Iteratively find edges that have negative cut values. Generally a
- *       negative cut value indicates that the edge could be removed and a new
- *       tree edge could be added to produce a more compact graph.
- *
- * Much of the algorithms here are derived from Gansner, et al., "A Technique
- * for Drawing Directed Graphs." The structure of the file roughly follows the
- * structure of the overall algorithm.
- */
-function networkSimplex(g) {
-  g = simplify(g);
-  longestPath(g);
-  var t = feasibleTree(g);
-  initLowLimValues(t);
-  initCutValues(t, g);
-
-  var e, f;
-  while ((e = leaveEdge(t))) {
-    f = enterEdge(t, g, e);
-    exchangeEdges(t, g, e, f);
-  }
-}
-
-/*
- * Initializes cut values for all edges in the tree.
- */
-function initCutValues(t, g) {
-  var vs = postorder(t, t.nodes());
-  vs = vs.slice(0, vs.length - 1);
-  forEach/* default */.A(vs, function (v) {
-    assignCutValue(t, g, v);
-  });
-}
-
-function assignCutValue(t, g, child) {
-  var childLab = t.node(child);
-  var parent = childLab.parent;
-  t.edge(child, parent).cutvalue = calcCutValue(t, g, child);
-}
-
-/*
- * Given the tight tree, its graph, and a child in the graph calculate and
- * return the cut value for the edge between the child and its parent.
- */
-function calcCutValue(t, g, child) {
-  var childLab = t.node(child);
-  var parent = childLab.parent;
-  // True if the child is on the tail end of the edge in the directed graph
-  var childIsTail = true;
-  // The graph's view of the tree edge we're inspecting
-  var graphEdge = g.edge(child, parent);
-  // The accumulated cut value for the edge between this node and its parent
-  var cutValue = 0;
-
-  if (!graphEdge) {
-    childIsTail = false;
-    graphEdge = g.edge(parent, child);
-  }
-
-  cutValue = graphEdge.weight;
-
-  forEach/* default */.A(g.nodeEdges(child), function (e) {
-    var isOutEdge = e.v === child,
-      other = isOutEdge ? e.w : e.v;
-
-    if (other !== parent) {
-      var pointsToHead = isOutEdge === childIsTail,
-        otherWeight = g.edge(e).weight;
-
-      cutValue += pointsToHead ? otherWeight : -otherWeight;
-      if (isTreeEdge(t, child, other)) {
-        var otherCutValue = t.edge(child, other).cutvalue;
-        cutValue += pointsToHead ? -otherCutValue : otherCutValue;
-      }
-    }
-  });
-
-  return cutValue;
-}
-
-function initLowLimValues(tree, root) {
-  if (arguments.length < 2) {
-    root = tree.nodes()[0];
-  }
-  dfsAssignLowLim(tree, {}, 1, root);
-}
-
-function dfsAssignLowLim(tree, visited, nextLim, v, parent) {
-  var low = nextLim;
-  var label = tree.node(v);
-
-  visited[v] = true;
-  forEach/* default */.A(tree.neighbors(v), function (w) {
-    if (!has/* default */.A(visited, w)) {
-      nextLim = dfsAssignLowLim(tree, visited, nextLim, w, v);
-    }
-  });
-
-  label.low = low;
-  label.lim = nextLim++;
-  if (parent) {
-    label.parent = parent;
-  } else {
-    // TODO should be able to remove this when we incrementally update low lim
-    delete label.parent;
-  }
-
-  return nextLim;
-}
-
-function leaveEdge(tree) {
-  return lodash_es_find(tree.edges(), function (e) {
-    return tree.edge(e).cutvalue < 0;
-  });
-}
-
-function enterEdge(t, g, edge) {
-  var v = edge.v;
-  var w = edge.w;
-
-  // For the rest of this function we assume that v is the tail and w is the
-  // head, so if we don't have this edge in the graph we should flip it to
-  // match the correct orientation.
-  if (!g.hasEdge(v, w)) {
-    v = edge.w;
-    w = edge.v;
-  }
-
-  var vLabel = t.node(v);
-  var wLabel = t.node(w);
-  var tailLabel = vLabel;
-  var flip = false;
-
-  // If the root is in the tail of the edge then we need to flip the logic that
-  // checks for the head and tail nodes in the candidates function below.
-  if (vLabel.lim > wLabel.lim) {
-    tailLabel = wLabel;
-    flip = true;
-  }
-
-  var candidates = filter/* default */.A(g.edges(), function (edge) {
-    return (
-      flip === isDescendant(t, t.node(edge.v), tailLabel) &&
-      flip !== isDescendant(t, t.node(edge.w), tailLabel)
-    );
-  });
-
-  return lodash_es_minBy(candidates, function (edge) {
-    return slack(g, edge);
-  });
-}
-
-function exchangeEdges(t, g, e, f) {
-  var v = e.v;
-  var w = e.w;
-  t.removeEdge(v, w);
-  t.setEdge(f.v, f.w, {});
-  initLowLimValues(t);
-  initCutValues(t, g);
-  updateRanks(t, g);
-}
-
-function updateRanks(t, g) {
-  var root = lodash_es_find(t.nodes(), function (v) {
-    return !g.node(v).parent;
-  });
-  var vs = preorder(t, root);
-  vs = vs.slice(1);
-  forEach/* default */.A(vs, function (v) {
-    var parent = t.node(v).parent,
-      edge = g.edge(v, parent),
-      flipped = false;
-
-    if (!edge) {
-      edge = g.edge(parent, v);
-      flipped = true;
-    }
-
-    g.node(v).rank = g.node(parent).rank + (flipped ? edge.minlen : -edge.minlen);
-  });
-}
-
-/*
- * Returns true if the edge is in the tree.
- */
-function isTreeEdge(tree, u, v) {
-  return tree.hasEdge(u, v);
-}
-
-/*
- * Returns true if the specified node is descendant of the root node per the
- * assigned low and lim attributes in the tree.
- */
-function isDescendant(tree, vLabel, rootLabel) {
-  return rootLabel.low <= vLabel.lim && vLabel.lim <= rootLabel.lim;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/rank/index.js
-
-
-
-
-
-
-/*
- * Assigns a rank to each node in the input graph that respects the "minlen"
- * constraint specified on edges between nodes.
- *
- * This basic structure is derived from Gansner, et al., "A Technique for
- * Drawing Directed Graphs."
- *
- * Pre-conditions:
- *
- *    1. Graph must be a connected DAG
- *    2. Graph nodes must be objects
- *    3. Graph edges must have "weight" and "minlen" attributes
- *
- * Post-conditions:
- *
- *    1. Graph nodes will have a "rank" attribute based on the results of the
- *       algorithm. Ranks can start at any index (including negative), we'll
- *       fix them up later.
- */
-function rank(g) {
-  switch (g.graph().ranker) {
-    case 'network-simplex':
-      networkSimplexRanker(g);
-      break;
-    case 'tight-tree':
-      tightTreeRanker(g);
-      break;
-    case 'longest-path':
-      longestPathRanker(g);
-      break;
-    default:
-      networkSimplexRanker(g);
-  }
-}
-
-// A fast and simple ranker, but results are far from optimal.
-var longestPathRanker = longestPath;
-
-function tightTreeRanker(g) {
-  longestPath(g);
-  feasibleTree(g);
-}
-
-function networkSimplexRanker(g) {
-  networkSimplex(g);
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/values.js + 1 modules
-var values = __webpack_require__(8207);
-// EXTERNAL MODULE: ./node_modules/lodash-es/reduce.js + 2 modules
-var reduce = __webpack_require__(9463);
-;// ./node_modules/dagre-d3-es/src/dagre/nesting-graph.js
-
-
-
-
-
-/*
- * A nesting graph creates dummy nodes for the tops and bottoms of subgraphs,
- * adds appropriate edges to ensure that all cluster nodes are placed between
- * these boundries, and ensures that the graph is connected.
- *
- * In addition we ensure, through the use of the minlen property, that nodes
- * and subgraph border nodes to not end up on the same rank.
- *
- * Preconditions:
- *
- *    1. Input graph is a DAG
- *    2. Nodes in the input graph has a minlen attribute
- *
- * Postconditions:
- *
- *    1. Input graph is connected.
- *    2. Dummy nodes are added for the tops and bottoms of subgraphs.
- *    3. The minlen attribute for nodes is adjusted to ensure nodes do not
- *       get placed on the same rank as subgraph border nodes.
- *
- * The nesting graph idea comes from Sander, "Layout of Compound Directed
- * Graphs."
- */
-function nesting_graph_run(g) {
-  var root = addDummyNode(g, 'root', {}, '_root');
-  var depths = treeDepths(g);
-  var height = lodash_es_max(values/* default */.A(depths)) - 1; // Note: depths is an Object not an array
-  var nodeSep = 2 * height + 1;
-
-  g.graph().nestingRoot = root;
-
-  // Multiply minlen by nodeSep to align nodes on non-border ranks.
-  forEach/* default */.A(g.edges(), function (e) {
-    g.edge(e).minlen *= nodeSep;
-  });
-
-  // Calculate a weight that is sufficient to keep subgraphs vertically compact
-  var weight = sumWeights(g) + 1;
-
-  // Create border nodes and link them up
-  forEach/* default */.A(g.children(), function (child) {
-    nesting_graph_dfs(g, root, nodeSep, weight, height, depths, child);
-  });
-
-  // Save the multiplier for node layers for later removal of empty border
-  // layers.
-  g.graph().nodeRankFactor = nodeSep;
-}
-
-function nesting_graph_dfs(g, root, nodeSep, weight, height, depths, v) {
-  var children = g.children(v);
-  if (!children.length) {
-    if (v !== root) {
-      g.setEdge(root, v, { weight: 0, minlen: nodeSep });
-    }
-    return;
-  }
-
-  var top = addBorderNode(g, '_bt');
-  var bottom = addBorderNode(g, '_bb');
-  var label = g.node(v);
-
-  g.setParent(top, v);
-  label.borderTop = top;
-  g.setParent(bottom, v);
-  label.borderBottom = bottom;
-
-  forEach/* default */.A(children, function (child) {
-    nesting_graph_dfs(g, root, nodeSep, weight, height, depths, child);
-
-    var childNode = g.node(child);
-    var childTop = childNode.borderTop ? childNode.borderTop : child;
-    var childBottom = childNode.borderBottom ? childNode.borderBottom : child;
-    var thisWeight = childNode.borderTop ? weight : 2 * weight;
-    var minlen = childTop !== childBottom ? 1 : height - depths[v] + 1;
-
-    g.setEdge(top, childTop, {
-      weight: thisWeight,
-      minlen: minlen,
-      nestingEdge: true,
-    });
-
-    g.setEdge(childBottom, bottom, {
-      weight: thisWeight,
-      minlen: minlen,
-      nestingEdge: true,
-    });
-  });
-
-  if (!g.parent(v)) {
-    g.setEdge(root, top, { weight: 0, minlen: height + depths[v] });
-  }
-}
-
-function treeDepths(g) {
-  var depths = {};
-  function dfs(v, depth) {
-    var children = g.children(v);
-    if (children && children.length) {
-      forEach/* default */.A(children, function (child) {
-        dfs(child, depth + 1);
-      });
-    }
-    depths[v] = depth;
-  }
-  forEach/* default */.A(g.children(), function (v) {
-    dfs(v, 1);
-  });
-  return depths;
-}
-
-function sumWeights(g) {
-  return reduce/* default */.A(
-    g.edges(),
-    function (acc, e) {
-      return acc + g.edge(e).weight;
-    },
-    0
-  );
-}
-
-function cleanup(g) {
-  var graphLabel = g.graph();
-  g.removeNode(graphLabel.nestingRoot);
-  delete graphLabel.nestingRoot;
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    if (edge.nestingEdge) {
-      g.removeEdge(e);
-    }
-  });
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseClone.js + 15 modules
-var _baseClone = __webpack_require__(1641);
-;// ./node_modules/lodash-es/cloneDeep.js
-
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/**
- * This method is like `_.clone` except that it recursively clones `value`.
- *
- * @static
- * @memberOf _
- * @since 1.0.0
- * @category Lang
- * @param {*} value The value to recursively clone.
- * @returns {*} Returns the deep cloned value.
- * @see _.clone
- * @example
- *
- * var objects = [{ 'a': 1 }, { 'b': 2 }];
- *
- * var deep = _.cloneDeep(objects);
- * console.log(deep[0] === objects[0]);
- * // => false
- */
-function cloneDeep(value) {
-  return (0,_baseClone/* default */.A)(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG);
-}
-
-/* harmony default export */ const lodash_es_cloneDeep = (cloneDeep);
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/add-subgraph-constraints.js
-
-
-
-
-function addSubgraphConstraints(g, cg, vs) {
-  var prev = {},
-    rootPrev;
-
-  forEach/* default */.A(vs, function (v) {
-    var child = g.parent(v),
-      parent,
-      prevChild;
-    while (child) {
-      parent = g.parent(child);
-      if (parent) {
-        prevChild = prev[parent];
-        prev[parent] = child;
-      } else {
-        prevChild = rootPrev;
-        rootPrev = child;
-      }
-      if (prevChild && prevChild !== child) {
-        cg.setEdge(prevChild, child);
-        return;
-      }
-      child = parent;
-    }
-  });
-
-  /*
-  function dfs(v) {
-    var children = v ? g.children(v) : g.children();
-    if (children.length) {
-      var min = Number.POSITIVE_INFINITY,
-          subgraphs = [];
-      _.each(children, function(child) {
-        var childMin = dfs(child);
-        if (g.children(child).length) {
-          subgraphs.push({ v: child, order: childMin });
-        }
-        min = Math.min(min, childMin);
-      });
-      _.reduce(_.sortBy(subgraphs, "order"), function(prev, curr) {
-        cg.setEdge(prev.v, curr.v);
-        return curr;
-      });
-      return min;
-    }
-    return g.node(v).order;
-  }
-  dfs(undefined);
-  */
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/build-layer-graph.js
-
-
-
-
-
-/*
- * Constructs a graph that can be used to sort a layer of nodes. The graph will
- * contain all base and subgraph nodes from the request layer in their original
- * hierarchy and any edges that are incident on these nodes and are of the type
- * requested by the "relationship" parameter.
- *
- * Nodes from the requested rank that do not have parents are assigned a root
- * node in the output graph, which is set in the root graph attribute. This
- * makes it easy to walk the hierarchy of movable nodes during ordering.
- *
- * Pre-conditions:
- *
- *    1. Input graph is a DAG
- *    2. Base nodes in the input graph have a rank attribute
- *    3. Subgraph nodes in the input graph has minRank and maxRank attributes
- *    4. Edges have an assigned weight
- *
- * Post-conditions:
- *
- *    1. Output graph has all nodes in the movable rank with preserved
- *       hierarchy.
- *    2. Root nodes in the movable layer are made children of the node
- *       indicated by the root attribute of the graph.
- *    3. Non-movable nodes incident on movable nodes, selected by the
- *       relationship parameter, are included in the graph (without hierarchy).
- *    4. Edges incident on movable nodes, selected by the relationship
- *       parameter, are added to the output graph.
- *    5. The weights for copied edges are aggregated as need, since the output
- *       graph is not a multi-graph.
- */
-function buildLayerGraph(g, rank, relationship) {
-  var root = createRootNode(g),
-    result = new graphlib/* Graph */.T({ compound: true })
-      .setGraph({ root: root })
-      .setDefaultNodeLabel(function (v) {
-        return g.node(v);
-      });
-
-  forEach/* default */.A(g.nodes(), function (v) {
-    var node = g.node(v),
-      parent = g.parent(v);
-
-    if (node.rank === rank || (node.minRank <= rank && rank <= node.maxRank)) {
-      result.setNode(v);
-      result.setParent(v, parent || root);
-
-      // This assumes we have only short edges!
-      forEach/* default */.A(g[relationship](v), function (e) {
-        var u = e.v === v ? e.w : e.v,
-          edge = result.edge(u, v),
-          weight = !isUndefined/* default */.A(edge) ? edge.weight : 0;
-        result.setEdge(u, v, { weight: g.edge(e).weight + weight });
-      });
-
-      if (has/* default */.A(node, 'minRank')) {
-        result.setNode(v, {
-          borderLeft: node.borderLeft[rank],
-          borderRight: node.borderRight[rank],
-        });
-      }
-    }
-  });
-
-  return result;
-}
-
-function createRootNode(g) {
-  var v;
-  while (g.hasNode((v = uniqueId/* default */.A('_root'))));
-  return v;
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_assignValue.js
-var _assignValue = __webpack_require__(2851);
-;// ./node_modules/lodash-es/_baseZipObject.js
-/**
- * This base implementation of `_.zipObject` which assigns values using `assignFunc`.
- *
- * @private
- * @param {Array} props The property identifiers.
- * @param {Array} values The property values.
- * @param {Function} assignFunc The function to assign values.
- * @returns {Object} Returns the new object.
- */
-function baseZipObject(props, values, assignFunc) {
-  var index = -1,
-      length = props.length,
-      valsLength = values.length,
-      result = {};
-
-  while (++index < length) {
-    var value = index < valsLength ? values[index] : undefined;
-    assignFunc(result, props[index], value);
-  }
-  return result;
-}
-
-/* harmony default export */ const _baseZipObject = (baseZipObject);
-
-;// ./node_modules/lodash-es/zipObject.js
-
-
-
-/**
- * This method is like `_.fromPairs` except that it accepts two arrays,
- * one of property identifiers and one of corresponding values.
- *
- * @static
- * @memberOf _
- * @since 0.4.0
- * @category Array
- * @param {Array} [props=[]] The property identifiers.
- * @param {Array} [values=[]] The property values.
- * @returns {Object} Returns the new object.
- * @example
- *
- * _.zipObject(['a', 'b'], [1, 2]);
- * // => { 'a': 1, 'b': 2 }
- */
-function zipObject(props, values) {
-  return _baseZipObject(props || [], values || [], _assignValue/* default */.A);
-}
-
-/* harmony default export */ const lodash_es_zipObject = (zipObject);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseFlatten.js + 1 modules
-var _baseFlatten = __webpack_require__(3588);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_arrayMap.js
-var _arrayMap = __webpack_require__(5572);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseGet.js
-var _baseGet = __webpack_require__(6318);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseMap.js
-var _baseMap = __webpack_require__(2568);
-;// ./node_modules/lodash-es/_baseSortBy.js
-/**
- * The base implementation of `_.sortBy` which uses `comparer` to define the
- * sort order of `array` and replaces criteria objects with their corresponding
- * values.
- *
- * @private
- * @param {Array} array The array to sort.
- * @param {Function} comparer The function to define sort order.
- * @returns {Array} Returns `array`.
- */
-function baseSortBy(array, comparer) {
-  var length = array.length;
-
-  array.sort(comparer);
-  while (length--) {
-    array[length] = array[length].value;
-  }
-  return array;
-}
-
-/* harmony default export */ const _baseSortBy = (baseSortBy);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseUnary.js
-var _baseUnary = __webpack_require__(2789);
-;// ./node_modules/lodash-es/_compareAscending.js
-
-
-/**
- * Compares values to sort them in ascending order.
- *
- * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {number} Returns the sort order indicator for `value`.
- */
-function compareAscending(value, other) {
-  if (value !== other) {
-    var valIsDefined = value !== undefined,
-        valIsNull = value === null,
-        valIsReflexive = value === value,
-        valIsSymbol = (0,isSymbol/* default */.A)(value);
-
-    var othIsDefined = other !== undefined,
-        othIsNull = other === null,
-        othIsReflexive = other === other,
-        othIsSymbol = (0,isSymbol/* default */.A)(other);
-
-    if ((!othIsNull && !othIsSymbol && !valIsSymbol && value > other) ||
-        (valIsSymbol && othIsDefined && othIsReflexive && !othIsNull && !othIsSymbol) ||
-        (valIsNull && othIsDefined && othIsReflexive) ||
-        (!valIsDefined && othIsReflexive) ||
-        !valIsReflexive) {
-      return 1;
-    }
-    if ((!valIsNull && !valIsSymbol && !othIsSymbol && value < other) ||
-        (othIsSymbol && valIsDefined && valIsReflexive && !valIsNull && !valIsSymbol) ||
-        (othIsNull && valIsDefined && valIsReflexive) ||
-        (!othIsDefined && valIsReflexive) ||
-        !othIsReflexive) {
-      return -1;
-    }
-  }
-  return 0;
-}
-
-/* harmony default export */ const _compareAscending = (compareAscending);
-
-;// ./node_modules/lodash-es/_compareMultiple.js
-
-
-/**
- * Used by `_.orderBy` to compare multiple properties of a value to another
- * and stable sort them.
- *
- * If `orders` is unspecified, all values are sorted in ascending order. Otherwise,
- * specify an order of "desc" for descending or "asc" for ascending sort order
- * of corresponding values.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {boolean[]|string[]} orders The order to sort by for each property.
- * @returns {number} Returns the sort order indicator for `object`.
- */
-function compareMultiple(object, other, orders) {
-  var index = -1,
-      objCriteria = object.criteria,
-      othCriteria = other.criteria,
-      length = objCriteria.length,
-      ordersLength = orders.length;
-
-  while (++index < length) {
-    var result = _compareAscending(objCriteria[index], othCriteria[index]);
-    if (result) {
-      if (index >= ordersLength) {
-        return result;
-      }
-      var order = orders[index];
-      return result * (order == 'desc' ? -1 : 1);
-    }
-  }
-  // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
-  // that causes it, under certain circumstances, to provide the same value for
-  // `object` and `other`. See https://github.com/jashkenas/underscore/pull/1247
-  // for more details.
-  //
-  // This also ensures a stable sort in V8 and other engines.
-  // See https://bugs.chromium.org/p/v8/issues/detail?id=90 for more details.
-  return object.index - other.index;
-}
-
-/* harmony default export */ const _compareMultiple = (compareMultiple);
-
-;// ./node_modules/lodash-es/_baseOrderBy.js
-
-
-
-
-
-
-
-
-
-
-/**
- * The base implementation of `_.orderBy` without param guards.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
- * @param {string[]} orders The sort orders of `iteratees`.
- * @returns {Array} Returns the new sorted array.
- */
-function baseOrderBy(collection, iteratees, orders) {
-  if (iteratees.length) {
-    iteratees = (0,_arrayMap/* default */.A)(iteratees, function(iteratee) {
-      if ((0,isArray/* default */.A)(iteratee)) {
-        return function(value) {
-          return (0,_baseGet/* default */.A)(value, iteratee.length === 1 ? iteratee[0] : iteratee);
-        }
-      }
-      return iteratee;
-    });
-  } else {
-    iteratees = [identity/* default */.A];
-  }
-
-  var index = -1;
-  iteratees = (0,_arrayMap/* default */.A)(iteratees, (0,_baseUnary/* default */.A)(_baseIteratee/* default */.A));
-
-  var result = (0,_baseMap/* default */.A)(collection, function(value, key, collection) {
-    var criteria = (0,_arrayMap/* default */.A)(iteratees, function(iteratee) {
-      return iteratee(value);
-    });
-    return { 'criteria': criteria, 'index': ++index, 'value': value };
-  });
-
-  return _baseSortBy(result, function(object, other) {
-    return _compareMultiple(object, other, orders);
-  });
-}
-
-/* harmony default export */ const _baseOrderBy = (baseOrderBy);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseRest.js
-var _baseRest = __webpack_require__(4326);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_isIterateeCall.js
-var _isIterateeCall = __webpack_require__(6832);
-;// ./node_modules/lodash-es/sortBy.js
-
-
-
-
-
-/**
- * Creates an array of elements, sorted in ascending order by the results of
- * running each element in a collection thru each iteratee. This method
- * performs a stable sort, that is, it preserves the original sort order of
- * equal elements. The iteratees are invoked with one argument: (value).
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {...(Function|Function[])} [iteratees=[_.identity]]
- *  The iteratees to sort by.
- * @returns {Array} Returns the new sorted array.
- * @example
- *
- * var users = [
- *   { 'user': 'fred',   'age': 48 },
- *   { 'user': 'barney', 'age': 36 },
- *   { 'user': 'fred',   'age': 30 },
- *   { 'user': 'barney', 'age': 34 }
- * ];
- *
- * _.sortBy(users, [function(o) { return o.user; }]);
- * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 30]]
- *
- * _.sortBy(users, ['user', 'age']);
- * // => objects for [['barney', 34], ['barney', 36], ['fred', 30], ['fred', 48]]
- */
-var sortBy = (0,_baseRest/* default */.A)(function(collection, iteratees) {
-  if (collection == null) {
-    return [];
-  }
-  var length = iteratees.length;
-  if (length > 1 && (0,_isIterateeCall/* default */.A)(collection, iteratees[0], iteratees[1])) {
-    iteratees = [];
-  } else if (length > 2 && (0,_isIterateeCall/* default */.A)(iteratees[0], iteratees[1], iteratees[2])) {
-    iteratees = [iteratees[0]];
-  }
-  return _baseOrderBy(collection, (0,_baseFlatten/* default */.A)(iteratees, 1), []);
-});
-
-/* harmony default export */ const lodash_es_sortBy = (sortBy);
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/cross-count.js
-
-
-
-
-/*
- * A function that takes a layering (an array of layers, each with an array of
- * ordererd nodes) and a graph and returns a weighted crossing count.
- *
- * Pre-conditions:
- *
- *    1. Input graph must be simple (not a multigraph), directed, and include
- *       only simple edges.
- *    2. Edges in the input graph must have assigned weights.
- *
- * Post-conditions:
- *
- *    1. The graph and layering matrix are left unchanged.
- *
- * This algorithm is derived from Barth, et al., "Bilayer Cross Counting."
- */
-function crossCount(g, layering) {
-  var cc = 0;
-  for (var i = 1; i < layering.length; ++i) {
-    cc += twoLayerCrossCount(g, layering[i - 1], layering[i]);
-  }
-  return cc;
-}
-
-function twoLayerCrossCount(g, northLayer, southLayer) {
-  // Sort all of the edges between the north and south layers by their position
-  // in the north layer and then the south. Map these edges to the position of
-  // their head in the south layer.
-  var southPos = lodash_es_zipObject(
-    southLayer,
-    map/* default */.A(southLayer, function (v, i) {
-      return i;
-    })
-  );
-  var southEntries = flatten/* default */.A(
-    map/* default */.A(northLayer, function (v) {
-      return lodash_es_sortBy(
-        map/* default */.A(g.outEdges(v), function (e) {
-          return { pos: southPos[e.w], weight: g.edge(e).weight };
-        }),
-        'pos'
-      );
-    })
-  );
-
-  // Build the accumulator tree
-  var firstIndex = 1;
-  while (firstIndex < southLayer.length) firstIndex <<= 1;
-  var treeSize = 2 * firstIndex - 1;
-  firstIndex -= 1;
-  var tree = map/* default */.A(new Array(treeSize), function () {
-    return 0;
-  });
-
-  // Calculate the weighted crossings
-  var cc = 0;
-  forEach/* default */.A(
-    // @ts-expect-error
-    southEntries.forEach(function (entry) {
-      var index = entry.pos + firstIndex;
-      tree[index] += entry.weight;
-      var weightSum = 0;
-      // @ts-expect-error
-      while (index > 0) {
-        // @ts-expect-error
-        if (index % 2) {
-          weightSum += tree[index + 1];
-        }
-        // @ts-expect-error
-        index = (index - 1) >> 1;
-        tree[index] += entry.weight;
-      }
-      cc += entry.weight * weightSum;
-    })
-  );
-
-  return cc;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/init-order.js
-
-
-
-
-/*
- * Assigns an initial order value for each node by performing a DFS search
- * starting from nodes in the first rank. Nodes are assigned an order in their
- * rank as they are first visited.
- *
- * This approach comes from Gansner, et al., "A Technique for Drawing Directed
- * Graphs."
- *
- * Returns a layering matrix with an array per layer and each layer sorted by
- * the order of its nodes.
- */
-function initOrder(g) {
-  var visited = {};
-  var simpleNodes = filter/* default */.A(g.nodes(), function (v) {
-    return !g.children(v).length;
-  });
-  var maxRank = lodash_es_max(
-    map/* default */.A(simpleNodes, function (v) {
-      return g.node(v).rank;
-    })
-  );
-  var layers = map/* default */.A(range/* default */.A(maxRank + 1), function () {
-    return [];
-  });
-
-  function dfs(v) {
-    if (has/* default */.A(visited, v)) return;
-    visited[v] = true;
-    var node = g.node(v);
-    layers[node.rank].push(v);
-    forEach/* default */.A(g.successors(v), dfs);
-  }
-
-  var orderedVs = lodash_es_sortBy(simpleNodes, function (v) {
-    return g.node(v).rank;
-  });
-  forEach/* default */.A(orderedVs, dfs);
-
-  return layers;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/barycenter.js
-
-
-
-
-function barycenter(g, movable) {
-  return map/* default */.A(movable, function (v) {
-    var inV = g.inEdges(v);
-    if (!inV.length) {
-      return { v: v };
-    } else {
-      var result = reduce/* default */.A(
-        inV,
-        function (acc, e) {
-          var edge = g.edge(e),
-            nodeU = g.node(e.v);
-          return {
-            sum: acc.sum + edge.weight * nodeU.order,
-            weight: acc.weight + edge.weight,
-          };
-        },
-        { sum: 0, weight: 0 }
-      );
-
-      return {
-        v: v,
-        barycenter: result.sum / result.weight,
-        weight: result.weight,
-      };
-    }
-  });
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/resolve-conflicts.js
-
-
-
-
-/*
- * Given a list of entries of the form {v, barycenter, weight} and a
- * constraint graph this function will resolve any conflicts between the
- * constraint graph and the barycenters for the entries. If the barycenters for
- * an entry would violate a constraint in the constraint graph then we coalesce
- * the nodes in the conflict into a new node that respects the contraint and
- * aggregates barycenter and weight information.
- *
- * This implementation is based on the description in Forster, "A Fast and
- * Simple Hueristic for Constrained Two-Level Crossing Reduction," thought it
- * differs in some specific details.
- *
- * Pre-conditions:
- *
- *    1. Each entry has the form {v, barycenter, weight}, or if the node has
- *       no barycenter, then {v}.
- *
- * Returns:
- *
- *    A new list of entries of the form {vs, i, barycenter, weight}. The list
- *    `vs` may either be a singleton or it may be an aggregation of nodes
- *    ordered such that they do not violate constraints from the constraint
- *    graph. The property `i` is the lowest original index of any of the
- *    elements in `vs`.
- */
-function resolveConflicts(entries, cg) {
-  var mappedEntries = {};
-  forEach/* default */.A(entries, function (entry, i) {
-    var tmp = (mappedEntries[entry.v] = {
-      indegree: 0,
-      in: [],
-      out: [],
-      vs: [entry.v],
-      i: i,
-    });
-    if (!isUndefined/* default */.A(entry.barycenter)) {
-      // @ts-expect-error
-      tmp.barycenter = entry.barycenter;
-      // @ts-expect-error
-      tmp.weight = entry.weight;
-    }
-  });
-
-  forEach/* default */.A(cg.edges(), function (e) {
-    var entryV = mappedEntries[e.v];
-    var entryW = mappedEntries[e.w];
-    if (!isUndefined/* default */.A(entryV) && !isUndefined/* default */.A(entryW)) {
-      entryW.indegree++;
-      entryV.out.push(mappedEntries[e.w]);
-    }
-  });
-
-  var sourceSet = filter/* default */.A(mappedEntries, function (entry) {
-    // @ts-expect-error
-    return !entry.indegree;
-  });
-
-  return doResolveConflicts(sourceSet);
-}
-
-function doResolveConflicts(sourceSet) {
-  var entries = [];
-
-  function handleIn(vEntry) {
-    return function (uEntry) {
-      if (uEntry.merged) {
-        return;
-      }
-      if (
-        isUndefined/* default */.A(uEntry.barycenter) ||
-        isUndefined/* default */.A(vEntry.barycenter) ||
-        uEntry.barycenter >= vEntry.barycenter
-      ) {
-        mergeEntries(vEntry, uEntry);
-      }
-    };
-  }
-
-  function handleOut(vEntry) {
-    return function (wEntry) {
-      wEntry['in'].push(vEntry);
-      if (--wEntry.indegree === 0) {
-        sourceSet.push(wEntry);
-      }
-    };
-  }
-
-  while (sourceSet.length) {
-    var entry = sourceSet.pop();
-    entries.push(entry);
-    forEach/* default */.A(entry['in'].reverse(), handleIn(entry));
-    forEach/* default */.A(entry.out, handleOut(entry));
-  }
-
-  return map/* default */.A(
-    filter/* default */.A(entries, function (entry) {
-      return !entry.merged;
-    }),
-    function (entry) {
-      return pick/* default */.A(entry, ['vs', 'i', 'barycenter', 'weight']);
-    }
-  );
-}
-
-function mergeEntries(target, source) {
-  var sum = 0;
-  var weight = 0;
-
-  if (target.weight) {
-    sum += target.barycenter * target.weight;
-    weight += target.weight;
-  }
-
-  if (source.weight) {
-    sum += source.barycenter * source.weight;
-    weight += source.weight;
-  }
-
-  target.vs = source.vs.concat(target.vs);
-  target.barycenter = sum / weight;
-  target.weight = weight;
-  target.i = Math.min(source.i, target.i);
-  source.merged = true;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/sort.js
-
-
-
-
-
-function sort(entries, biasRight) {
-  var parts = partition(entries, function (entry) {
-    return has/* default */.A(entry, 'barycenter');
-  });
-  var sortable = parts.lhs,
-    unsortable = lodash_es_sortBy(parts.rhs, function (entry) {
-      return -entry.i;
-    }),
-    vs = [],
-    sum = 0,
-    weight = 0,
-    vsIndex = 0;
-
-  sortable.sort(compareWithBias(!!biasRight));
-
-  vsIndex = consumeUnsortable(vs, unsortable, vsIndex);
-
-  forEach/* default */.A(sortable, function (entry) {
-    vsIndex += entry.vs.length;
-    vs.push(entry.vs);
-    sum += entry.barycenter * entry.weight;
-    weight += entry.weight;
-    vsIndex = consumeUnsortable(vs, unsortable, vsIndex);
-  });
-
-  var result = { vs: flatten/* default */.A(vs) };
-  if (weight) {
-    result.barycenter = sum / weight;
-    result.weight = weight;
-  }
-  return result;
-}
-
-function consumeUnsortable(vs, unsortable, index) {
-  var last;
-  while (unsortable.length && (last = lodash_es_last(unsortable)).i <= index) {
-    unsortable.pop();
-    vs.push(last.vs);
-    index++;
-  }
-  return index;
-}
-
-function compareWithBias(bias) {
-  return function (entryV, entryW) {
-    if (entryV.barycenter < entryW.barycenter) {
-      return -1;
-    } else if (entryV.barycenter > entryW.barycenter) {
-      return 1;
-    }
-
-    return !bias ? entryV.i - entryW.i : entryW.i - entryV.i;
-  };
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/sort-subgraph.js
-
-
-
-
-
-
-
-function sortSubgraph(g, v, cg, biasRight) {
-  var movable = g.children(v);
-  var node = g.node(v);
-  var bl = node ? node.borderLeft : undefined;
-  var br = node ? node.borderRight : undefined;
-  var subgraphs = {};
-
-  if (bl) {
-    movable = filter/* default */.A(movable, function (w) {
-      return w !== bl && w !== br;
-    });
-  }
-
-  var barycenters = barycenter(g, movable);
-  forEach/* default */.A(barycenters, function (entry) {
-    if (g.children(entry.v).length) {
-      var subgraphResult = sortSubgraph(g, entry.v, cg, biasRight);
-      subgraphs[entry.v] = subgraphResult;
-      if (has/* default */.A(subgraphResult, 'barycenter')) {
-        mergeBarycenters(entry, subgraphResult);
-      }
-    }
-  });
-
-  var entries = resolveConflicts(barycenters, cg);
-  expandSubgraphs(entries, subgraphs);
-
-  var result = sort(entries, biasRight);
-
-  if (bl) {
-    result.vs = flatten/* default */.A([bl, result.vs, br]);
-    if (g.predecessors(bl).length) {
-      var blPred = g.node(g.predecessors(bl)[0]),
-        brPred = g.node(g.predecessors(br)[0]);
-      if (!has/* default */.A(result, 'barycenter')) {
-        result.barycenter = 0;
-        result.weight = 0;
-      }
-      result.barycenter =
-        (result.barycenter * result.weight + blPred.order + brPred.order) / (result.weight + 2);
-      result.weight += 2;
-    }
-  }
-
-  return result;
-}
-
-function expandSubgraphs(entries, subgraphs) {
-  forEach/* default */.A(entries, function (entry) {
-    entry.vs = flatten/* default */.A(
-      entry.vs.map(function (v) {
-        if (subgraphs[v]) {
-          return subgraphs[v].vs;
-        }
-        return v;
-      })
-    );
-  });
-}
-
-function mergeBarycenters(target, other) {
-  if (!isUndefined/* default */.A(target.barycenter)) {
-    target.barycenter =
-      (target.barycenter * target.weight + other.barycenter * other.weight) /
-      (target.weight + other.weight);
-    target.weight += other.weight;
-  } else {
-    target.barycenter = other.barycenter;
-    target.weight = other.weight;
-  }
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/order/index.js
-
-
-
-
-
-
-
-
-
-
-
-/*
- * Applies heuristics to minimize edge crossings in the graph and sets the best
- * order solution as an order attribute on each node.
- *
- * Pre-conditions:
- *
- *    1. Graph must be DAG
- *    2. Graph nodes must be objects with a "rank" attribute
- *    3. Graph edges must have the "weight" attribute
- *
- * Post-conditions:
- *
- *    1. Graph nodes will have an "order" attribute based on the results of the
- *       algorithm.
- */
-function order(g) {
-  var maxRank = util_maxRank(g),
-    downLayerGraphs = buildLayerGraphs(g, range/* default */.A(1, maxRank + 1), 'inEdges'),
-    upLayerGraphs = buildLayerGraphs(g, range/* default */.A(maxRank - 1, -1, -1), 'outEdges');
-
-  var layering = initOrder(g);
-  assignOrder(g, layering);
-
-  var bestCC = Number.POSITIVE_INFINITY,
-    best;
-
-  for (var i = 0, lastBest = 0; lastBest < 4; ++i, ++lastBest) {
-    sweepLayerGraphs(i % 2 ? downLayerGraphs : upLayerGraphs, i % 4 >= 2);
-
-    layering = buildLayerMatrix(g);
-    var cc = crossCount(g, layering);
-    if (cc < bestCC) {
-      lastBest = 0;
-      best = lodash_es_cloneDeep(layering);
-      bestCC = cc;
-    }
-  }
-
-  assignOrder(g, best);
-}
-
-function buildLayerGraphs(g, ranks, relationship) {
-  return map/* default */.A(ranks, function (rank) {
-    return buildLayerGraph(g, rank, relationship);
-  });
-}
-
-function sweepLayerGraphs(layerGraphs, biasRight) {
-  var cg = new graphlib/* Graph */.T();
-  forEach/* default */.A(layerGraphs, function (lg) {
-    var root = lg.graph().root;
-    var sorted = sortSubgraph(lg, root, cg, biasRight);
-    forEach/* default */.A(sorted.vs, function (v, i) {
-      lg.node(v).order = i;
-    });
-    addSubgraphConstraints(lg, cg, sorted.vs);
-  });
-}
-
-function assignOrder(g, layering) {
-  forEach/* default */.A(layering, function (layer) {
-    forEach/* default */.A(layer, function (v, i) {
-      g.node(v).order = i;
-    });
-  });
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/parent-dummy-chains.js
-
-
-
-
-function parentDummyChains(g) {
-  var postorderNums = parent_dummy_chains_postorder(g);
-
-  forEach/* default */.A(g.graph().dummyChains, function (v) {
-    var node = g.node(v);
-    var edgeObj = node.edgeObj;
-    var pathData = findPath(g, postorderNums, edgeObj.v, edgeObj.w);
-    var path = pathData.path;
-    var lca = pathData.lca;
-    var pathIdx = 0;
-    var pathV = path[pathIdx];
-    var ascending = true;
-
-    while (v !== edgeObj.w) {
-      node = g.node(v);
-
-      if (ascending) {
-        while ((pathV = path[pathIdx]) !== lca && g.node(pathV).maxRank < node.rank) {
-          pathIdx++;
-        }
-
-        if (pathV === lca) {
-          ascending = false;
-        }
-      }
-
-      if (!ascending) {
-        while (
-          pathIdx < path.length - 1 &&
-          g.node((pathV = path[pathIdx + 1])).minRank <= node.rank
-        ) {
-          pathIdx++;
-        }
-        pathV = path[pathIdx];
-      }
-
-      g.setParent(v, pathV);
-      v = g.successors(v)[0];
-    }
-  });
-}
-
-// Find a path from v to w through the lowest common ancestor (LCA). Return the
-// full path and the LCA.
-function findPath(g, postorderNums, v, w) {
-  var vPath = [];
-  var wPath = [];
-  var low = Math.min(postorderNums[v].low, postorderNums[w].low);
-  var lim = Math.max(postorderNums[v].lim, postorderNums[w].lim);
-  var parent;
-  var lca;
-
-  // Traverse up from v to find the LCA
-  parent = v;
-  do {
-    parent = g.parent(parent);
-    vPath.push(parent);
-  } while (parent && (postorderNums[parent].low > low || lim > postorderNums[parent].lim));
-  lca = parent;
-
-  // Traverse from w to LCA
-  parent = w;
-  while ((parent = g.parent(parent)) !== lca) {
-    wPath.push(parent);
-  }
-
-  return { path: vPath.concat(wPath.reverse()), lca: lca };
-}
-
-function parent_dummy_chains_postorder(g) {
-  var result = {};
-  var lim = 0;
-
-  function dfs(v) {
-    var low = lim;
-    forEach/* default */.A(g.children(v), dfs);
-    result[v] = { low: low, lim: lim++ };
-  }
-  forEach/* default */.A(g.children(), dfs);
-
-  return result;
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_castFunction.js
-var _castFunction = __webpack_require__(9922);
-;// ./node_modules/lodash-es/forOwn.js
-
-
-
-/**
- * Iterates over own enumerable string keyed properties of an object and
- * invokes `iteratee` for each property. The iteratee is invoked with three
- * arguments: (value, key, object). Iteratee functions may exit iteration
- * early by explicitly returning `false`.
- *
- * @static
- * @memberOf _
- * @since 0.3.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns `object`.
- * @see _.forOwnRight
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.forOwn(new Foo, function(value, key) {
- *   console.log(key);
- * });
- * // => Logs 'a' then 'b' (iteration order is not guaranteed).
- */
-function forOwn(object, iteratee) {
-  return object && (0,_baseForOwn/* default */.A)(object, (0,_castFunction/* default */.A)(iteratee));
-}
-
-/* harmony default export */ const lodash_es_forOwn = (forOwn);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseFor.js + 1 modules
-var _baseFor = __webpack_require__(4574);
-// EXTERNAL MODULE: ./node_modules/lodash-es/keysIn.js + 2 modules
-var keysIn = __webpack_require__(5615);
-;// ./node_modules/lodash-es/forIn.js
-
-
-
-
-/**
- * Iterates over own and inherited enumerable string keyed properties of an
- * object and invokes `iteratee` for each property. The iteratee is invoked
- * with three arguments: (value, key, object). Iteratee functions may exit
- * iteration early by explicitly returning `false`.
- *
- * @static
- * @memberOf _
- * @since 0.3.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns `object`.
- * @see _.forInRight
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.forIn(new Foo, function(value, key) {
- *   console.log(key);
- * });
- * // => Logs 'a', 'b', then 'c' (iteration order is not guaranteed).
- */
-function forIn(object, iteratee) {
-  return object == null
-    ? object
-    : (0,_baseFor/* default */.A)(object, (0,_castFunction/* default */.A)(iteratee), keysIn/* default */.A);
-}
-
-/* harmony default export */ const lodash_es_forIn = (forIn);
-
-;// ./node_modules/dagre-d3-es/src/dagre/position/bk.js
-
-
-
-
-/*
- * This module provides coordinate assignment based on Brandes and Köpf, "Fast
- * and Simple Horizontal Coordinate Assignment."
- */
-
-
-
-/*
- * Marks all edges in the graph with a type-1 conflict with the "type1Conflict"
- * property. A type-1 conflict is one where a non-inner segment crosses an
- * inner segment. An inner segment is an edge with both incident nodes marked
- * with the "dummy" property.
- *
- * This algorithm scans layer by layer, starting with the second, for type-1
- * conflicts between the current layer and the previous layer. For each layer
- * it scans the nodes from left to right until it reaches one that is incident
- * on an inner segment. It then scans predecessors to determine if they have
- * edges that cross that inner segment. At the end a final scan is done for all
- * nodes on the current rank to see if they cross the last visited inner
- * segment.
- *
- * This algorithm (safely) assumes that a dummy node will only be incident on a
- * single node in the layers being scanned.
- */
-function findType1Conflicts(g, layering) {
-  var conflicts = {};
-
-  function visitLayer(prevLayer, layer) {
-    var // last visited node in the previous layer that is incident on an inner
-      // segment.
-      k0 = 0,
-      // Tracks the last node in this layer scanned for crossings with a type-1
-      // segment.
-      scanPos = 0,
-      prevLayerLength = prevLayer.length,
-      lastNode = lodash_es_last(layer);
-
-    forEach/* default */.A(layer, function (v, i) {
-      var w = findOtherInnerSegmentNode(g, v),
-        k1 = w ? g.node(w).order : prevLayerLength;
-
-      if (w || v === lastNode) {
-        forEach/* default */.A(layer.slice(scanPos, i + 1), function (scanNode) {
-          forEach/* default */.A(g.predecessors(scanNode), function (u) {
-            var uLabel = g.node(u),
-              uPos = uLabel.order;
-            if ((uPos < k0 || k1 < uPos) && !(uLabel.dummy && g.node(scanNode).dummy)) {
-              addConflict(conflicts, u, scanNode);
-            }
-          });
-        });
-        // @ts-expect-error
-        scanPos = i + 1;
-        k0 = k1;
-      }
-    });
-
-    return layer;
-  }
-
-  reduce/* default */.A(layering, visitLayer);
-  return conflicts;
-}
-
-function findType2Conflicts(g, layering) {
-  var conflicts = {};
-
-  function scan(south, southPos, southEnd, prevNorthBorder, nextNorthBorder) {
-    var v;
-    forEach/* default */.A(range/* default */.A(southPos, southEnd), function (i) {
-      v = south[i];
-      if (g.node(v).dummy) {
-        forEach/* default */.A(g.predecessors(v), function (u) {
-          var uNode = g.node(u);
-          if (uNode.dummy && (uNode.order < prevNorthBorder || uNode.order > nextNorthBorder)) {
-            addConflict(conflicts, u, v);
-          }
-        });
-      }
-    });
-  }
-
-  function visitLayer(north, south) {
-    var prevNorthPos = -1,
-      nextNorthPos,
-      southPos = 0;
-
-    forEach/* default */.A(south, function (v, southLookahead) {
-      if (g.node(v).dummy === 'border') {
-        var predecessors = g.predecessors(v);
-        if (predecessors.length) {
-          nextNorthPos = g.node(predecessors[0]).order;
-          scan(south, southPos, southLookahead, prevNorthPos, nextNorthPos);
-          // @ts-expect-error
-          southPos = southLookahead;
-          prevNorthPos = nextNorthPos;
-        }
-      }
-      scan(south, southPos, south.length, nextNorthPos, north.length);
-    });
-
-    return south;
-  }
-
-  reduce/* default */.A(layering, visitLayer);
-  return conflicts;
-}
-
-function findOtherInnerSegmentNode(g, v) {
-  if (g.node(v).dummy) {
-    return lodash_es_find(g.predecessors(v), function (u) {
-      return g.node(u).dummy;
-    });
-  }
-}
-
-function addConflict(conflicts, v, w) {
-  if (v > w) {
-    var tmp = v;
-    v = w;
-    w = tmp;
-  }
-
-  var conflictsV = conflicts[v];
-  if (!conflictsV) {
-    conflicts[v] = conflictsV = {};
-  }
-  conflictsV[w] = true;
-}
-
-function hasConflict(conflicts, v, w) {
-  if (v > w) {
-    var tmp = v;
-    v = w;
-    w = tmp;
-  }
-  return has/* default */.A(conflicts[v], w);
-}
-
-/*
- * Try to align nodes into vertical "blocks" where possible. This algorithm
- * attempts to align a node with one of its median neighbors. If the edge
- * connecting a neighbor is a type-1 conflict then we ignore that possibility.
- * If a previous node has already formed a block with a node after the node
- * we're trying to form a block with, we also ignore that possibility - our
- * blocks would be split in that scenario.
- */
-function verticalAlignment(g, layering, conflicts, neighborFn) {
-  var root = {},
-    align = {},
-    pos = {};
-
-  // We cache the position here based on the layering because the graph and
-  // layering may be out of sync. The layering matrix is manipulated to
-  // generate different extreme alignments.
-  forEach/* default */.A(layering, function (layer) {
-    forEach/* default */.A(layer, function (v, order) {
-      root[v] = v;
-      align[v] = v;
-      pos[v] = order;
-    });
-  });
-
-  forEach/* default */.A(layering, function (layer) {
-    var prevIdx = -1;
-    forEach/* default */.A(layer, function (v) {
-      var ws = neighborFn(v);
-      if (ws.length) {
-        ws = lodash_es_sortBy(ws, function (w) {
-          return pos[w];
-        });
-        var mp = (ws.length - 1) / 2;
-        for (var i = Math.floor(mp), il = Math.ceil(mp); i <= il; ++i) {
-          var w = ws[i];
-          if (align[v] === v && prevIdx < pos[w] && !hasConflict(conflicts, v, w)) {
-            align[w] = v;
-            align[v] = root[v] = root[w];
-            prevIdx = pos[w];
-          }
-        }
-      }
-    });
-  });
-
-  return { root: root, align: align };
-}
-
-function horizontalCompaction(g, layering, root, align, reverseSep) {
-  // This portion of the algorithm differs from BK due to a number of problems.
-  // Instead of their algorithm we construct a new block graph and do two
-  // sweeps. The first sweep places blocks with the smallest possible
-  // coordinates. The second sweep removes unused space by moving blocks to the
-  // greatest coordinates without violating separation.
-  var xs = {},
-    blockG = buildBlockGraph(g, layering, root, reverseSep),
-    borderType = reverseSep ? 'borderLeft' : 'borderRight';
-
-  function iterate(setXsFunc, nextNodesFunc) {
-    var stack = blockG.nodes();
-    var elem = stack.pop();
-    var visited = {};
-    while (elem) {
-      if (visited[elem]) {
-        setXsFunc(elem);
-      } else {
-        visited[elem] = true;
-        stack.push(elem);
-        stack = stack.concat(nextNodesFunc(elem));
-      }
-
-      elem = stack.pop();
-    }
-  }
-
-  // First pass, assign smallest coordinates
-  function pass1(elem) {
-    xs[elem] = blockG.inEdges(elem).reduce(function (acc, e) {
-      return Math.max(acc, xs[e.v] + blockG.edge(e));
-    }, 0);
-  }
-
-  // Second pass, assign greatest coordinates
-  function pass2(elem) {
-    var min = blockG.outEdges(elem).reduce(function (acc, e) {
-      return Math.min(acc, xs[e.w] - blockG.edge(e));
-    }, Number.POSITIVE_INFINITY);
-
-    var node = g.node(elem);
-    if (min !== Number.POSITIVE_INFINITY && node.borderType !== borderType) {
-      xs[elem] = Math.max(xs[elem], min);
-    }
-  }
-
-  iterate(pass1, blockG.predecessors.bind(blockG));
-  iterate(pass2, blockG.successors.bind(blockG));
-
-  // Assign x coordinates to all nodes
-  forEach/* default */.A(align, function (v) {
-    xs[v] = xs[root[v]];
-  });
-
-  return xs;
-}
-
-function buildBlockGraph(g, layering, root, reverseSep) {
-  var blockGraph = new graphlib/* Graph */.T(),
-    graphLabel = g.graph(),
-    sepFn = sep(graphLabel.nodesep, graphLabel.edgesep, reverseSep);
-
-  forEach/* default */.A(layering, function (layer) {
-    var u;
-    forEach/* default */.A(layer, function (v) {
-      var vRoot = root[v];
-      blockGraph.setNode(vRoot);
-      if (u) {
-        var uRoot = root[u],
-          prevMax = blockGraph.edge(uRoot, vRoot);
-        blockGraph.setEdge(uRoot, vRoot, Math.max(sepFn(g, v, u), prevMax || 0));
-      }
-      u = v;
-    });
-  });
-
-  return blockGraph;
-}
-
-/*
- * Returns the alignment that has the smallest width of the given alignments.
- */
-function findSmallestWidthAlignment(g, xss) {
-  return lodash_es_minBy(values/* default */.A(xss), function (xs) {
-    var max = Number.NEGATIVE_INFINITY;
-    var min = Number.POSITIVE_INFINITY;
-
-    lodash_es_forIn(xs, function (x, v) {
-      var halfWidth = width(g, v) / 2;
-
-      max = Math.max(x + halfWidth, max);
-      min = Math.min(x - halfWidth, min);
-    });
-
-    return max - min;
-  });
-}
-
-/*
- * Align the coordinates of each of the layout alignments such that
- * left-biased alignments have their minimum coordinate at the same point as
- * the minimum coordinate of the smallest width alignment and right-biased
- * alignments have their maximum coordinate at the same point as the maximum
- * coordinate of the smallest width alignment.
- */
-function alignCoordinates(xss, alignTo) {
-  var alignToVals = values/* default */.A(alignTo),
-    alignToMin = lodash_es_min(alignToVals),
-    alignToMax = lodash_es_max(alignToVals);
-
-  forEach/* default */.A(['u', 'd'], function (vert) {
-    forEach/* default */.A(['l', 'r'], function (horiz) {
-      var alignment = vert + horiz,
-        xs = xss[alignment],
-        delta;
-      if (xs === alignTo) return;
-
-      var xsVals = values/* default */.A(xs);
-      delta = horiz === 'l' ? alignToMin - lodash_es_min(xsVals) : alignToMax - lodash_es_max(xsVals);
-
-      if (delta) {
-        xss[alignment] = lodash_es_mapValues(xs, function (x) {
-          return x + delta;
-        });
-      }
-    });
-  });
-}
-
-function balance(xss, align) {
-  return lodash_es_mapValues(xss.ul, function (ignore, v) {
-    if (align) {
-      return xss[align.toLowerCase()][v];
-    } else {
-      var xs = lodash_es_sortBy(map/* default */.A(xss, v));
-      return (xs[1] + xs[2]) / 2;
-    }
-  });
-}
-
-function positionX(g) {
-  var layering = buildLayerMatrix(g);
-  var conflicts = merge/* default */.A(findType1Conflicts(g, layering), findType2Conflicts(g, layering));
-
-  var xss = {};
-  var adjustedLayering;
-  forEach/* default */.A(['u', 'd'], function (vert) {
-    adjustedLayering = vert === 'u' ? layering : values/* default */.A(layering).reverse();
-    forEach/* default */.A(['l', 'r'], function (horiz) {
-      if (horiz === 'r') {
-        adjustedLayering = map/* default */.A(adjustedLayering, function (inner) {
-          return values/* default */.A(inner).reverse();
-        });
-      }
-
-      var neighborFn = (vert === 'u' ? g.predecessors : g.successors).bind(g);
-      var align = verticalAlignment(g, adjustedLayering, conflicts, neighborFn);
-      var xs = horizontalCompaction(g, adjustedLayering, align.root, align.align, horiz === 'r');
-      if (horiz === 'r') {
-        xs = lodash_es_mapValues(xs, function (x) {
-          return -x;
-        });
-      }
-      xss[vert + horiz] = xs;
-    });
-  });
-
-  var smallestWidth = findSmallestWidthAlignment(g, xss);
-  alignCoordinates(xss, smallestWidth);
-  return balance(xss, g.graph().align);
-}
-
-function sep(nodeSep, edgeSep, reverseSep) {
-  return function (g, v, w) {
-    var vLabel = g.node(v);
-    var wLabel = g.node(w);
-    var sum = 0;
-    var delta;
-
-    sum += vLabel.width / 2;
-    if (has/* default */.A(vLabel, 'labelpos')) {
-      switch (vLabel.labelpos.toLowerCase()) {
-        case 'l':
-          delta = -vLabel.width / 2;
-          break;
-        case 'r':
-          delta = vLabel.width / 2;
-          break;
-      }
-    }
-    if (delta) {
-      sum += reverseSep ? delta : -delta;
-    }
-    delta = 0;
-
-    sum += (vLabel.dummy ? edgeSep : nodeSep) / 2;
-    sum += (wLabel.dummy ? edgeSep : nodeSep) / 2;
-
-    sum += wLabel.width / 2;
-    if (has/* default */.A(wLabel, 'labelpos')) {
-      switch (wLabel.labelpos.toLowerCase()) {
-        case 'l':
-          delta = wLabel.width / 2;
-          break;
-        case 'r':
-          delta = -wLabel.width / 2;
-          break;
-      }
-    }
-    if (delta) {
-      sum += reverseSep ? delta : -delta;
-    }
-    delta = 0;
-
-    return sum;
-  };
-}
-
-function width(g, v) {
-  return g.node(v).width;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/position/index.js
-
-
-
-
-
-
-function position(g) {
-  g = asNonCompoundGraph(g);
-
-  positionY(g);
-  lodash_es_forOwn(positionX(g), function (x, v) {
-    g.node(v).x = x;
-  });
-}
-
-function positionY(g) {
-  var layering = buildLayerMatrix(g);
-  var rankSep = g.graph().ranksep;
-  var prevY = 0;
-  forEach/* default */.A(layering, function (layer) {
-    var maxHeight = lodash_es_max(
-      map/* default */.A(layer, function (v) {
-        return g.node(v).height;
-      })
-    );
-    forEach/* default */.A(layer, function (v) {
-      g.node(v).y = prevY + maxHeight / 2;
-    });
-    prevY += maxHeight + rankSep;
-  });
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/layout.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function layout(g, opts) {
-  var time = opts && opts.debugTiming ? util_time : notime;
-  time('layout', function () {
-    var layoutGraph = time('  buildLayoutGraph', function () {
-      return buildLayoutGraph(g);
-    });
-    time('  runLayout', function () {
-      runLayout(layoutGraph, time);
-    });
-    time('  updateInputGraph', function () {
-      updateInputGraph(g, layoutGraph);
-    });
-  });
-}
-
-function runLayout(g, time) {
-  time('    makeSpaceForEdgeLabels', function () {
-    makeSpaceForEdgeLabels(g);
-  });
-  time('    removeSelfEdges', function () {
-    removeSelfEdges(g);
-  });
-  time('    acyclic', function () {
-    run(g);
-  });
-  time('    nestingGraph.run', function () {
-    nesting_graph_run(g);
-  });
-  time('    rank', function () {
-    rank(asNonCompoundGraph(g));
-  });
-  time('    injectEdgeLabelProxies', function () {
-    injectEdgeLabelProxies(g);
-  });
-  time('    removeEmptyRanks', function () {
-    removeEmptyRanks(g);
-  });
-  time('    nestingGraph.cleanup', function () {
-    cleanup(g);
-  });
-  time('    normalizeRanks', function () {
-    normalizeRanks(g);
-  });
-  time('    assignRankMinMax', function () {
-    assignRankMinMax(g);
-  });
-  time('    removeEdgeLabelProxies', function () {
-    removeEdgeLabelProxies(g);
-  });
-  time('    normalize.run', function () {
-    normalize_run(g);
-  });
-  time('    parentDummyChains', function () {
-    parentDummyChains(g);
-  });
-  time('    addBorderSegments', function () {
-    addBorderSegments(g);
-  });
-  time('    order', function () {
-    order(g);
-  });
-  time('    insertSelfEdges', function () {
-    insertSelfEdges(g);
-  });
-  time('    adjustCoordinateSystem', function () {
-    adjust(g);
-  });
-  time('    position', function () {
-    position(g);
-  });
-  time('    positionSelfEdges', function () {
-    positionSelfEdges(g);
-  });
-  time('    removeBorderNodes', function () {
-    removeBorderNodes(g);
-  });
-  time('    normalize.undo', function () {
-    normalize_undo(g);
-  });
-  time('    fixupEdgeLabelCoords', function () {
-    fixupEdgeLabelCoords(g);
-  });
-  time('    undoCoordinateSystem', function () {
-    coordinate_system_undo(g);
-  });
-  time('    translateGraph', function () {
-    translateGraph(g);
-  });
-  time('    assignNodeIntersects', function () {
-    assignNodeIntersects(g);
-  });
-  time('    reversePoints', function () {
-    reversePointsForReversedEdges(g);
-  });
-  time('    acyclic.undo', function () {
-    undo(g);
-  });
-}
-
-/*
- * Copies final layout information from the layout graph back to the input
- * graph. This process only copies whitelisted attributes from the layout graph
- * to the input graph, so it serves as a good place to determine what
- * attributes can influence layout.
- */
-function updateInputGraph(inputGraph, layoutGraph) {
-  forEach/* default */.A(inputGraph.nodes(), function (v) {
-    var inputLabel = inputGraph.node(v);
-    var layoutLabel = layoutGraph.node(v);
-
-    if (inputLabel) {
-      inputLabel.x = layoutLabel.x;
-      inputLabel.y = layoutLabel.y;
-
-      if (layoutGraph.children(v).length) {
-        inputLabel.width = layoutLabel.width;
-        inputLabel.height = layoutLabel.height;
-      }
-    }
-  });
-
-  forEach/* default */.A(inputGraph.edges(), function (e) {
-    var inputLabel = inputGraph.edge(e);
-    var layoutLabel = layoutGraph.edge(e);
-
-    inputLabel.points = layoutLabel.points;
-    if (has/* default */.A(layoutLabel, 'x')) {
-      inputLabel.x = layoutLabel.x;
-      inputLabel.y = layoutLabel.y;
-    }
-  });
-
-  inputGraph.graph().width = layoutGraph.graph().width;
-  inputGraph.graph().height = layoutGraph.graph().height;
-}
-
-var graphNumAttrs = ['nodesep', 'edgesep', 'ranksep', 'marginx', 'marginy'];
-var graphDefaults = { ranksep: 50, edgesep: 20, nodesep: 50, rankdir: 'tb' };
-var graphAttrs = ['acyclicer', 'ranker', 'rankdir', 'align'];
-var nodeNumAttrs = ['width', 'height'];
-var nodeDefaults = { width: 0, height: 0 };
-var edgeNumAttrs = ['minlen', 'weight', 'width', 'height', 'labeloffset'];
-var edgeDefaults = {
-  minlen: 1,
-  weight: 1,
-  width: 0,
-  height: 0,
-  labeloffset: 10,
-  labelpos: 'r',
-};
-var edgeAttrs = ['labelpos'];
-
-/*
- * Constructs a new graph from the input graph, which can be used for layout.
- * This process copies only whitelisted attributes from the input graph to the
- * layout graph. Thus this function serves as a good place to determine what
- * attributes can influence layout.
- */
-function buildLayoutGraph(inputGraph) {
-  var g = new graphlib/* Graph */.T({ multigraph: true, compound: true });
-  var graph = canonicalize(inputGraph.graph());
-
-  g.setGraph(
-    merge/* default */.A({}, graphDefaults, selectNumberAttrs(graph, graphNumAttrs), pick/* default */.A(graph, graphAttrs))
-  );
-
-  forEach/* default */.A(inputGraph.nodes(), function (v) {
-    var node = canonicalize(inputGraph.node(v));
-    g.setNode(v, defaults/* default */.A(selectNumberAttrs(node, nodeNumAttrs), nodeDefaults));
-    g.setParent(v, inputGraph.parent(v));
-  });
-
-  forEach/* default */.A(inputGraph.edges(), function (e) {
-    var edge = canonicalize(inputGraph.edge(e));
-    g.setEdge(
-      e,
-      merge/* default */.A({}, edgeDefaults, selectNumberAttrs(edge, edgeNumAttrs), pick/* default */.A(edge, edgeAttrs))
-    );
-  });
-
-  return g;
-}
-
-/*
- * This idea comes from the Gansner paper: to account for edge labels in our
- * layout we split each rank in half by doubling minlen and halving ranksep.
- * Then we can place labels at these mid-points between nodes.
- *
- * We also add some minimal padding to the width to push the label for the edge
- * away from the edge itself a bit.
- */
-function makeSpaceForEdgeLabels(g) {
-  var graph = g.graph();
-  graph.ranksep /= 2;
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    edge.minlen *= 2;
-    if (edge.labelpos.toLowerCase() !== 'c') {
-      if (graph.rankdir === 'TB' || graph.rankdir === 'BT') {
-        edge.width += edge.labeloffset;
-      } else {
-        edge.height += edge.labeloffset;
-      }
-    }
-  });
-}
-
-/*
- * Creates temporary dummy nodes that capture the rank in which each edge's
- * label is going to, if it has one of non-zero width and height. We do this
- * so that we can safely remove empty ranks while preserving balance for the
- * label's position.
- */
-function injectEdgeLabelProxies(g) {
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    if (edge.width && edge.height) {
-      var v = g.node(e.v);
-      var w = g.node(e.w);
-      var label = { rank: (w.rank - v.rank) / 2 + v.rank, e: e };
-      addDummyNode(g, 'edge-proxy', label, '_ep');
-    }
-  });
-}
-
-function assignRankMinMax(g) {
-  var maxRank = 0;
-  forEach/* default */.A(g.nodes(), function (v) {
-    var node = g.node(v);
-    if (node.borderTop) {
-      node.minRank = g.node(node.borderTop).rank;
-      node.maxRank = g.node(node.borderBottom).rank;
-      // @ts-expect-error
-      maxRank = lodash_es_max(maxRank, node.maxRank);
-    }
-  });
-  g.graph().maxRank = maxRank;
-}
-
-function removeEdgeLabelProxies(g) {
-  forEach/* default */.A(g.nodes(), function (v) {
-    var node = g.node(v);
-    if (node.dummy === 'edge-proxy') {
-      g.edge(node.e).labelRank = node.rank;
-      g.removeNode(v);
-    }
-  });
-}
-
-function translateGraph(g) {
-  var minX = Number.POSITIVE_INFINITY;
-  var maxX = 0;
-  var minY = Number.POSITIVE_INFINITY;
-  var maxY = 0;
-  var graphLabel = g.graph();
-  var marginX = graphLabel.marginx || 0;
-  var marginY = graphLabel.marginy || 0;
-
-  function getExtremes(attrs) {
-    var x = attrs.x;
-    var y = attrs.y;
-    var w = attrs.width;
-    var h = attrs.height;
-    minX = Math.min(minX, x - w / 2);
-    maxX = Math.max(maxX, x + w / 2);
-    minY = Math.min(minY, y - h / 2);
-    maxY = Math.max(maxY, y + h / 2);
-  }
-
-  forEach/* default */.A(g.nodes(), function (v) {
-    getExtremes(g.node(v));
-  });
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    if (has/* default */.A(edge, 'x')) {
-      getExtremes(edge);
-    }
-  });
-
-  minX -= marginX;
-  minY -= marginY;
-
-  forEach/* default */.A(g.nodes(), function (v) {
-    var node = g.node(v);
-    node.x -= minX;
-    node.y -= minY;
-  });
-
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    forEach/* default */.A(edge.points, function (p) {
-      p.x -= minX;
-      p.y -= minY;
-    });
-    if (has/* default */.A(edge, 'x')) {
-      edge.x -= minX;
-    }
-    if (has/* default */.A(edge, 'y')) {
-      edge.y -= minY;
-    }
-  });
-
-  graphLabel.width = maxX - minX + marginX;
-  graphLabel.height = maxY - minY + marginY;
-}
-
-function assignNodeIntersects(g) {
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    var nodeV = g.node(e.v);
-    var nodeW = g.node(e.w);
-    var p1, p2;
-    if (!edge.points) {
-      edge.points = [];
-      p1 = nodeW;
-      p2 = nodeV;
-    } else {
-      p1 = edge.points[0];
-      p2 = edge.points[edge.points.length - 1];
-    }
-    edge.points.unshift(intersectRect(nodeV, p1));
-    edge.points.push(intersectRect(nodeW, p2));
-  });
-}
-
-function fixupEdgeLabelCoords(g) {
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    if (has/* default */.A(edge, 'x')) {
-      if (edge.labelpos === 'l' || edge.labelpos === 'r') {
-        edge.width -= edge.labeloffset;
-      }
-      switch (edge.labelpos) {
-        case 'l':
-          edge.x -= edge.width / 2 + edge.labeloffset;
-          break;
-        case 'r':
-          edge.x += edge.width / 2 + edge.labeloffset;
-          break;
-      }
-    }
-  });
-}
-
-function reversePointsForReversedEdges(g) {
-  forEach/* default */.A(g.edges(), function (e) {
-    var edge = g.edge(e);
-    if (edge.reversed) {
-      edge.points.reverse();
-    }
-  });
-}
-
-function removeBorderNodes(g) {
-  forEach/* default */.A(g.nodes(), function (v) {
-    if (g.children(v).length) {
-      var node = g.node(v);
-      var t = g.node(node.borderTop);
-      var b = g.node(node.borderBottom);
-      var l = g.node(lodash_es_last(node.borderLeft));
-      var r = g.node(lodash_es_last(node.borderRight));
-
-      node.width = Math.abs(r.x - l.x);
-      node.height = Math.abs(b.y - t.y);
-      node.x = l.x + node.width / 2;
-      node.y = t.y + node.height / 2;
-    }
-  });
-
-  forEach/* default */.A(g.nodes(), function (v) {
-    if (g.node(v).dummy === 'border') {
-      g.removeNode(v);
-    }
-  });
-}
-
-function removeSelfEdges(g) {
-  forEach/* default */.A(g.edges(), function (e) {
-    if (e.v === e.w) {
-      var node = g.node(e.v);
-      if (!node.selfEdges) {
-        node.selfEdges = [];
-      }
-      node.selfEdges.push({ e: e, label: g.edge(e) });
-      g.removeEdge(e);
-    }
-  });
-}
-
-function insertSelfEdges(g) {
-  var layers = buildLayerMatrix(g);
-  forEach/* default */.A(layers, function (layer) {
-    var orderShift = 0;
-    forEach/* default */.A(layer, function (v, i) {
-      var node = g.node(v);
-      node.order = i + orderShift;
-      forEach/* default */.A(node.selfEdges, function (selfEdge) {
-        addDummyNode(
-          g,
-          'selfedge',
-          {
-            width: selfEdge.label.width,
-            height: selfEdge.label.height,
-            rank: node.rank,
-            order: i + ++orderShift,
-            e: selfEdge.e,
-            label: selfEdge.label,
-          },
-          '_se'
-        );
-      });
-      delete node.selfEdges;
-    });
-  });
-}
-
-function positionSelfEdges(g) {
-  forEach/* default */.A(g.nodes(), function (v) {
-    var node = g.node(v);
-    if (node.dummy === 'selfedge') {
-      var selfNode = g.node(node.e.v);
-      var x = selfNode.x + selfNode.width / 2;
-      var y = selfNode.y;
-      var dx = node.x - x;
-      var dy = selfNode.height / 2;
-      g.setEdge(node.e, node.label);
-      g.removeNode(v);
-      node.label.points = [
-        { x: x + (2 * dx) / 3, y: y - dy },
-        { x: x + (5 * dx) / 6, y: y - dy },
-        { x: x + dx, y: y },
-        { x: x + (5 * dx) / 6, y: y + dy },
-        { x: x + (2 * dx) / 3, y: y + dy },
-      ];
-      node.label.x = node.x;
-      node.label.y = node.y;
-    }
-  });
-}
-
-function selectNumberAttrs(obj, attrs) {
-  return lodash_es_mapValues(pick/* default */.A(obj, attrs), Number);
-}
-
-function canonicalize(attrs) {
-  var newAttrs = {};
-  forEach/* default */.A(attrs, function (v, k) {
-    newAttrs[k.toLowerCase()] = v;
-  });
-  return newAttrs;
-}
-
-;// ./node_modules/dagre-d3-es/src/dagre/index.js
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ 1395:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ lodash_es_range)
-});
-
-;// ./node_modules/lodash-es/_baseRange.js
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeCeil = Math.ceil,
-    nativeMax = Math.max;
-
-/**
- * The base implementation of `_.range` and `_.rangeRight` which doesn't
- * coerce arguments.
- *
- * @private
- * @param {number} start The start of the range.
- * @param {number} end The end of the range.
- * @param {number} step The value to increment or decrement by.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Array} Returns the range of numbers.
- */
-function baseRange(start, end, step, fromRight) {
-  var index = -1,
-      length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
-      result = Array(length);
-
-  while (length--) {
-    result[fromRight ? length : ++index] = start;
-    start += step;
-  }
-  return result;
-}
-
-/* harmony default export */ const _baseRange = (baseRange);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_isIterateeCall.js
-var _isIterateeCall = __webpack_require__(6832);
-// EXTERNAL MODULE: ./node_modules/lodash-es/toFinite.js + 3 modules
-var toFinite = __webpack_require__(4342);
-;// ./node_modules/lodash-es/_createRange.js
-
-
-
-
-/**
- * Creates a `_.range` or `_.rangeRight` function.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new range function.
- */
-function createRange(fromRight) {
-  return function(start, end, step) {
-    if (step && typeof step != 'number' && (0,_isIterateeCall/* default */.A)(start, end, step)) {
-      end = step = undefined;
-    }
-    // Ensure the sign of `-0` is preserved.
-    start = (0,toFinite/* default */.A)(start);
-    if (end === undefined) {
-      end = start;
-      start = 0;
-    } else {
-      end = (0,toFinite/* default */.A)(end);
-    }
-    step = step === undefined ? (start < end ? 1 : -1) : (0,toFinite/* default */.A)(step);
-    return _baseRange(start, end, step, fromRight);
-  };
-}
-
-/* harmony default export */ const _createRange = (createRange);
-
-;// ./node_modules/lodash-es/range.js
-
-
-/**
- * Creates an array of numbers (positive and/or negative) progressing from
- * `start` up to, but not including, `end`. A step of `-1` is used if a negative
- * `start` is specified without an `end` or `step`. If `end` is not specified,
- * it's set to `start` with `start` then set to `0`.
- *
- * **Note:** JavaScript follows the IEEE-754 standard for resolving
- * floating-point values which can produce unexpected results.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {number} [start=0] The start of the range.
- * @param {number} end The end of the range.
- * @param {number} [step=1] The value to increment or decrement by.
- * @returns {Array} Returns the range of numbers.
- * @see _.inRange, _.rangeRight
- * @example
- *
- * _.range(4);
- * // => [0, 1, 2, 3]
- *
- * _.range(-4);
- * // => [0, -1, -2, -3]
- *
- * _.range(1, 5);
- * // => [1, 2, 3, 4]
- *
- * _.range(0, 20, 5);
- * // => [0, 5, 10, 15]
- *
- * _.range(0, -4, -1);
- * // => [0, -1, -2, -3]
- *
- * _.range(1, 4, 0);
- * // => [1, 1, 1]
- *
- * _.range(0);
- * // => []
- */
-var range = _createRange();
-
-/* harmony default export */ const lodash_es_range = (range);
-
-
-/***/ }),
-
 /***/ 1641:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -17735,7 +12908,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 // EXTERNAL MODULE: ./node_modules/lodash-es/_Stack.js + 5 modules
-var _Stack = __webpack_require__(9373);
+var _Stack = __webpack_require__(1754);
 // EXTERNAL MODULE: ./node_modules/lodash-es/_arrayEach.js
 var _arrayEach = __webpack_require__(2641);
 // EXTERNAL MODULE: ./node_modules/lodash-es/_assignValue.js
@@ -18475,189 +13648,6 @@ function isSymbol(value) {
 
 /***/ }),
 
-/***/ 1942:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ lodash_es_pick)
-});
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/_baseGet.js
-var _baseGet = __webpack_require__(6318);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_assignValue.js
-var _assignValue = __webpack_require__(2851);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_castPath.js + 2 modules
-var _castPath = __webpack_require__(7819);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_isIndex.js
-var _isIndex = __webpack_require__(5353);
-// EXTERNAL MODULE: ./node_modules/lodash-es/isObject.js
-var isObject = __webpack_require__(3149);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_toKey.js
-var _toKey = __webpack_require__(3282);
-;// ./node_modules/lodash-es/_baseSet.js
-
-
-
-
-
-
-/**
- * The base implementation of `_.set`.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {Array|string} path The path of the property to set.
- * @param {*} value The value to set.
- * @param {Function} [customizer] The function to customize path creation.
- * @returns {Object} Returns `object`.
- */
-function baseSet(object, path, value, customizer) {
-  if (!(0,isObject/* default */.A)(object)) {
-    return object;
-  }
-  path = (0,_castPath/* default */.A)(path, object);
-
-  var index = -1,
-      length = path.length,
-      lastIndex = length - 1,
-      nested = object;
-
-  while (nested != null && ++index < length) {
-    var key = (0,_toKey/* default */.A)(path[index]),
-        newValue = value;
-
-    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
-      return object;
-    }
-
-    if (index != lastIndex) {
-      var objValue = nested[key];
-      newValue = customizer ? customizer(objValue, key, nested) : undefined;
-      if (newValue === undefined) {
-        newValue = (0,isObject/* default */.A)(objValue)
-          ? objValue
-          : ((0,_isIndex/* default */.A)(path[index + 1]) ? [] : {});
-      }
-    }
-    (0,_assignValue/* default */.A)(nested, key, newValue);
-    nested = nested[key];
-  }
-  return object;
-}
-
-/* harmony default export */ const _baseSet = (baseSet);
-
-;// ./node_modules/lodash-es/_basePickBy.js
-
-
-
-
-/**
- * The base implementation of  `_.pickBy` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The source object.
- * @param {string[]} paths The property paths to pick.
- * @param {Function} predicate The function invoked per property.
- * @returns {Object} Returns the new object.
- */
-function basePickBy(object, paths, predicate) {
-  var index = -1,
-      length = paths.length,
-      result = {};
-
-  while (++index < length) {
-    var path = paths[index],
-        value = (0,_baseGet/* default */.A)(object, path);
-
-    if (predicate(value, path)) {
-      _baseSet(result, (0,_castPath/* default */.A)(path, object), value);
-    }
-  }
-  return result;
-}
-
-/* harmony default export */ const _basePickBy = (basePickBy);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/hasIn.js + 1 modules
-var hasIn = __webpack_require__(9188);
-;// ./node_modules/lodash-es/_basePick.js
-
-
-
-/**
- * The base implementation of `_.pick` without support for individual
- * property identifiers.
- *
- * @private
- * @param {Object} object The source object.
- * @param {string[]} paths The property paths to pick.
- * @returns {Object} Returns the new object.
- */
-function basePick(object, paths) {
-  return _basePickBy(object, paths, function(value, path) {
-    return (0,hasIn/* default */.A)(object, path);
-  });
-}
-
-/* harmony default export */ const _basePick = (basePick);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/flatten.js
-var flatten = __webpack_require__(4098);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_overRest.js + 1 modules
-var _overRest = __webpack_require__(6875);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_setToString.js + 2 modules
-var _setToString = __webpack_require__(7525);
-;// ./node_modules/lodash-es/_flatRest.js
-
-
-
-
-/**
- * A specialized version of `baseRest` which flattens the rest array.
- *
- * @private
- * @param {Function} func The function to apply a rest parameter to.
- * @returns {Function} Returns the new function.
- */
-function flatRest(func) {
-  return (0,_setToString/* default */.A)((0,_overRest/* default */.A)(func, undefined, flatten/* default */.A), func + '');
-}
-
-/* harmony default export */ const _flatRest = (flatRest);
-
-;// ./node_modules/lodash-es/pick.js
-
-
-
-/**
- * Creates an object composed of the picked `object` properties.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The source object.
- * @param {...(string|string[])} [paths] The property paths to pick.
- * @returns {Object} Returns the new object.
- * @example
- *
- * var object = { 'a': 1, 'b': '2', 'c': 3 };
- *
- * _.pick(object, ['a', 'c']);
- * // => { 'a': 1, 'c': 3 }
- */
-var pick = _flatRest(function(object, paths) {
-  return object == null ? {} : _basePick(object, paths);
-});
-
-/* harmony default export */ const lodash_es_pick = (pick);
-
-
-/***/ }),
-
 /***/ 2062:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -18734,107 +13724,6 @@ SetCache.prototype.add = SetCache.prototype.push = _setCacheAdd;
 SetCache.prototype.has = _setCacheHas;
 
 /* harmony default export */ const _SetCache = (SetCache);
-
-
-/***/ }),
-
-/***/ 2341:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _arrayMap_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5572);
-/* harmony import */ var _baseIteratee_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9574);
-/* harmony import */ var _baseMap_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2568);
-/* harmony import */ var _isArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2049);
-
-
-
-
-
-/**
- * Creates an array of values by running each element in `collection` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, index|key, collection).
- *
- * Many lodash methods are guarded to work as iteratees for methods like
- * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
- *
- * The guarded methods are:
- * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
- * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
- * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
- * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- * @example
- *
- * function square(n) {
- *   return n * n;
- * }
- *
- * _.map([4, 8], square);
- * // => [16, 64]
- *
- * _.map({ 'a': 4, 'b': 8 }, square);
- * // => [16, 64] (iteration order is not guaranteed)
- *
- * var users = [
- *   { 'user': 'barney' },
- *   { 'user': 'fred' }
- * ];
- *
- * // The `_.property` iteratee shorthand.
- * _.map(users, 'user');
- * // => ['barney', 'fred']
- */
-function map(collection, iteratee) {
-  var func = (0,_isArray_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(collection) ? _arrayMap_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A : _baseMap_js__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A;
-  return func(collection, (0,_baseIteratee_js__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .A)(iteratee, 3));
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (map);
-
-
-/***/ }),
-
-/***/ 2568:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _baseEach_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6240);
-/* harmony import */ var _isArrayLike_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8446);
-
-
-
-/**
- * The base implementation of `_.map` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function baseMap(collection, iteratee) {
-  var index = -1,
-      result = (0,_isArrayLike_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(collection) ? Array(collection.length) : [];
-
-  (0,_baseEach_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(collection, function(value, key, collection) {
-    result[++index] = iteratee(value, key, collection);
-  });
-  return result;
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (baseMap);
 
 
 /***/ }),
@@ -19712,84 +14601,6 @@ function edgeObjToId(isDirected, edgeObj) {
 
 /***/ }),
 
-/***/ 3068:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _baseRest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4326);
-/* harmony import */ var _eq_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6984);
-/* harmony import */ var _isIterateeCall_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6832);
-/* harmony import */ var _keysIn_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5615);
-
-
-
-
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Assigns own and inherited enumerable string keyed properties of source
- * objects to the destination object for all destination properties that
- * resolve to `undefined`. Source objects are applied from left to right.
- * Once a property is set, additional values of the same property are ignored.
- *
- * **Note:** This method mutates `object`.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The destination object.
- * @param {...Object} [sources] The source objects.
- * @returns {Object} Returns `object`.
- * @see _.defaultsDeep
- * @example
- *
- * _.defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
- * // => { 'a': 1, 'b': 2 }
- */
-var defaults = (0,_baseRest_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(function(object, sources) {
-  object = Object(object);
-
-  var index = -1;
-  var length = sources.length;
-  var guard = length > 2 ? sources[2] : undefined;
-
-  if (guard && (0,_isIterateeCall_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(sources[0], sources[1], guard)) {
-    length = 1;
-  }
-
-  while (++index < length) {
-    var source = sources[index];
-    var props = (0,_keysIn_js__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(source);
-    var propsIndex = -1;
-    var propsLength = props.length;
-
-    while (++propsIndex < propsLength) {
-      var key = props[propsIndex];
-      var value = object[key];
-
-      if (value === undefined ||
-          ((0,_eq_js__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .A)(value, objectProto[key]) && !hasOwnProperty.call(object, key))) {
-        object[key] = source[key];
-      }
-    }
-  }
-
-  return object;
-});
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (defaults);
-
-
-/***/ }),
-
 /***/ 3153:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -19969,117 +14780,6 @@ function baseGetAllKeys(object, keysFunc, symbolsFunc) {
 
 /***/ }),
 
-/***/ 4075:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   M: () => (/* binding */ write)
-/* harmony export */ });
-/* unused harmony export read */
-/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9592);
-/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
-/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2341);
-/* harmony import */ var _graph_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3046);
-
-
-
-
-
-function write(g) {
-  var json = {
-    options: {
-      directed: g.isDirected(),
-      multigraph: g.isMultigraph(),
-      compound: g.isCompound(),
-    },
-    nodes: writeNodes(g),
-    edges: writeEdges(g),
-  };
-  if (!lodash_es__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A(g.graph())) {
-    json.value = lodash_es__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A(g.graph());
-  }
-  return json;
-}
-
-function writeNodes(g) {
-  return lodash_es__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .A(g.nodes(), function (v) {
-    var nodeValue = g.node(v);
-    var parent = g.parent(v);
-    var node = { v: v };
-    if (!lodash_es__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A(nodeValue)) {
-      node.value = nodeValue;
-    }
-    if (!lodash_es__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A(parent)) {
-      node.parent = parent;
-    }
-    return node;
-  });
-}
-
-function writeEdges(g) {
-  return lodash_es__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .A(g.edges(), function (e) {
-    var edgeValue = g.edge(e);
-    var edge = { v: e.v, w: e.w };
-    if (!lodash_es__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A(e.name)) {
-      edge.name = e.name;
-    }
-    if (!lodash_es__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A(edgeValue)) {
-      edge.value = edgeValue;
-    }
-    return edge;
-  });
-}
-
-function read(json) {
-  var g = new Graph(json.options).setGraph(json.value);
-  _.each(json.nodes, function (entry) {
-    g.setNode(entry.v, entry.value);
-    if (entry.parent) {
-      g.setParent(entry.v, entry.parent);
-    }
-  });
-  _.each(json.edges, function (entry) {
-    g.setEdge({ v: entry.v, w: entry.w, name: entry.name }, entry.value);
-  });
-  return g;
-}
-
-
-/***/ }),
-
-/***/ 4098:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _baseFlatten_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3588);
-
-
-/**
- * Flattens `array` a single level deep.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Array
- * @param {Array} array The array to flatten.
- * @returns {Array} Returns the new flattened array.
- * @example
- *
- * _.flatten([1, [2, [3, [4]], 5]]);
- * // => [1, 2, [3, [4]], 5]
- */
-function flatten(array) {
-  var length = array == null ? 0 : array.length;
-  return length ? (0,_baseFlatten_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(array, 1) : [];
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (flatten);
-
-
-/***/ }),
-
 /***/ 4099:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -20099,174 +14799,6 @@ function cacheHas(cache, key) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cacheHas);
-
-
-/***/ }),
-
-/***/ 4342:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ lodash_es_toFinite)
-});
-
-;// ./node_modules/lodash-es/_trimmedEndIndex.js
-/** Used to match a single whitespace character. */
-var reWhitespace = /\s/;
-
-/**
- * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
- * character of `string`.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {number} Returns the index of the last non-whitespace character.
- */
-function trimmedEndIndex(string) {
-  var index = string.length;
-
-  while (index-- && reWhitespace.test(string.charAt(index))) {}
-  return index;
-}
-
-/* harmony default export */ const _trimmedEndIndex = (trimmedEndIndex);
-
-;// ./node_modules/lodash-es/_baseTrim.js
-
-
-/** Used to match leading whitespace. */
-var reTrimStart = /^\s+/;
-
-/**
- * The base implementation of `_.trim`.
- *
- * @private
- * @param {string} string The string to trim.
- * @returns {string} Returns the trimmed string.
- */
-function baseTrim(string) {
-  return string
-    ? string.slice(0, _trimmedEndIndex(string) + 1).replace(reTrimStart, '')
-    : string;
-}
-
-/* harmony default export */ const _baseTrim = (baseTrim);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/isObject.js
-var isObject = __webpack_require__(3149);
-// EXTERNAL MODULE: ./node_modules/lodash-es/isSymbol.js
-var isSymbol = __webpack_require__(1882);
-;// ./node_modules/lodash-es/toNumber.js
-
-
-
-
-/** Used as references for various `Number` constants. */
-var NAN = 0 / 0;
-
-/** Used to detect bad signed hexadecimal string values. */
-var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-/** Used to detect binary string values. */
-var reIsBinary = /^0b[01]+$/i;
-
-/** Used to detect octal string values. */
-var reIsOctal = /^0o[0-7]+$/i;
-
-/** Built-in method references without a dependency on `root`. */
-var freeParseInt = parseInt;
-
-/**
- * Converts `value` to a number.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @example
- *
- * _.toNumber(3.2);
- * // => 3.2
- *
- * _.toNumber(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toNumber(Infinity);
- * // => Infinity
- *
- * _.toNumber('3.2');
- * // => 3.2
- */
-function toNumber(value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-  if ((0,isSymbol/* default */.A)(value)) {
-    return NAN;
-  }
-  if ((0,isObject/* default */.A)(value)) {
-    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = (0,isObject/* default */.A)(other) ? (other + '') : other;
-  }
-  if (typeof value != 'string') {
-    return value === 0 ? value : +value;
-  }
-  value = _baseTrim(value);
-  var isBinary = reIsBinary.test(value);
-  return (isBinary || reIsOctal.test(value))
-    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-    : (reIsBadHex.test(value) ? NAN : +value);
-}
-
-/* harmony default export */ const lodash_es_toNumber = (toNumber);
-
-;// ./node_modules/lodash-es/toFinite.js
-
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0,
-    MAX_INTEGER = 1.7976931348623157e+308;
-
-/**
- * Converts `value` to a finite number.
- *
- * @static
- * @memberOf _
- * @since 4.12.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted number.
- * @example
- *
- * _.toFinite(3.2);
- * // => 3.2
- *
- * _.toFinite(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toFinite(Infinity);
- * // => 1.7976931348623157e+308
- *
- * _.toFinite('3.2');
- * // => 3.2
- */
-function toFinite(value) {
-  if (!value) {
-    return value === 0 ? value : 0;
-  }
-  value = lodash_es_toNumber(value);
-  if (value === INFINITY || value === -INFINITY) {
-    var sign = (value < 0 ? -1 : 1);
-    return sign * MAX_INTEGER;
-  }
-  return value === value ? value : 0;
-}
-
-/* harmony default export */ const lodash_es_toFinite = (toFinite);
 
 
 /***/ }),
@@ -20399,45 +14931,6 @@ function arrayMap(array, iteratee) {
 
 /***/ }),
 
-/***/ 5664:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _toString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8894);
-
-
-/** Used to generate unique IDs. */
-var idCounter = 0;
-
-/**
- * Generates a unique ID. If `prefix` is given, the ID is appended to it.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {string} [prefix=''] The value to prefix the ID with.
- * @returns {string} Returns the unique ID.
- * @example
- *
- * _.uniqueId('contact_');
- * // => 'contact_104'
- *
- * _.uniqueId();
- * // => '105'
- */
-function uniqueId(prefix) {
-  var id = ++idCounter;
-  return (0,_toString_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(prefix) + id;
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (uniqueId);
-
-
-/***/ }),
-
 /***/ 5707:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -20468,6 +14961,27 @@ function baseFindIndex(array, predicate, fromIndex, fromRight) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (baseFindIndex);
+
+
+/***/ }),
+
+/***/ 5937:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2453);
+/* harmony import */ var _color_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4886);
+/* IMPORT */
+
+
+/* MAIN */
+const channel = (color, channel) => {
+    return _utils_index_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.lang.round(_color_index_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A.parse(color)[channel]);
+};
+/* EXPORT */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (channel);
 
 
 /***/ }),
@@ -20615,328 +15129,171 @@ function isKey(value, object) {
 
 /***/ }),
 
-/***/ 6912:
+/***/ 6625:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   diagram: () => (/* binding */ diagram)
 /* harmony export */ });
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
-function arrayPush(array, values) {
-  var index = -1,
-      length = values.length,
-      offset = array.length;
-
-  while (++index < length) {
-    array[offset + index] = values[index];
-  }
-  return array;
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (arrayPush);
-
-
-/***/ }),
-
-/***/ 7422:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _arrayLikeKeys_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3607);
-/* harmony import */ var _baseKeys_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1852);
-/* harmony import */ var _isArrayLike_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8446);
-
-
-
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys(object) {
-  return (0,_isArrayLike_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(object) ? (0,_arrayLikeKeys_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(object) : (0,_baseKeys_js__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(object);
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (keys);
-
-
-/***/ }),
-
-/***/ 7819:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ _castPath)
-});
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/isArray.js
-var isArray = __webpack_require__(2049);
-// EXTERNAL MODULE: ./node_modules/lodash-es/_isKey.js
-var _isKey = __webpack_require__(6586);
-// EXTERNAL MODULE: ./node_modules/lodash-es/memoize.js
-var memoize = __webpack_require__(6632);
-;// ./node_modules/lodash-es/_memoizeCapped.js
-
-
-/** Used as the maximum memoize cache size. */
-var MAX_MEMOIZE_SIZE = 500;
-
-/**
- * A specialized version of `_.memoize` which clears the memoized function's
- * cache when it exceeds `MAX_MEMOIZE_SIZE`.
- *
- * @private
- * @param {Function} func The function to have its output memoized.
- * @returns {Function} Returns the new memoized function.
- */
-function memoizeCapped(func) {
-  var result = (0,memoize/* default */.A)(func, function(key) {
-    if (cache.size === MAX_MEMOIZE_SIZE) {
-      cache.clear();
-    }
-    return key;
-  });
-
-  var cache = result.cache;
-  return result;
-}
-
-/* harmony default export */ const _memoizeCapped = (memoizeCapped);
-
-;// ./node_modules/lodash-es/_stringToPath.js
-
-
-/** Used to match property names within property paths. */
-var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
-
-/** Used to match backslashes in property paths. */
-var reEscapeChar = /\\(\\)?/g;
-
-/**
- * Converts `string` to a property path array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the property path array.
- */
-var stringToPath = _memoizeCapped(function(string) {
-  var result = [];
-  if (string.charCodeAt(0) === 46 /* . */) {
-    result.push('');
-  }
-  string.replace(rePropName, function(match, number, quote, subString) {
-    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
-  });
-  return result;
-});
-
-/* harmony default export */ const _stringToPath = (stringToPath);
-
-// EXTERNAL MODULE: ./node_modules/lodash-es/toString.js + 1 modules
-var lodash_es_toString = __webpack_require__(8894);
-;// ./node_modules/lodash-es/_castPath.js
+/* harmony import */ var _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6079);
+/* harmony import */ var lodash_es_clone_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(53);
+/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5937);
+/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5582);
+/* harmony import */ var _edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8146);
+/* harmony import */ var dagre_d3_es_src_graphlib_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(697);
+/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6312);
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4353);
+/* harmony import */ var _braintree_sanitize_url__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6750);
+/* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9418);
+var _a, _b;
 
 
 
 
 
-/**
- * Casts `value` to a path array if it's not one.
- *
- * @private
- * @param {*} value The value to inspect.
- * @param {Object} [object] The object to query keys on.
- * @returns {Array} Returns the cast property path array.
- */
-function castPath(value, object) {
-  if ((0,isArray/* default */.A)(value)) {
-    return value;
-  }
-  return (0,_isKey/* default */.A)(value, object) ? [value] : _stringToPath((0,lodash_es_toString/* default */.A)(value));
-}
-
-/* harmony default export */ const _castPath = (castPath);
 
 
-/***/ }),
 
-/***/ 7899:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   D: () => (/* binding */ DEFAULT_STATE_TYPE),
-/* harmony export */   S: () => (/* binding */ STMT_RELATION),
-/* harmony export */   a: () => (/* binding */ DIVIDER_TYPE),
-/* harmony export */   b: () => (/* binding */ STMT_STATE),
-/* harmony export */   c: () => (/* binding */ DEFAULT_NESTED_DOC_DIR),
-/* harmony export */   d: () => (/* binding */ db),
-/* harmony export */   p: () => (/* binding */ parser$1),
-/* harmony export */   s: () => (/* binding */ styles)
-/* harmony export */ });
-/* harmony import */ var _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6079);
+
+
+
+
+
+
 
 var parser = function() {
   var o = function(k, v, o2, l) {
     for (o2 = o2 || {}, l = k.length; l--; o2[k[l]] = v)
       ;
     return o2;
-  }, $V0 = [1, 2], $V1 = [1, 3], $V2 = [1, 4], $V3 = [2, 4], $V4 = [1, 9], $V5 = [1, 11], $V6 = [1, 15], $V7 = [1, 16], $V8 = [1, 17], $V9 = [1, 18], $Va = [1, 30], $Vb = [1, 19], $Vc = [1, 20], $Vd = [1, 21], $Ve = [1, 22], $Vf = [1, 23], $Vg = [1, 25], $Vh = [1, 26], $Vi = [1, 27], $Vj = [1, 28], $Vk = [1, 29], $Vl = [1, 32], $Vm = [1, 33], $Vn = [1, 34], $Vo = [1, 35], $Vp = [1, 31], $Vq = [1, 4, 5, 15, 16, 18, 20, 21, 23, 24, 25, 26, 27, 28, 32, 34, 36, 37, 41, 44, 45, 46, 47, 50], $Vr = [1, 4, 5, 13, 14, 15, 16, 18, 20, 21, 23, 24, 25, 26, 27, 28, 32, 34, 36, 37, 41, 44, 45, 46, 47, 50], $Vs = [4, 5, 15, 16, 18, 20, 21, 23, 24, 25, 26, 27, 28, 32, 34, 36, 37, 41, 44, 45, 46, 47, 50];
+  }, $V0 = [1, 7], $V1 = [1, 13], $V2 = [1, 14], $V3 = [1, 15], $V4 = [1, 19], $V5 = [1, 16], $V6 = [1, 17], $V7 = [1, 18], $V8 = [8, 30], $V9 = [8, 21, 28, 29, 30, 31, 32, 40, 44, 47], $Va = [1, 23], $Vb = [1, 24], $Vc = [8, 15, 16, 21, 28, 29, 30, 31, 32, 40, 44, 47], $Vd = [8, 15, 16, 21, 27, 28, 29, 30, 31, 32, 40, 44, 47], $Ve = [1, 49];
   var parser2 = {
     trace: function trace() {
     },
     yy: {},
-    symbols_: { "error": 2, "start": 3, "SPACE": 4, "NL": 5, "SD": 6, "document": 7, "line": 8, "statement": 9, "classDefStatement": 10, "cssClassStatement": 11, "idStatement": 12, "DESCR": 13, "-->": 14, "HIDE_EMPTY": 15, "scale": 16, "WIDTH": 17, "COMPOSIT_STATE": 18, "STRUCT_START": 19, "STRUCT_STOP": 20, "STATE_DESCR": 21, "AS": 22, "ID": 23, "FORK": 24, "JOIN": 25, "CHOICE": 26, "CONCURRENT": 27, "note": 28, "notePosition": 29, "NOTE_TEXT": 30, "direction": 31, "acc_title": 32, "acc_title_value": 33, "acc_descr": 34, "acc_descr_value": 35, "acc_descr_multiline_value": 36, "classDef": 37, "CLASSDEF_ID": 38, "CLASSDEF_STYLEOPTS": 39, "DEFAULT": 40, "class": 41, "CLASSENTITY_IDS": 42, "STYLECLASS": 43, "direction_tb": 44, "direction_bt": 45, "direction_rl": 46, "direction_lr": 47, "eol": 48, ";": 49, "EDGE_STATE": 50, "STYLE_SEPARATOR": 51, "left_of": 52, "right_of": 53, "$accept": 0, "$end": 1 },
-    terminals_: { 2: "error", 4: "SPACE", 5: "NL", 6: "SD", 13: "DESCR", 14: "-->", 15: "HIDE_EMPTY", 16: "scale", 17: "WIDTH", 18: "COMPOSIT_STATE", 19: "STRUCT_START", 20: "STRUCT_STOP", 21: "STATE_DESCR", 22: "AS", 23: "ID", 24: "FORK", 25: "JOIN", 26: "CHOICE", 27: "CONCURRENT", 28: "note", 30: "NOTE_TEXT", 32: "acc_title", 33: "acc_title_value", 34: "acc_descr", 35: "acc_descr_value", 36: "acc_descr_multiline_value", 37: "classDef", 38: "CLASSDEF_ID", 39: "CLASSDEF_STYLEOPTS", 40: "DEFAULT", 41: "class", 42: "CLASSENTITY_IDS", 43: "STYLECLASS", 44: "direction_tb", 45: "direction_bt", 46: "direction_rl", 47: "direction_lr", 49: ";", 50: "EDGE_STATE", 51: "STYLE_SEPARATOR", 52: "left_of", 53: "right_of" },
-    productions_: [0, [3, 2], [3, 2], [3, 2], [7, 0], [7, 2], [8, 2], [8, 1], [8, 1], [9, 1], [9, 1], [9, 1], [9, 2], [9, 3], [9, 4], [9, 1], [9, 2], [9, 1], [9, 4], [9, 3], [9, 6], [9, 1], [9, 1], [9, 1], [9, 1], [9, 4], [9, 4], [9, 1], [9, 2], [9, 2], [9, 1], [10, 3], [10, 3], [11, 3], [31, 1], [31, 1], [31, 1], [31, 1], [48, 1], [48, 1], [12, 1], [12, 1], [12, 3], [12, 3], [29, 1], [29, 1]],
+    symbols_: { "error": 2, "spaceLines": 3, "SPACELINE": 4, "NL": 5, "separator": 6, "SPACE": 7, "EOF": 8, "start": 9, "BLOCK_DIAGRAM_KEY": 10, "document": 11, "stop": 12, "statement": 13, "link": 14, "LINK": 15, "START_LINK": 16, "LINK_LABEL": 17, "STR": 18, "nodeStatement": 19, "columnsStatement": 20, "SPACE_BLOCK": 21, "blockStatement": 22, "classDefStatement": 23, "cssClassStatement": 24, "styleStatement": 25, "node": 26, "SIZE": 27, "COLUMNS": 28, "id-block": 29, "end": 30, "block": 31, "NODE_ID": 32, "nodeShapeNLabel": 33, "dirList": 34, "DIR": 35, "NODE_DSTART": 36, "NODE_DEND": 37, "BLOCK_ARROW_START": 38, "BLOCK_ARROW_END": 39, "classDef": 40, "CLASSDEF_ID": 41, "CLASSDEF_STYLEOPTS": 42, "DEFAULT": 43, "class": 44, "CLASSENTITY_IDS": 45, "STYLECLASS": 46, "style": 47, "STYLE_ENTITY_IDS": 48, "STYLE_DEFINITION_DATA": 49, "$accept": 0, "$end": 1 },
+    terminals_: { 2: "error", 4: "SPACELINE", 5: "NL", 7: "SPACE", 8: "EOF", 10: "BLOCK_DIAGRAM_KEY", 15: "LINK", 16: "START_LINK", 17: "LINK_LABEL", 18: "STR", 21: "SPACE_BLOCK", 27: "SIZE", 28: "COLUMNS", 29: "id-block", 30: "end", 31: "block", 32: "NODE_ID", 35: "DIR", 36: "NODE_DSTART", 37: "NODE_DEND", 38: "BLOCK_ARROW_START", 39: "BLOCK_ARROW_END", 40: "classDef", 41: "CLASSDEF_ID", 42: "CLASSDEF_STYLEOPTS", 43: "DEFAULT", 44: "class", 45: "CLASSENTITY_IDS", 46: "STYLECLASS", 47: "style", 48: "STYLE_ENTITY_IDS", 49: "STYLE_DEFINITION_DATA" },
+    productions_: [0, [3, 1], [3, 2], [3, 2], [6, 1], [6, 1], [6, 1], [9, 3], [12, 1], [12, 1], [12, 2], [12, 2], [11, 1], [11, 2], [14, 1], [14, 4], [13, 1], [13, 1], [13, 1], [13, 1], [13, 1], [13, 1], [13, 1], [19, 3], [19, 2], [19, 1], [20, 1], [22, 4], [22, 3], [26, 1], [26, 2], [34, 1], [34, 2], [33, 3], [33, 4], [23, 3], [23, 3], [24, 3], [25, 3]],
     performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate, $$, _$) {
       var $0 = $$.length - 1;
       switch (yystate) {
-        case 3:
-          yy.setRootDoc($$[$0]);
-          return $$[$0];
         case 4:
-          this.$ = [];
+          yy.getLogger().debug("Rule: separator (NL) ");
           break;
         case 5:
-          if ($$[$0] != "nl") {
-            $$[$0 - 1].push($$[$0]);
-            this.$ = $$[$0 - 1];
-          }
+          yy.getLogger().debug("Rule: separator (Space) ");
           break;
         case 6:
+          yy.getLogger().debug("Rule: separator (EOF) ");
+          break;
         case 7:
-          this.$ = $$[$0];
+          yy.getLogger().debug("Rule: hierarchy: ", $$[$0 - 1]);
+          yy.setHierarchy($$[$0 - 1]);
           break;
         case 8:
-          this.$ = "nl";
+          yy.getLogger().debug("Stop NL ");
+          break;
+        case 9:
+          yy.getLogger().debug("Stop EOF ");
+          break;
+        case 10:
+          yy.getLogger().debug("Stop NL2 ");
           break;
         case 11:
-          this.$ = $$[$0];
+          yy.getLogger().debug("Stop EOF2 ");
           break;
         case 12:
-          const stateStmt = $$[$0 - 1];
-          stateStmt.description = yy.trimColon($$[$0]);
-          this.$ = stateStmt;
+          yy.getLogger().debug("Rule: statement: ", $$[$0]);
+          typeof $$[$0].length === "number" ? this.$ = $$[$0] : this.$ = [$$[$0]];
           break;
         case 13:
-          this.$ = { stmt: "relation", state1: $$[$0 - 2], state2: $$[$0] };
+          yy.getLogger().debug("Rule: statement #2: ", $$[$0 - 1]);
+          this.$ = [$$[$0 - 1]].concat($$[$0]);
           break;
         case 14:
-          const relDescription = yy.trimColon($$[$0]);
-          this.$ = { stmt: "relation", state1: $$[$0 - 3], state2: $$[$0 - 1], description: relDescription };
+          yy.getLogger().debug("Rule: link: ", $$[$0], yytext);
+          this.$ = { edgeTypeStr: $$[$0], label: "" };
+          break;
+        case 15:
+          yy.getLogger().debug("Rule: LABEL link: ", $$[$0 - 3], $$[$0 - 1], $$[$0]);
+          this.$ = { edgeTypeStr: $$[$0], label: $$[$0 - 1] };
           break;
         case 18:
-          this.$ = { stmt: "state", id: $$[$0 - 3], type: "default", description: "", doc: $$[$0 - 1] };
-          break;
-        case 19:
-          var id = $$[$0];
-          var description = $$[$0 - 2].trim();
-          if ($$[$0].match(":")) {
-            var parts = $$[$0].split(":");
-            id = parts[0];
-            description = [description, parts[1]];
-          }
-          this.$ = { stmt: "state", id, type: "default", description };
-          break;
-        case 20:
-          this.$ = { stmt: "state", id: $$[$0 - 3], type: "default", description: $$[$0 - 5], doc: $$[$0 - 1] };
-          break;
-        case 21:
-          this.$ = { stmt: "state", id: $$[$0], type: "fork" };
-          break;
-        case 22:
-          this.$ = { stmt: "state", id: $$[$0], type: "join" };
+          const num = parseInt($$[$0]);
+          const spaceId = yy.generateId();
+          this.$ = { id: spaceId, type: "space", label: "", width: num, children: [] };
           break;
         case 23:
-          this.$ = { stmt: "state", id: $$[$0], type: "choice" };
+          yy.getLogger().debug("Rule: (nodeStatement link node) ", $$[$0 - 2], $$[$0 - 1], $$[$0], " typestr: ", $$[$0 - 1].edgeTypeStr);
+          const edgeData = yy.edgeStrToEdgeData($$[$0 - 1].edgeTypeStr);
+          this.$ = [
+            { id: $$[$0 - 2].id, label: $$[$0 - 2].label, type: $$[$0 - 2].type, directions: $$[$0 - 2].directions },
+            { id: $$[$0 - 2].id + "-" + $$[$0].id, start: $$[$0 - 2].id, end: $$[$0].id, label: $$[$0 - 1].label, type: "edge", directions: $$[$0].directions, arrowTypeEnd: edgeData, arrowTypeStart: "arrow_open" },
+            { id: $$[$0].id, label: $$[$0].label, type: yy.typeStr2Type($$[$0].typeStr), directions: $$[$0].directions }
+          ];
           break;
         case 24:
-          this.$ = { stmt: "state", id: yy.getDividerId(), type: "divider" };
+          yy.getLogger().debug("Rule: nodeStatement (abc88 node size) ", $$[$0 - 1], $$[$0]);
+          this.$ = { id: $$[$0 - 1].id, label: $$[$0 - 1].label, type: yy.typeStr2Type($$[$0 - 1].typeStr), directions: $$[$0 - 1].directions, widthInColumns: parseInt($$[$0], 10) };
           break;
         case 25:
-          this.$ = { stmt: "state", id: $$[$0 - 1].trim(), note: { position: $$[$0 - 2].trim(), text: $$[$0].trim() } };
+          yy.getLogger().debug("Rule: nodeStatement (node) ", $$[$0]);
+          this.$ = { id: $$[$0].id, label: $$[$0].label, type: yy.typeStr2Type($$[$0].typeStr), directions: $$[$0].directions, widthInColumns: 1 };
+          break;
+        case 26:
+          yy.getLogger().debug("APA123", this ? this : "na");
+          yy.getLogger().debug("COLUMNS: ", $$[$0]);
+          this.$ = { type: "column-setting", columns: $$[$0] === "auto" ? -1 : parseInt($$[$0]) };
+          break;
+        case 27:
+          yy.getLogger().debug("Rule: id-block statement : ", $$[$0 - 2], $$[$0 - 1]);
+          yy.generateId();
+          this.$ = { ...$$[$0 - 2], type: "composite", children: $$[$0 - 1] };
           break;
         case 28:
-          this.$ = $$[$0].trim();
-          yy.setAccTitle(this.$);
+          yy.getLogger().debug("Rule: blockStatement : ", $$[$0 - 2], $$[$0 - 1], $$[$0]);
+          const id = yy.generateId();
+          this.$ = { id, type: "composite", label: "", children: $$[$0 - 1] };
           break;
         case 29:
+          yy.getLogger().debug("Rule: node (NODE_ID separator): ", $$[$0]);
+          this.$ = { id: $$[$0] };
+          break;
         case 30:
-          this.$ = $$[$0].trim();
-          yy.setAccDescription(this.$);
+          yy.getLogger().debug("Rule: node (NODE_ID nodeShapeNLabel separator): ", $$[$0 - 1], $$[$0]);
+          this.$ = { id: $$[$0 - 1], label: $$[$0].label, typeStr: $$[$0].typeStr, directions: $$[$0].directions };
           break;
         case 31:
+          yy.getLogger().debug("Rule: dirList: ", $$[$0]);
+          this.$ = [$$[$0]];
+          break;
         case 32:
-          this.$ = { stmt: "classDef", id: $$[$0 - 1].trim(), classes: $$[$0].trim() };
+          yy.getLogger().debug("Rule: dirList: ", $$[$0 - 1], $$[$0]);
+          this.$ = [$$[$0 - 1]].concat($$[$0]);
           break;
         case 33:
-          this.$ = { stmt: "applyClass", id: $$[$0 - 1].trim(), styleClass: $$[$0].trim() };
+          yy.getLogger().debug("Rule: nodeShapeNLabel: ", $$[$0 - 2], $$[$0 - 1], $$[$0]);
+          this.$ = { typeStr: $$[$0 - 2] + $$[$0], label: $$[$0 - 1] };
           break;
         case 34:
-          yy.setDirection("TB");
-          this.$ = { stmt: "dir", value: "TB" };
+          yy.getLogger().debug("Rule: BLOCK_ARROW nodeShapeNLabel: ", $$[$0 - 3], $$[$0 - 2], " #3:", $$[$0 - 1], $$[$0]);
+          this.$ = { typeStr: $$[$0 - 3] + $$[$0], label: $$[$0 - 2], directions: $$[$0 - 1] };
           break;
         case 35:
-          yy.setDirection("BT");
-          this.$ = { stmt: "dir", value: "BT" };
-          break;
         case 36:
-          yy.setDirection("RL");
-          this.$ = { stmt: "dir", value: "RL" };
+          this.$ = { type: "classDef", id: $$[$0 - 1].trim(), css: $$[$0].trim() };
           break;
         case 37:
-          yy.setDirection("LR");
-          this.$ = { stmt: "dir", value: "LR" };
+          this.$ = { type: "applyClass", id: $$[$0 - 1].trim(), styleClass: $$[$0].trim() };
           break;
-        case 40:
-        case 41:
-          this.$ = { stmt: "state", id: $$[$0].trim(), type: "default", description: "" };
-          break;
-        case 42:
-          this.$ = { stmt: "state", id: $$[$0 - 2].trim(), classes: [$$[$0].trim()], type: "default", description: "" };
-          break;
-        case 43:
-          this.$ = { stmt: "state", id: $$[$0 - 2].trim(), classes: [$$[$0].trim()], type: "default", description: "" };
+        case 38:
+          this.$ = { type: "applyStyles", id: $$[$0 - 1].trim(), stylesStr: $$[$0].trim() };
           break;
       }
     },
-    table: [{ 3: 1, 4: $V0, 5: $V1, 6: $V2 }, { 1: [3] }, { 3: 5, 4: $V0, 5: $V1, 6: $V2 }, { 3: 6, 4: $V0, 5: $V1, 6: $V2 }, o([1, 4, 5, 15, 16, 18, 21, 23, 24, 25, 26, 27, 28, 32, 34, 36, 37, 41, 44, 45, 46, 47, 50], $V3, { 7: 7 }), { 1: [2, 1] }, { 1: [2, 2] }, { 1: [2, 3], 4: $V4, 5: $V5, 8: 8, 9: 10, 10: 12, 11: 13, 12: 14, 15: $V6, 16: $V7, 18: $V8, 21: $V9, 23: $Va, 24: $Vb, 25: $Vc, 26: $Vd, 27: $Ve, 28: $Vf, 31: 24, 32: $Vg, 34: $Vh, 36: $Vi, 37: $Vj, 41: $Vk, 44: $Vl, 45: $Vm, 46: $Vn, 47: $Vo, 50: $Vp }, o($Vq, [2, 5]), { 9: 36, 10: 12, 11: 13, 12: 14, 15: $V6, 16: $V7, 18: $V8, 21: $V9, 23: $Va, 24: $Vb, 25: $Vc, 26: $Vd, 27: $Ve, 28: $Vf, 31: 24, 32: $Vg, 34: $Vh, 36: $Vi, 37: $Vj, 41: $Vk, 44: $Vl, 45: $Vm, 46: $Vn, 47: $Vo, 50: $Vp }, o($Vq, [2, 7]), o($Vq, [2, 8]), o($Vq, [2, 9]), o($Vq, [2, 10]), o($Vq, [2, 11], { 13: [1, 37], 14: [1, 38] }), o($Vq, [2, 15]), { 17: [1, 39] }, o($Vq, [2, 17], { 19: [1, 40] }), { 22: [1, 41] }, o($Vq, [2, 21]), o($Vq, [2, 22]), o($Vq, [2, 23]), o($Vq, [2, 24]), { 29: 42, 30: [1, 43], 52: [1, 44], 53: [1, 45] }, o($Vq, [2, 27]), { 33: [1, 46] }, { 35: [1, 47] }, o($Vq, [2, 30]), { 38: [1, 48], 40: [1, 49] }, { 42: [1, 50] }, o($Vr, [2, 40], { 51: [1, 51] }), o($Vr, [2, 41], { 51: [1, 52] }), o($Vq, [2, 34]), o($Vq, [2, 35]), o($Vq, [2, 36]), o($Vq, [2, 37]), o($Vq, [2, 6]), o($Vq, [2, 12]), { 12: 53, 23: $Va, 50: $Vp }, o($Vq, [2, 16]), o($Vs, $V3, { 7: 54 }), { 23: [1, 55] }, { 23: [1, 56] }, { 22: [1, 57] }, { 23: [2, 44] }, { 23: [2, 45] }, o($Vq, [2, 28]), o($Vq, [2, 29]), { 39: [1, 58] }, { 39: [1, 59] }, { 43: [1, 60] }, { 23: [1, 61] }, { 23: [1, 62] }, o($Vq, [2, 13], { 13: [1, 63] }), { 4: $V4, 5: $V5, 8: 8, 9: 10, 10: 12, 11: 13, 12: 14, 15: $V6, 16: $V7, 18: $V8, 20: [1, 64], 21: $V9, 23: $Va, 24: $Vb, 25: $Vc, 26: $Vd, 27: $Ve, 28: $Vf, 31: 24, 32: $Vg, 34: $Vh, 36: $Vi, 37: $Vj, 41: $Vk, 44: $Vl, 45: $Vm, 46: $Vn, 47: $Vo, 50: $Vp }, o($Vq, [2, 19], { 19: [1, 65] }), { 30: [1, 66] }, { 23: [1, 67] }, o($Vq, [2, 31]), o($Vq, [2, 32]), o($Vq, [2, 33]), o($Vr, [2, 42]), o($Vr, [2, 43]), o($Vq, [2, 14]), o($Vq, [2, 18]), o($Vs, $V3, { 7: 68 }), o($Vq, [2, 25]), o($Vq, [2, 26]), { 4: $V4, 5: $V5, 8: 8, 9: 10, 10: 12, 11: 13, 12: 14, 15: $V6, 16: $V7, 18: $V8, 20: [1, 69], 21: $V9, 23: $Va, 24: $Vb, 25: $Vc, 26: $Vd, 27: $Ve, 28: $Vf, 31: 24, 32: $Vg, 34: $Vh, 36: $Vi, 37: $Vj, 41: $Vk, 44: $Vl, 45: $Vm, 46: $Vn, 47: $Vo, 50: $Vp }, o($Vq, [2, 20])],
-    defaultActions: { 5: [2, 1], 6: [2, 2], 44: [2, 44], 45: [2, 45] },
+    table: [{ 9: 1, 10: [1, 2] }, { 1: [3] }, { 11: 3, 13: 4, 19: 5, 20: 6, 21: $V0, 22: 8, 23: 9, 24: 10, 25: 11, 26: 12, 28: $V1, 29: $V2, 31: $V3, 32: $V4, 40: $V5, 44: $V6, 47: $V7 }, { 8: [1, 20] }, o($V8, [2, 12], { 13: 4, 19: 5, 20: 6, 22: 8, 23: 9, 24: 10, 25: 11, 26: 12, 11: 21, 21: $V0, 28: $V1, 29: $V2, 31: $V3, 32: $V4, 40: $V5, 44: $V6, 47: $V7 }), o($V9, [2, 16], { 14: 22, 15: $Va, 16: $Vb }), o($V9, [2, 17]), o($V9, [2, 18]), o($V9, [2, 19]), o($V9, [2, 20]), o($V9, [2, 21]), o($V9, [2, 22]), o($Vc, [2, 25], { 27: [1, 25] }), o($V9, [2, 26]), { 19: 26, 26: 12, 32: $V4 }, { 11: 27, 13: 4, 19: 5, 20: 6, 21: $V0, 22: 8, 23: 9, 24: 10, 25: 11, 26: 12, 28: $V1, 29: $V2, 31: $V3, 32: $V4, 40: $V5, 44: $V6, 47: $V7 }, { 41: [1, 28], 43: [1, 29] }, { 45: [1, 30] }, { 48: [1, 31] }, o($Vd, [2, 29], { 33: 32, 36: [1, 33], 38: [1, 34] }), { 1: [2, 7] }, o($V8, [2, 13]), { 26: 35, 32: $V4 }, { 32: [2, 14] }, { 17: [1, 36] }, o($Vc, [2, 24]), { 11: 37, 13: 4, 14: 22, 15: $Va, 16: $Vb, 19: 5, 20: 6, 21: $V0, 22: 8, 23: 9, 24: 10, 25: 11, 26: 12, 28: $V1, 29: $V2, 31: $V3, 32: $V4, 40: $V5, 44: $V6, 47: $V7 }, { 30: [1, 38] }, { 42: [1, 39] }, { 42: [1, 40] }, { 46: [1, 41] }, { 49: [1, 42] }, o($Vd, [2, 30]), { 18: [1, 43] }, { 18: [1, 44] }, o($Vc, [2, 23]), { 18: [1, 45] }, { 30: [1, 46] }, o($V9, [2, 28]), o($V9, [2, 35]), o($V9, [2, 36]), o($V9, [2, 37]), o($V9, [2, 38]), { 37: [1, 47] }, { 34: 48, 35: $Ve }, { 15: [1, 50] }, o($V9, [2, 27]), o($Vd, [2, 33]), { 39: [1, 51] }, { 34: 52, 35: $Ve, 39: [2, 31] }, { 32: [2, 15] }, o($Vd, [2, 34]), { 39: [2, 32] }],
+    defaultActions: { 20: [2, 7], 23: [2, 14], 50: [2, 15], 52: [2, 32] },
     parseError: function parseError(str, hash) {
       if (hash.recoverable) {
         this.trace(str);
@@ -21355,223 +15712,381 @@ var parser = function() {
       stateStackSize: function stateStackSize() {
         return this.conditionStack.length;
       },
-      options: { "case-insensitive": true },
+      options: {},
       performAction: function anonymous(yy, yy_, $avoiding_name_collisions, YY_START) {
         switch ($avoiding_name_collisions) {
           case 0:
-            return 40;
+            return 10;
           case 1:
-            return 44;
+            yy.getLogger().debug("Found space-block");
+            return 31;
           case 2:
-            return 45;
+            yy.getLogger().debug("Found nl-block");
+            return 31;
           case 3:
-            return 46;
+            yy.getLogger().debug("Found space-block");
+            return 29;
           case 4:
-            return 47;
+            yy.getLogger().debug(".", yy_.yytext);
+            break;
           case 5:
+            yy.getLogger().debug("_", yy_.yytext);
             break;
           case 6:
-            break;
-          case 7:
             return 5;
+          case 7:
+            yy_.yytext = -1;
+            return 28;
           case 8:
-            break;
+            yy_.yytext = yy_.yytext.replace(/columns\s+/, "");
+            yy.getLogger().debug("COLUMNS (LEX)", yy_.yytext);
+            return 28;
           case 9:
+            this.pushState("md_string");
             break;
           case 10:
-            break;
+            return "MD_STR";
           case 11:
+            this.popState();
             break;
           case 12:
-            this.pushState("SCALE");
-            return 16;
+            this.pushState("string");
+            break;
           case 13:
-            return 17;
+            yy.getLogger().debug("LEX: POPPING STR:", yy_.yytext);
+            this.popState();
+            break;
           case 14:
-            this.popState();
-            break;
+            yy.getLogger().debug("LEX: STR end:", yy_.yytext);
+            return "STR";
           case 15:
-            this.begin("acc_title");
-            return 32;
+            yy_.yytext = yy_.yytext.replace(/space\:/, "");
+            yy.getLogger().debug("SPACE NUM (LEX)", yy_.yytext);
+            return 21;
           case 16:
-            this.popState();
-            return "acc_title_value";
+            yy_.yytext = "1";
+            yy.getLogger().debug("COLUMNS (LEX)", yy_.yytext);
+            return 21;
           case 17:
-            this.begin("acc_descr");
-            return 34;
+            return 43;
           case 18:
-            this.popState();
-            return "acc_descr_value";
+            return "LINKSTYLE";
           case 19:
-            this.begin("acc_descr_multiline");
-            break;
+            return "INTERPOLATE";
           case 20:
-            this.popState();
-            break;
-          case 21:
-            return "acc_descr_multiline_value";
-          case 22:
             this.pushState("CLASSDEF");
-            return 37;
-          case 23:
+            return 40;
+          case 21:
             this.popState();
             this.pushState("CLASSDEFID");
             return "DEFAULT_CLASSDEF_ID";
-          case 24:
+          case 22:
             this.popState();
             this.pushState("CLASSDEFID");
-            return 38;
+            return 41;
+          case 23:
+            this.popState();
+            return 42;
+          case 24:
+            this.pushState("CLASS");
+            return 44;
           case 25:
             this.popState();
-            return 39;
-          case 26:
-            this.pushState("CLASS");
-            return 41;
-          case 27:
-            this.popState();
             this.pushState("CLASS_STYLE");
-            return 42;
+            return 45;
+          case 26:
+            this.popState();
+            return 46;
+          case 27:
+            this.pushState("STYLE_STMNT");
+            return 47;
           case 28:
             this.popState();
-            return 43;
+            this.pushState("STYLE_DEFINITION");
+            return 48;
           case 29:
-            this.pushState("SCALE");
-            return 16;
+            this.popState();
+            return 49;
           case 30:
-            return 17;
+            this.pushState("acc_title");
+            return "acc_title";
           case 31:
             this.popState();
-            break;
+            return "acc_title_value";
           case 32:
-            this.pushState("STATE");
-            break;
+            this.pushState("acc_descr");
+            return "acc_descr";
           case 33:
             this.popState();
-            yy_.yytext = yy_.yytext.slice(0, -8).trim();
-            return 24;
+            return "acc_descr_value";
           case 34:
-            this.popState();
-            yy_.yytext = yy_.yytext.slice(0, -8).trim();
-            return 25;
+            this.pushState("acc_descr_multiline");
+            break;
           case 35:
             this.popState();
-            yy_.yytext = yy_.yytext.slice(0, -10).trim();
-            return 26;
+            break;
           case 36:
-            this.popState();
-            yy_.yytext = yy_.yytext.slice(0, -8).trim();
-            return 24;
+            return "acc_descr_multiline_value";
           case 37:
-            this.popState();
-            yy_.yytext = yy_.yytext.slice(0, -8).trim();
-            return 25;
+            return 30;
           case 38:
             this.popState();
-            yy_.yytext = yy_.yytext.slice(0, -10).trim();
-            return 26;
+            yy.getLogger().debug("Lex: ((");
+            return "NODE_DEND";
           case 39:
-            return 44;
+            this.popState();
+            yy.getLogger().debug("Lex: ((");
+            return "NODE_DEND";
           case 40:
-            return 45;
+            this.popState();
+            yy.getLogger().debug("Lex: ))");
+            return "NODE_DEND";
           case 41:
-            return 46;
+            this.popState();
+            yy.getLogger().debug("Lex: ((");
+            return "NODE_DEND";
           case 42:
-            return 47;
+            this.popState();
+            yy.getLogger().debug("Lex: ((");
+            return "NODE_DEND";
           case 43:
-            this.pushState("STATE_STRING");
-            break;
+            this.popState();
+            yy.getLogger().debug("Lex: (-");
+            return "NODE_DEND";
           case 44:
-            this.pushState("STATE_ID");
-            return "AS";
+            this.popState();
+            yy.getLogger().debug("Lex: -)");
+            return "NODE_DEND";
           case 45:
             this.popState();
-            return "ID";
+            yy.getLogger().debug("Lex: ((");
+            return "NODE_DEND";
           case 46:
             this.popState();
-            break;
+            yy.getLogger().debug("Lex: ]]");
+            return "NODE_DEND";
           case 47:
-            return "STATE_DESCR";
+            this.popState();
+            yy.getLogger().debug("Lex: (");
+            return "NODE_DEND";
           case 48:
-            return 18;
+            this.popState();
+            yy.getLogger().debug("Lex: ])");
+            return "NODE_DEND";
           case 49:
             this.popState();
-            break;
+            yy.getLogger().debug("Lex: /]");
+            return "NODE_DEND";
           case 50:
             this.popState();
-            this.pushState("struct");
-            return 19;
+            yy.getLogger().debug("Lex: /]");
+            return "NODE_DEND";
           case 51:
-            break;
+            this.popState();
+            yy.getLogger().debug("Lex: )]");
+            return "NODE_DEND";
           case 52:
             this.popState();
-            return 20;
+            yy.getLogger().debug("Lex: )");
+            return "NODE_DEND";
           case 53:
-            break;
+            this.popState();
+            yy.getLogger().debug("Lex: ]>");
+            return "NODE_DEND";
           case 54:
-            this.begin("NOTE");
-            return 28;
+            this.popState();
+            yy.getLogger().debug("Lex: ]");
+            return "NODE_DEND";
           case 55:
-            this.popState();
-            this.pushState("NOTE_ID");
-            return 52;
+            yy.getLogger().debug("Lexa: -)");
+            this.pushState("NODE");
+            return 36;
           case 56:
-            this.popState();
-            this.pushState("NOTE_ID");
-            return 53;
+            yy.getLogger().debug("Lexa: (-");
+            this.pushState("NODE");
+            return 36;
           case 57:
-            this.popState();
-            this.pushState("FLOATING_NOTE");
-            break;
+            yy.getLogger().debug("Lexa: ))");
+            this.pushState("NODE");
+            return 36;
           case 58:
-            this.popState();
-            this.pushState("FLOATING_NOTE_ID");
-            return "AS";
+            yy.getLogger().debug("Lexa: )");
+            this.pushState("NODE");
+            return 36;
           case 59:
-            break;
+            yy.getLogger().debug("Lex: (((");
+            this.pushState("NODE");
+            return 36;
           case 60:
-            return "NOTE_TEXT";
+            yy.getLogger().debug("Lexa: )");
+            this.pushState("NODE");
+            return 36;
           case 61:
-            this.popState();
-            return "ID";
+            yy.getLogger().debug("Lexa: )");
+            this.pushState("NODE");
+            return 36;
           case 62:
-            this.popState();
-            this.pushState("NOTE_TEXT");
-            return 23;
+            yy.getLogger().debug("Lexa: )");
+            this.pushState("NODE");
+            return 36;
           case 63:
-            this.popState();
-            yy_.yytext = yy_.yytext.substr(2).trim();
-            return 30;
+            yy.getLogger().debug("Lexc: >");
+            this.pushState("NODE");
+            return 36;
           case 64:
-            this.popState();
-            yy_.yytext = yy_.yytext.slice(0, -8).trim();
-            return 30;
+            yy.getLogger().debug("Lexa: ([");
+            this.pushState("NODE");
+            return 36;
           case 65:
-            return 6;
+            yy.getLogger().debug("Lexa: )");
+            this.pushState("NODE");
+            return 36;
           case 66:
-            return 6;
+            this.pushState("NODE");
+            return 36;
           case 67:
-            return 15;
+            this.pushState("NODE");
+            return 36;
           case 68:
-            return 50;
+            this.pushState("NODE");
+            return 36;
           case 69:
-            return 23;
+            this.pushState("NODE");
+            return 36;
           case 70:
-            yy_.yytext = yy_.yytext.trim();
-            return 13;
+            this.pushState("NODE");
+            return 36;
           case 71:
-            return 14;
+            this.pushState("NODE");
+            return 36;
           case 72:
-            return 27;
+            this.pushState("NODE");
+            return 36;
           case 73:
-            return 51;
+            yy.getLogger().debug("Lexa: [");
+            this.pushState("NODE");
+            return 36;
           case 74:
-            return 5;
+            this.pushState("BLOCK_ARROW");
+            yy.getLogger().debug("LEX ARR START");
+            return 38;
           case 75:
-            return "INVALID";
+            yy.getLogger().debug("Lex: NODE_ID", yy_.yytext);
+            return 32;
+          case 76:
+            yy.getLogger().debug("Lex: EOF", yy_.yytext);
+            return 8;
+          case 77:
+            this.pushState("md_string");
+            break;
+          case 78:
+            this.pushState("md_string");
+            break;
+          case 79:
+            return "NODE_DESCR";
+          case 80:
+            this.popState();
+            break;
+          case 81:
+            yy.getLogger().debug("Lex: Starting string");
+            this.pushState("string");
+            break;
+          case 82:
+            yy.getLogger().debug("LEX ARR: Starting string");
+            this.pushState("string");
+            break;
+          case 83:
+            yy.getLogger().debug("LEX: NODE_DESCR:", yy_.yytext);
+            return "NODE_DESCR";
+          case 84:
+            yy.getLogger().debug("LEX POPPING");
+            this.popState();
+            break;
+          case 85:
+            yy.getLogger().debug("Lex: =>BAE");
+            this.pushState("ARROW_DIR");
+            break;
+          case 86:
+            yy_.yytext = yy_.yytext.replace(/^,\s*/, "");
+            yy.getLogger().debug("Lex (right): dir:", yy_.yytext);
+            return "DIR";
+          case 87:
+            yy_.yytext = yy_.yytext.replace(/^,\s*/, "");
+            yy.getLogger().debug("Lex (left):", yy_.yytext);
+            return "DIR";
+          case 88:
+            yy_.yytext = yy_.yytext.replace(/^,\s*/, "");
+            yy.getLogger().debug("Lex (x):", yy_.yytext);
+            return "DIR";
+          case 89:
+            yy_.yytext = yy_.yytext.replace(/^,\s*/, "");
+            yy.getLogger().debug("Lex (y):", yy_.yytext);
+            return "DIR";
+          case 90:
+            yy_.yytext = yy_.yytext.replace(/^,\s*/, "");
+            yy.getLogger().debug("Lex (up):", yy_.yytext);
+            return "DIR";
+          case 91:
+            yy_.yytext = yy_.yytext.replace(/^,\s*/, "");
+            yy.getLogger().debug("Lex (down):", yy_.yytext);
+            return "DIR";
+          case 92:
+            yy_.yytext = "]>";
+            yy.getLogger().debug("Lex (ARROW_DIR end):", yy_.yytext);
+            this.popState();
+            this.popState();
+            return "BLOCK_ARROW_END";
+          case 93:
+            yy.getLogger().debug("Lex: LINK", "#" + yy_.yytext + "#");
+            return 15;
+          case 94:
+            yy.getLogger().debug("Lex: LINK", yy_.yytext);
+            return 15;
+          case 95:
+            yy.getLogger().debug("Lex: LINK", yy_.yytext);
+            return 15;
+          case 96:
+            yy.getLogger().debug("Lex: LINK", yy_.yytext);
+            return 15;
+          case 97:
+            yy.getLogger().debug("Lex: START_LINK", yy_.yytext);
+            this.pushState("LLABEL");
+            return 16;
+          case 98:
+            yy.getLogger().debug("Lex: START_LINK", yy_.yytext);
+            this.pushState("LLABEL");
+            return 16;
+          case 99:
+            yy.getLogger().debug("Lex: START_LINK", yy_.yytext);
+            this.pushState("LLABEL");
+            return 16;
+          case 100:
+            this.pushState("md_string");
+            break;
+          case 101:
+            yy.getLogger().debug("Lex: Starting string");
+            this.pushState("string");
+            return "LINK_LABEL";
+          case 102:
+            this.popState();
+            yy.getLogger().debug("Lex: LINK", "#" + yy_.yytext + "#");
+            return 15;
+          case 103:
+            this.popState();
+            yy.getLogger().debug("Lex: LINK", yy_.yytext);
+            return 15;
+          case 104:
+            this.popState();
+            yy.getLogger().debug("Lex: LINK", yy_.yytext);
+            return 15;
+          case 105:
+            yy.getLogger().debug("Lex: COLON", yy_.yytext);
+            yy_.yytext = yy_.yytext.slice(1);
+            return 27;
         }
       },
-      rules: [/^(?:default\b)/i, /^(?:.*direction\s+TB[^\n]*)/i, /^(?:.*direction\s+BT[^\n]*)/i, /^(?:.*direction\s+RL[^\n]*)/i, /^(?:.*direction\s+LR[^\n]*)/i, /^(?:%%(?!\{)[^\n]*)/i, /^(?:[^\}]%%[^\n]*)/i, /^(?:[\n]+)/i, /^(?:[\s]+)/i, /^(?:((?!\n)\s)+)/i, /^(?:#[^\n]*)/i, /^(?:%[^\n]*)/i, /^(?:scale\s+)/i, /^(?:\d+)/i, /^(?:\s+width\b)/i, /^(?:accTitle\s*:\s*)/i, /^(?:(?!\n||)*[^\n]*)/i, /^(?:accDescr\s*:\s*)/i, /^(?:(?!\n||)*[^\n]*)/i, /^(?:accDescr\s*\{\s*)/i, /^(?:[\}])/i, /^(?:[^\}]*)/i, /^(?:classDef\s+)/i, /^(?:DEFAULT\s+)/i, /^(?:\w+\s+)/i, /^(?:[^\n]*)/i, /^(?:class\s+)/i, /^(?:(\w+)+((,\s*\w+)*))/i, /^(?:[^\n]*)/i, /^(?:scale\s+)/i, /^(?:\d+)/i, /^(?:\s+width\b)/i, /^(?:state\s+)/i, /^(?:.*<<fork>>)/i, /^(?:.*<<join>>)/i, /^(?:.*<<choice>>)/i, /^(?:.*\[\[fork\]\])/i, /^(?:.*\[\[join\]\])/i, /^(?:.*\[\[choice\]\])/i, /^(?:.*direction\s+TB[^\n]*)/i, /^(?:.*direction\s+BT[^\n]*)/i, /^(?:.*direction\s+RL[^\n]*)/i, /^(?:.*direction\s+LR[^\n]*)/i, /^(?:["])/i, /^(?:\s*as\s+)/i, /^(?:[^\n\{]*)/i, /^(?:["])/i, /^(?:[^"]*)/i, /^(?:[^\n\s\{]+)/i, /^(?:\n)/i, /^(?:\{)/i, /^(?:%%(?!\{)[^\n]*)/i, /^(?:\})/i, /^(?:[\n])/i, /^(?:note\s+)/i, /^(?:left of\b)/i, /^(?:right of\b)/i, /^(?:")/i, /^(?:\s*as\s*)/i, /^(?:["])/i, /^(?:[^"]*)/i, /^(?:[^\n]*)/i, /^(?:\s*[^:\n\s\-]+)/i, /^(?:\s*:[^:\n;]+)/i, /^(?:[\s\S]*?end note\b)/i, /^(?:stateDiagram\s+)/i, /^(?:stateDiagram-v2\s+)/i, /^(?:hide empty description\b)/i, /^(?:\[\*\])/i, /^(?:[^:\n\s\-\{]+)/i, /^(?:\s*:[^:\n;]+)/i, /^(?:-->)/i, /^(?:--)/i, /^(?::::)/i, /^(?:$)/i, /^(?:.)/i],
-      conditions: { "LINE": { "rules": [9, 10], "inclusive": false }, "struct": { "rules": [9, 10, 22, 26, 32, 39, 40, 41, 42, 51, 52, 53, 54, 68, 69, 70, 71, 72], "inclusive": false }, "FLOATING_NOTE_ID": { "rules": [61], "inclusive": false }, "FLOATING_NOTE": { "rules": [58, 59, 60], "inclusive": false }, "NOTE_TEXT": { "rules": [63, 64], "inclusive": false }, "NOTE_ID": { "rules": [62], "inclusive": false }, "NOTE": { "rules": [55, 56, 57], "inclusive": false }, "CLASS_STYLE": { "rules": [28], "inclusive": false }, "CLASS": { "rules": [27], "inclusive": false }, "CLASSDEFID": { "rules": [25], "inclusive": false }, "CLASSDEF": { "rules": [23, 24], "inclusive": false }, "acc_descr_multiline": { "rules": [20, 21], "inclusive": false }, "acc_descr": { "rules": [18], "inclusive": false }, "acc_title": { "rules": [16], "inclusive": false }, "SCALE": { "rules": [13, 14, 30, 31], "inclusive": false }, "ALIAS": { "rules": [], "inclusive": false }, "STATE_ID": { "rules": [45], "inclusive": false }, "STATE_STRING": { "rules": [46, 47], "inclusive": false }, "FORK_STATE": { "rules": [], "inclusive": false }, "STATE": { "rules": [9, 10, 33, 34, 35, 36, 37, 38, 43, 44, 48, 49, 50], "inclusive": false }, "ID": { "rules": [9, 10], "inclusive": false }, "INITIAL": { "rules": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 15, 17, 19, 22, 26, 29, 32, 50, 54, 65, 66, 67, 68, 69, 70, 71, 73, 74, 75], "inclusive": true } }
+      rules: [/^(?:block-beta\b)/, /^(?:block\s+)/, /^(?:block\n+)/, /^(?:block:)/, /^(?:[\s]+)/, /^(?:[\n]+)/, /^(?:((\u000D\u000A)|(\u000A)))/, /^(?:columns\s+auto\b)/, /^(?:columns\s+[\d]+)/, /^(?:["][`])/, /^(?:[^`"]+)/, /^(?:[`]["])/, /^(?:["])/, /^(?:["])/, /^(?:[^"]*)/, /^(?:space[:]\d+)/, /^(?:space\b)/, /^(?:default\b)/, /^(?:linkStyle\b)/, /^(?:interpolate\b)/, /^(?:classDef\s+)/, /^(?:DEFAULT\s+)/, /^(?:\w+\s+)/, /^(?:[^\n]*)/, /^(?:class\s+)/, /^(?:(\w+)+((,\s*\w+)*))/, /^(?:[^\n]*)/, /^(?:style\s+)/, /^(?:(\w+)+((,\s*\w+)*))/, /^(?:[^\n]*)/, /^(?:accTitle\s*:\s*)/, /^(?:(?!\n||)*[^\n]*)/, /^(?:accDescr\s*:\s*)/, /^(?:(?!\n||)*[^\n]*)/, /^(?:accDescr\s*\{\s*)/, /^(?:[\}])/, /^(?:[^\}]*)/, /^(?:end\b\s*)/, /^(?:\(\(\()/, /^(?:\)\)\))/, /^(?:[\)]\))/, /^(?:\}\})/, /^(?:\})/, /^(?:\(-)/, /^(?:-\))/, /^(?:\(\()/, /^(?:\]\])/, /^(?:\()/, /^(?:\]\))/, /^(?:\\\])/, /^(?:\/\])/, /^(?:\)\])/, /^(?:[\)])/, /^(?:\]>)/, /^(?:[\]])/, /^(?:-\))/, /^(?:\(-)/, /^(?:\)\))/, /^(?:\))/, /^(?:\(\(\()/, /^(?:\(\()/, /^(?:\{\{)/, /^(?:\{)/, /^(?:>)/, /^(?:\(\[)/, /^(?:\()/, /^(?:\[\[)/, /^(?:\[\|)/, /^(?:\[\()/, /^(?:\)\)\))/, /^(?:\[\\)/, /^(?:\[\/)/, /^(?:\[\\)/, /^(?:\[)/, /^(?:<\[)/, /^(?:[^\(\[\n\-\)\{\}\s\<\>:]+)/, /^(?:$)/, /^(?:["][`])/, /^(?:["][`])/, /^(?:[^`"]+)/, /^(?:[`]["])/, /^(?:["])/, /^(?:["])/, /^(?:[^"]+)/, /^(?:["])/, /^(?:\]>\s*\()/, /^(?:,?\s*right\s*)/, /^(?:,?\s*left\s*)/, /^(?:,?\s*x\s*)/, /^(?:,?\s*y\s*)/, /^(?:,?\s*up\s*)/, /^(?:,?\s*down\s*)/, /^(?:\)\s*)/, /^(?:\s*[xo<]?--+[-xo>]\s*)/, /^(?:\s*[xo<]?==+[=xo>]\s*)/, /^(?:\s*[xo<]?-?\.+-[xo>]?\s*)/, /^(?:\s*~~[\~]+\s*)/, /^(?:\s*[xo<]?--\s*)/, /^(?:\s*[xo<]?==\s*)/, /^(?:\s*[xo<]?-\.\s*)/, /^(?:["][`])/, /^(?:["])/, /^(?:\s*[xo<]?--+[-xo>]\s*)/, /^(?:\s*[xo<]?==+[=xo>]\s*)/, /^(?:\s*[xo<]?-?\.+-[xo>]?\s*)/, /^(?::\d+)/],
+      conditions: { "STYLE_DEFINITION": { "rules": [29], "inclusive": false }, "STYLE_STMNT": { "rules": [28], "inclusive": false }, "CLASSDEFID": { "rules": [23], "inclusive": false }, "CLASSDEF": { "rules": [21, 22], "inclusive": false }, "CLASS_STYLE": { "rules": [26], "inclusive": false }, "CLASS": { "rules": [25], "inclusive": false }, "LLABEL": { "rules": [100, 101, 102, 103, 104], "inclusive": false }, "ARROW_DIR": { "rules": [86, 87, 88, 89, 90, 91, 92], "inclusive": false }, "BLOCK_ARROW": { "rules": [77, 82, 85], "inclusive": false }, "NODE": { "rules": [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 78, 81], "inclusive": false }, "md_string": { "rules": [10, 11, 79, 80], "inclusive": false }, "space": { "rules": [], "inclusive": false }, "string": { "rules": [13, 14, 83, 84], "inclusive": false }, "acc_descr_multiline": { "rules": [35, 36], "inclusive": false }, "acc_descr": { "rules": [33], "inclusive": false }, "acc_title": { "rules": [31], "inclusive": false }, "INITIAL": { "rules": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 15, 16, 17, 18, 19, 20, 24, 27, 30, 32, 34, 37, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 93, 94, 95, 96, 97, 98, 99, 105], "inclusive": true } }
     };
     return lexer2;
   }();
@@ -21585,301 +16100,16 @@ var parser = function() {
 }();
 parser.parser = parser;
 const parser$1 = parser;
-const DEFAULT_DIAGRAM_DIRECTION = "LR";
-const DEFAULT_NESTED_DOC_DIR = "TB";
-const STMT_STATE = "state";
-const STMT_RELATION = "relation";
-const STMT_CLASSDEF = "classDef";
-const STMT_APPLYCLASS = "applyClass";
-const DEFAULT_STATE_TYPE = "default";
-const DIVIDER_TYPE = "divider";
-const START_NODE = "[*]";
-const START_TYPE = "start";
-const END_NODE = START_NODE;
-const END_TYPE = "end";
+let blockDatabase = {};
+let edgeList = [];
+let edgeCount = {};
 const COLOR_KEYWORD = "color";
 const FILL_KEYWORD = "fill";
 const BG_FILL = "bgFill";
 const STYLECLASS_SEP = ",";
-function newClassesList() {
-  return {};
-}
-let direction = DEFAULT_DIAGRAM_DIRECTION;
-let rootDoc = [];
-let classes = newClassesList();
-const newDoc = () => {
-  return {
-    relations: [],
-    states: {},
-    documents: {}
-  };
-};
-let documents = {
-  root: newDoc()
-};
-let currentDocument = documents.root;
-let startEndCount = 0;
-let dividerCnt = 0;
-const lineType = {
-  LINE: 0,
-  DOTTED_LINE: 1
-};
-const relationType = {
-  AGGREGATION: 0,
-  EXTENSION: 1,
-  COMPOSITION: 2,
-  DEPENDENCY: 3
-};
-const clone = (o) => JSON.parse(JSON.stringify(o));
-const setRootDoc = (o) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Setting root doc", o);
-  rootDoc = o;
-};
-const getRootDoc = () => rootDoc;
-const docTranslator = (parent, node, first) => {
-  if (node.stmt === STMT_RELATION) {
-    docTranslator(parent, node.state1, true);
-    docTranslator(parent, node.state2, false);
-  } else {
-    if (node.stmt === STMT_STATE) {
-      if (node.id === "[*]") {
-        node.id = first ? parent.id + "_start" : parent.id + "_end";
-        node.start = first;
-      } else {
-        node.id = node.id.trim();
-      }
-    }
-    if (node.doc) {
-      const doc = [];
-      let currentDoc = [];
-      let i;
-      for (i = 0; i < node.doc.length; i++) {
-        if (node.doc[i].type === DIVIDER_TYPE) {
-          const newNode = clone(node.doc[i]);
-          newNode.doc = clone(currentDoc);
-          doc.push(newNode);
-          currentDoc = [];
-        } else {
-          currentDoc.push(node.doc[i]);
-        }
-      }
-      if (doc.length > 0 && currentDoc.length > 0) {
-        const newNode = {
-          stmt: STMT_STATE,
-          id: (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.I)(),
-          type: "divider",
-          doc: clone(currentDoc)
-        };
-        doc.push(clone(newNode));
-        node.doc = doc;
-      }
-      node.doc.forEach((docNode) => docTranslator(node, docNode, true));
-    }
-  }
-};
-const getRootDocV2 = () => {
-  docTranslator({ id: "root" }, { id: "root", doc: rootDoc }, true);
-  return { id: "root", doc: rootDoc };
-};
-const extract = (_doc) => {
-  let doc;
-  if (_doc.doc) {
-    doc = _doc.doc;
-  } else {
-    doc = _doc;
-  }
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info(doc);
-  clear(true);
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Extract", doc);
-  doc.forEach((item) => {
-    switch (item.stmt) {
-      case STMT_STATE:
-        addState(
-          item.id.trim(),
-          item.type,
-          item.doc,
-          item.description,
-          item.note,
-          item.classes,
-          item.styles,
-          item.textStyles
-        );
-        break;
-      case STMT_RELATION:
-        addRelation(item.state1, item.state2, item.description);
-        break;
-      case STMT_CLASSDEF:
-        addStyleClass(item.id.trim(), item.classes);
-        break;
-      case STMT_APPLYCLASS:
-        setCssClass(item.id.trim(), item.styleClass);
-        break;
-    }
-  });
-};
-const addState = function(id, type = DEFAULT_STATE_TYPE, doc = null, descr = null, note = null, classes2 = null, styles2 = null, textStyles = null) {
-  const trimmedId = id == null ? void 0 : id.trim();
-  if (currentDocument.states[trimmedId] === void 0) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Adding state ", trimmedId, descr);
-    currentDocument.states[trimmedId] = {
-      id: trimmedId,
-      descriptions: [],
-      type,
-      doc,
-      note,
-      classes: [],
-      styles: [],
-      textStyles: []
-    };
-  } else {
-    if (!currentDocument.states[trimmedId].doc) {
-      currentDocument.states[trimmedId].doc = doc;
-    }
-    if (!currentDocument.states[trimmedId].type) {
-      currentDocument.states[trimmedId].type = type;
-    }
-  }
-  if (descr) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Setting state description", trimmedId, descr);
-    if (typeof descr === "string") {
-      addDescription(trimmedId, descr.trim());
-    }
-    if (typeof descr === "object") {
-      descr.forEach((des) => addDescription(trimmedId, des.trim()));
-    }
-  }
-  if (note) {
-    currentDocument.states[trimmedId].note = note;
-    currentDocument.states[trimmedId].note.text = _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.e.sanitizeText(
-      currentDocument.states[trimmedId].note.text,
-      (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.c)()
-    );
-  }
-  if (classes2) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Setting state classes", trimmedId, classes2);
-    const classesList = typeof classes2 === "string" ? [classes2] : classes2;
-    classesList.forEach((cssClass) => setCssClass(trimmedId, cssClass.trim()));
-  }
-  if (styles2) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Setting state styles", trimmedId, styles2);
-    const stylesList = typeof styles2 === "string" ? [styles2] : styles2;
-    stylesList.forEach((style) => setStyle(trimmedId, style.trim()));
-  }
-  if (textStyles) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Setting state styles", trimmedId, styles2);
-    const textStylesList = typeof textStyles === "string" ? [textStyles] : textStyles;
-    textStylesList.forEach((textStyle) => setTextStyle(trimmedId, textStyle.trim()));
-  }
-};
-const clear = function(saveCommon) {
-  documents = {
-    root: newDoc()
-  };
-  currentDocument = documents.root;
-  startEndCount = 0;
-  classes = newClassesList();
-  if (!saveCommon) {
-    (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.v)();
-  }
-};
-const getState = function(id) {
-  return currentDocument.states[id];
-};
-const getStates = function() {
-  return currentDocument.states;
-};
-const logDocuments = function() {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.l.info("Documents = ", documents);
-};
-const getRelations = function() {
-  return currentDocument.relations;
-};
-function startIdIfNeeded(id = "") {
-  let fixedId = id;
-  if (id === START_NODE) {
-    startEndCount++;
-    fixedId = `${START_TYPE}${startEndCount}`;
-  }
-  return fixedId;
-}
-function startTypeIfNeeded(id = "", type = DEFAULT_STATE_TYPE) {
-  return id === START_NODE ? START_TYPE : type;
-}
-function endIdIfNeeded(id = "") {
-  let fixedId = id;
-  if (id === END_NODE) {
-    startEndCount++;
-    fixedId = `${END_TYPE}${startEndCount}`;
-  }
-  return fixedId;
-}
-function endTypeIfNeeded(id = "", type = DEFAULT_STATE_TYPE) {
-  return id === END_NODE ? END_TYPE : type;
-}
-function addRelationObjs(item1, item2, relationTitle) {
-  let id1 = startIdIfNeeded(item1.id.trim());
-  let type1 = startTypeIfNeeded(item1.id.trim(), item1.type);
-  let id2 = startIdIfNeeded(item2.id.trim());
-  let type2 = startTypeIfNeeded(item2.id.trim(), item2.type);
-  addState(
-    id1,
-    type1,
-    item1.doc,
-    item1.description,
-    item1.note,
-    item1.classes,
-    item1.styles,
-    item1.textStyles
-  );
-  addState(
-    id2,
-    type2,
-    item2.doc,
-    item2.description,
-    item2.note,
-    item2.classes,
-    item2.styles,
-    item2.textStyles
-  );
-  currentDocument.relations.push({
-    id1,
-    id2,
-    relationTitle: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.e.sanitizeText(relationTitle, (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.c)())
-  });
-}
-const addRelation = function(item1, item2, title) {
-  if (typeof item1 === "object") {
-    addRelationObjs(item1, item2, title);
-  } else {
-    const id1 = startIdIfNeeded(item1.trim());
-    const type1 = startTypeIfNeeded(item1);
-    const id2 = endIdIfNeeded(item2.trim());
-    const type2 = endTypeIfNeeded(item2);
-    addState(id1, type1);
-    addState(id2, type2);
-    currentDocument.relations.push({
-      id1,
-      id2,
-      title: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.e.sanitizeText(title, (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.c)())
-    });
-  }
-};
-const addDescription = function(id, descr) {
-  const theState = currentDocument.states[id];
-  const _descr = descr.startsWith(":") ? descr.replace(":", "").trim() : descr;
-  theState.descriptions.push(_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.e.sanitizeText(_descr, (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.c)()));
-};
-const cleanupLabel = function(label) {
-  if (label.substring(0, 1) === ":") {
-    return label.substr(2).trim();
-  } else {
-    return label.trim();
-  }
-};
-const getDividerId = () => {
-  dividerCnt++;
-  return "divider-id-" + dividerCnt;
-};
+const config = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.c)();
+let classes = {};
+const sanitizeText = (txt) => _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.e.sanitizeText(txt, config);
 const addStyleClass = function(id, styleAttributes = "") {
   if (classes[id] === void 0) {
     classes[id] = { id, styles: [], textStyles: [] };
@@ -21897,272 +16127,1024 @@ const addStyleClass = function(id, styleAttributes = "") {
     });
   }
 };
-const getClasses = function() {
-  return classes;
+const addStyle2Node = function(id, styles = "") {
+  const foundBlock = blockDatabase[id];
+  if (styles !== void 0 && styles !== null) {
+    foundBlock.styles = styles.split(STYLECLASS_SEP);
+  }
 };
 const setCssClass = function(itemIds, cssClassName) {
   itemIds.split(",").forEach(function(id) {
-    let foundState = getState(id);
-    if (foundState === void 0) {
+    let foundBlock = blockDatabase[id];
+    if (foundBlock === void 0) {
       const trimmedId = id.trim();
-      addState(trimmedId);
-      foundState = getState(trimmedId);
+      blockDatabase[trimmedId] = { id: trimmedId, type: "na", children: [] };
+      foundBlock = blockDatabase[trimmedId];
     }
-    foundState.classes.push(cssClassName);
+    if (!foundBlock.classes) {
+      foundBlock.classes = [];
+    }
+    foundBlock.classes.push(cssClassName);
   });
 };
-const setStyle = function(itemId, styleText) {
-  const item = getState(itemId);
-  if (item !== void 0) {
-    item.textStyles.push(styleText);
+const populateBlockDatabase = (_blockList, parent) => {
+  const blockList = _blockList.flat();
+  const children = [];
+  for (const block of blockList) {
+    if (block.label) {
+      block.label = sanitizeText(block.label);
+    }
+    if (block.type === "classDef") {
+      addStyleClass(block.id, block.css);
+      continue;
+    }
+    if (block.type === "applyClass") {
+      setCssClass(block.id, (block == null ? void 0 : block.styleClass) || "");
+      continue;
+    }
+    if (block.type === "applyStyles") {
+      if (block == null ? void 0 : block.stylesStr) {
+        addStyle2Node(block.id, block == null ? void 0 : block.stylesStr);
+      }
+      continue;
+    }
+    if (block.type === "column-setting") {
+      parent.columns = block.columns || -1;
+    } else if (block.type === "edge") {
+      if (edgeCount[block.id]) {
+        edgeCount[block.id]++;
+      } else {
+        edgeCount[block.id] = 1;
+      }
+      block.id = edgeCount[block.id] + "-" + block.id;
+      edgeList.push(block);
+    } else {
+      if (!block.label) {
+        if (block.type === "composite") {
+          block.label = "";
+        } else {
+          block.label = block.id;
+        }
+      }
+      const newBlock = !blockDatabase[block.id];
+      if (newBlock) {
+        blockDatabase[block.id] = block;
+      } else {
+        if (block.type !== "na") {
+          blockDatabase[block.id].type = block.type;
+        }
+        if (block.label !== block.id) {
+          blockDatabase[block.id].label = block.label;
+        }
+      }
+      if (block.children) {
+        populateBlockDatabase(block.children, block);
+      }
+      if (block.type === "space") {
+        const w = block.width || 1;
+        for (let j = 0; j < w; j++) {
+          const newBlock2 = (0,lodash_es_clone_js__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .A)(block);
+          newBlock2.id = newBlock2.id + "-" + j;
+          blockDatabase[newBlock2.id] = newBlock2;
+          children.push(newBlock2);
+        }
+      } else if (newBlock) {
+        children.push(block);
+      }
+    }
   }
+  parent.children = children;
 };
-const setTextStyle = function(itemId, cssClassName) {
-  const item = getState(itemId);
-  if (item !== void 0) {
-    item.textStyles.push(cssClassName);
+let blocks = [];
+let rootBlock = { id: "root", type: "composite", children: [], columns: -1 };
+const clear = () => {
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("Clear called");
+  (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.v)();
+  rootBlock = { id: "root", type: "composite", children: [], columns: -1 };
+  blockDatabase = { root: rootBlock };
+  blocks = [];
+  classes = {};
+  edgeList = [];
+  edgeCount = {};
+};
+function typeStr2Type(typeStr) {
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("typeStr2Type", typeStr);
+  switch (typeStr) {
+    case "[]":
+      return "square";
+    case "()":
+      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("we have a round");
+      return "round";
+    case "(())":
+      return "circle";
+    case ">]":
+      return "rect_left_inv_arrow";
+    case "{}":
+      return "diamond";
+    case "{{}}":
+      return "hexagon";
+    case "([])":
+      return "stadium";
+    case "[[]]":
+      return "subroutine";
+    case "[()]":
+      return "cylinder";
+    case "((()))":
+      return "doublecircle";
+    case "[//]":
+      return "lean_right";
+    case "[\\\\]":
+      return "lean_left";
+    case "[/\\]":
+      return "trapezoid";
+    case "[\\/]":
+      return "inv_trapezoid";
+    case "<[]>":
+      return "block_arrow";
+    default:
+      return "na";
   }
+}
+function edgeTypeStr2Type(typeStr) {
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("typeStr2Type", typeStr);
+  switch (typeStr) {
+    case "==":
+      return "thick";
+    default:
+      return "normal";
+  }
+}
+function edgeStrToEdgeData(typeStr) {
+  switch (typeStr.trim()) {
+    case "--x":
+      return "arrow_cross";
+    case "--o":
+      return "arrow_circle";
+    default:
+      return "arrow_point";
+  }
+}
+let cnt = 0;
+const generateId = () => {
+  cnt++;
+  return "id-" + Math.random().toString(36).substr(2, 12) + "-" + cnt;
 };
-const getDirection = () => direction;
-const setDirection = (dir) => {
-  direction = dir;
+const setHierarchy = (block) => {
+  rootBlock.children = block;
+  populateBlockDatabase(block, rootBlock);
+  blocks = rootBlock.children;
 };
-const trimColon = (str) => str && str[0] === ":" ? str.substr(1).trim() : str.trim();
+const getColumns = (blockId) => {
+  const block = blockDatabase[blockId];
+  if (!block) {
+    return -1;
+  }
+  if (block.columns) {
+    return block.columns;
+  }
+  if (!block.children) {
+    return -1;
+  }
+  return block.children.length;
+};
+const getBlocksFlat = () => {
+  return [...Object.values(blockDatabase)];
+};
+const getBlocks = () => {
+  return blocks || [];
+};
+const getEdges = () => {
+  return edgeList;
+};
+const getBlock = (id) => {
+  return blockDatabase[id];
+};
+const setBlock = (block) => {
+  blockDatabase[block.id] = block;
+};
+const getLogger = () => console;
+const getClasses$1 = function() {
+  return classes;
+};
 const db = {
-  getConfig: () => (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.c)().state,
-  addState,
+  getConfig: () => (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.F)().block,
+  typeStr2Type,
+  edgeTypeStr2Type,
+  edgeStrToEdgeData,
+  getLogger,
+  getBlocksFlat,
+  getBlocks,
+  getEdges,
+  setHierarchy,
+  getBlock,
+  setBlock,
+  getColumns,
+  getClasses: getClasses$1,
   clear,
-  getState,
-  getStates,
-  getRelations,
-  getClasses,
-  getDirection,
-  addRelation,
-  getDividerId,
-  setDirection,
-  cleanupLabel,
-  lineType,
-  relationType,
-  logDocuments,
-  getRootDoc,
-  setRootDoc,
-  getRootDocV2,
-  extract,
-  trimColon,
-  getAccTitle: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.g,
-  setAccTitle: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.s,
-  getAccDescription: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.a,
-  setAccDescription: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.b,
-  addStyleClass,
-  setCssClass,
-  addDescription,
-  setDiagramTitle: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.q,
-  getDiagramTitle: _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_0__.t
+  generateId
 };
-const getStyles = (options) => `
-defs #statediagram-barbEnd {
-    fill: ${options.transitionColor};
-    stroke: ${options.transitionColor};
+const db$1 = db;
+const fade = (color, opacity) => {
+  const channel = khroma__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .A;
+  const r = channel(color, "r");
+  const g = channel(color, "g");
+  const b = channel(color, "b");
+  return khroma__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .A(r, g, b, opacity);
+};
+const getStyles = (options) => `.label {
+    font-family: ${options.fontFamily};
+    color: ${options.nodeTextColor || options.textColor};
   }
-g.stateGroup text {
-  fill: ${options.nodeBorder};
-  stroke: none;
-  font-size: 10px;
-}
-g.stateGroup text {
-  fill: ${options.textColor};
-  stroke: none;
-  font-size: 10px;
-
-}
-g.stateGroup .state-title {
-  font-weight: bolder;
-  fill: ${options.stateLabelColor};
-}
-
-g.stateGroup rect {
-  fill: ${options.mainBkg};
-  stroke: ${options.nodeBorder};
-}
-
-g.stateGroup line {
-  stroke: ${options.lineColor};
-  stroke-width: 1;
-}
-
-.transition {
-  stroke: ${options.transitionColor};
-  stroke-width: 1;
-  fill: none;
-}
-
-.stateGroup .composit {
-  fill: ${options.background};
-  border-bottom: 1px
-}
-
-.stateGroup .alt-composit {
-  fill: #e0e0e0;
-  border-bottom: 1px
-}
-
-.state-note {
-  stroke: ${options.noteBorderColor};
-  fill: ${options.noteBkgColor};
-
-  text {
-    fill: ${options.noteTextColor};
-    stroke: none;
-    font-size: 10px;
+  .cluster-label text {
+    fill: ${options.titleColor};
   }
-}
+  .cluster-label span,p {
+    color: ${options.titleColor};
+  }
 
-.stateLabel .box {
-  stroke: none;
-  stroke-width: 0;
-  fill: ${options.mainBkg};
-  opacity: 0.5;
-}
 
-.edgeLabel .label rect {
-  fill: ${options.labelBackgroundColor};
-  opacity: 0.5;
-}
-.edgeLabel .label text {
-  fill: ${options.transitionLabelColor || options.tertiaryTextColor};
-}
-.label div .edgeLabel {
-  color: ${options.transitionLabelColor || options.tertiaryTextColor};
-}
 
-.stateLabel text {
-  fill: ${options.stateLabelColor};
-  font-size: 10px;
-  font-weight: bold;
-}
+  .label text,span,p {
+    fill: ${options.nodeTextColor || options.textColor};
+    color: ${options.nodeTextColor || options.textColor};
+  }
 
-.node circle.state-start {
-  fill: ${options.specialStateColor};
-  stroke: ${options.specialStateColor};
-}
+  .node rect,
+  .node circle,
+  .node ellipse,
+  .node polygon,
+  .node path {
+    fill: ${options.mainBkg};
+    stroke: ${options.nodeBorder};
+    stroke-width: 1px;
+  }
+  .flowchart-label text {
+    text-anchor: middle;
+  }
+  // .flowchart-label .text-outer-tspan {
+  //   text-anchor: middle;
+  // }
+  // .flowchart-label .text-inner-tspan {
+  //   text-anchor: start;
+  // }
 
-.node .fork-join {
-  fill: ${options.specialStateColor};
-  stroke: ${options.specialStateColor};
-}
+  .node .label {
+    text-align: center;
+  }
+  .node.clickable {
+    cursor: pointer;
+  }
 
-.node circle.state-end {
-  fill: ${options.innerEndBackground};
-  stroke: ${options.background};
-  stroke-width: 1.5
-}
-.end-state-inner {
-  fill: ${options.compositeBackground || options.background};
-  // stroke: ${options.background};
-  stroke-width: 1.5
-}
+  .arrowheadPath {
+    fill: ${options.arrowheadColor};
+  }
 
-.node rect {
-  fill: ${options.stateBkg || options.mainBkg};
-  stroke: ${options.stateBorder || options.nodeBorder};
-  stroke-width: 1px;
-}
-.node polygon {
-  fill: ${options.mainBkg};
-  stroke: ${options.stateBorder || options.nodeBorder};;
-  stroke-width: 1px;
-}
-#statediagram-barbEnd {
-  fill: ${options.lineColor};
-}
+  .edgePath .path {
+    stroke: ${options.lineColor};
+    stroke-width: 2.0px;
+  }
 
-.statediagram-cluster rect {
-  fill: ${options.compositeTitleBackground};
-  stroke: ${options.stateBorder || options.nodeBorder};
-  stroke-width: 1px;
-}
+  .flowchart-link {
+    stroke: ${options.lineColor};
+    fill: none;
+  }
 
-.cluster-label, .nodeLabel {
-  color: ${options.stateLabelColor};
-}
+  .edgeLabel {
+    background-color: ${options.edgeLabelBackground};
+    rect {
+      opacity: 0.5;
+      background-color: ${options.edgeLabelBackground};
+      fill: ${options.edgeLabelBackground};
+    }
+    text-align: center;
+  }
 
-.statediagram-cluster rect.outer {
-  rx: 5px;
-  ry: 5px;
-}
-.statediagram-state .divider {
-  stroke: ${options.stateBorder || options.nodeBorder};
-}
+  /* For html labels only */
+  .labelBkg {
+    background-color: ${fade(options.edgeLabelBackground, 0.5)};
+    // background-color:
+  }
 
-.statediagram-state .title-state {
-  rx: 5px;
-  ry: 5px;
-}
-.statediagram-cluster.statediagram-cluster .inner {
-  fill: ${options.compositeBackground || options.background};
-}
-.statediagram-cluster.statediagram-cluster-alt .inner {
-  fill: ${options.altBackground ? options.altBackground : "#efefef"};
-}
+  .node .cluster {
+    // fill: ${fade(options.mainBkg, 0.5)};
+    fill: ${fade(options.clusterBkg, 0.5)};
+    stroke: ${fade(options.clusterBorder, 0.2)};
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    stroke-width: 1px;
+  }
 
-.statediagram-cluster .inner {
-  rx:0;
-  ry:0;
-}
+  .cluster text {
+    fill: ${options.titleColor};
+  }
 
-.statediagram-state rect.basic {
-  rx: 5px;
-  ry: 5px;
-}
-.statediagram-state rect.divider {
-  stroke-dasharray: 10,10;
-  fill: ${options.altBackground ? options.altBackground : "#efefef"};
-}
+  .cluster span,p {
+    color: ${options.titleColor};
+  }
+  /* .cluster div {
+    color: ${options.titleColor};
+  } */
 
-.note-edge {
-  stroke-dasharray: 5;
-}
+  div.mermaidTooltip {
+    position: absolute;
+    text-align: center;
+    max-width: 200px;
+    padding: 2px;
+    font-family: ${options.fontFamily};
+    font-size: 12px;
+    background: ${options.tertiaryColor};
+    border: 1px solid ${options.border2};
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 100;
+  }
 
-.statediagram-note rect {
-  fill: ${options.noteBkgColor};
-  stroke: ${options.noteBorderColor};
-  stroke-width: 1px;
-  rx: 0;
-  ry: 0;
-}
-.statediagram-note rect {
-  fill: ${options.noteBkgColor};
-  stroke: ${options.noteBorderColor};
-  stroke-width: 1px;
-  rx: 0;
-  ry: 0;
-}
-
-.statediagram-note text {
-  fill: ${options.noteTextColor};
-}
-
-.statediagram-note .nodeLabel {
-  color: ${options.noteTextColor};
-}
-.statediagram .edgeLabel {
-  color: red; // ${options.noteTextColor};
-}
-
-#dependencyStart, #dependencyEnd {
-  fill: ${options.lineColor};
-  stroke: ${options.lineColor};
-  stroke-width: 1;
-}
-
-.statediagramTitleText {
-  text-anchor: middle;
-  font-size: 18px;
-  fill: ${options.textColor};
-}
+  .flowchartTitleText {
+    text-anchor: middle;
+    font-size: 18px;
+    fill: ${options.textColor};
+  }
 `;
-const styles = getStyles;
+const flowStyles = getStyles;
+function getNodeFromBlock(block, db2, positioned = false) {
+  var _a2, _b2, _c;
+  const vertex = block;
+  let classStr = "default";
+  if ((((_a2 = vertex == null ? void 0 : vertex.classes) == null ? void 0 : _a2.length) || 0) > 0) {
+    classStr = ((vertex == null ? void 0 : vertex.classes) || []).join(" ");
+  }
+  classStr = classStr + " flowchart-label";
+  let radius = 0;
+  let shape = "";
+  let padding2;
+  switch (vertex.type) {
+    case "round":
+      radius = 5;
+      shape = "rect";
+      break;
+    case "composite":
+      radius = 0;
+      shape = "composite";
+      padding2 = 0;
+      break;
+    case "square":
+      shape = "rect";
+      break;
+    case "diamond":
+      shape = "question";
+      break;
+    case "hexagon":
+      shape = "hexagon";
+      break;
+    case "block_arrow":
+      shape = "block_arrow";
+      break;
+    case "odd":
+      shape = "rect_left_inv_arrow";
+      break;
+    case "lean_right":
+      shape = "lean_right";
+      break;
+    case "lean_left":
+      shape = "lean_left";
+      break;
+    case "trapezoid":
+      shape = "trapezoid";
+      break;
+    case "inv_trapezoid":
+      shape = "inv_trapezoid";
+      break;
+    case "rect_left_inv_arrow":
+      shape = "rect_left_inv_arrow";
+      break;
+    case "circle":
+      shape = "circle";
+      break;
+    case "ellipse":
+      shape = "ellipse";
+      break;
+    case "stadium":
+      shape = "stadium";
+      break;
+    case "subroutine":
+      shape = "subroutine";
+      break;
+    case "cylinder":
+      shape = "cylinder";
+      break;
+    case "group":
+      shape = "rect";
+      break;
+    case "doublecircle":
+      shape = "doublecircle";
+      break;
+    default:
+      shape = "rect";
+  }
+  const styles = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.k)((vertex == null ? void 0 : vertex.styles) || []);
+  const vertexText = vertex.label;
+  const bounds = vertex.size || { width: 0, height: 0, x: 0, y: 0 };
+  const node = {
+    labelStyle: styles.labelStyle,
+    shape,
+    labelText: vertexText,
+    rx: radius,
+    ry: radius,
+    class: classStr,
+    style: styles.style,
+    id: vertex.id,
+    directions: vertex.directions,
+    width: bounds.width,
+    height: bounds.height,
+    x: bounds.x,
+    y: bounds.y,
+    positioned,
+    intersect: void 0,
+    type: vertex.type,
+    padding: padding2 ?? (((_c = (_b2 = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.F)()) == null ? void 0 : _b2.block) == null ? void 0 : _c.padding) || 0)
+  };
+  return node;
+}
+async function calculateBlockSize(elem, block, db2) {
+  const node = getNodeFromBlock(block, db2, false);
+  if (node.type === "group") {
+    return;
+  }
+  const nodeEl = await (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__.e)(elem, node);
+  const boundingBox = nodeEl.node().getBBox();
+  const obj = db2.getBlock(node.id);
+  obj.size = { width: boundingBox.width, height: boundingBox.height, x: 0, y: 0, node: nodeEl };
+  db2.setBlock(obj);
+  nodeEl.remove();
+}
+async function insertBlockPositioned(elem, block, db2) {
+  const node = getNodeFromBlock(block, db2, true);
+  const obj = db2.getBlock(node.id);
+  if (obj.type !== "space") {
+    await (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__.e)(elem, node);
+    block.intersect = node == null ? void 0 : node.intersect;
+    (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__.p)(node);
+  }
+}
+async function performOperations(elem, blocks2, db2, operation) {
+  for (const block of blocks2) {
+    await operation(elem, block, db2);
+    if (block.children) {
+      await performOperations(elem, block.children, db2, operation);
+    }
+  }
+}
+async function calculateBlockSizes(elem, blocks2, db2) {
+  await performOperations(elem, blocks2, db2, calculateBlockSize);
+}
+async function insertBlocks(elem, blocks2, db2) {
+  await performOperations(elem, blocks2, db2, insertBlockPositioned);
+}
+async function insertEdges(elem, edges, blocks2, db2, id) {
+  const g = new dagre_d3_es_src_graphlib_index_js__WEBPACK_IMPORTED_MODULE_0__/* .Graph */ .T({
+    multigraph: true,
+    compound: true
+  });
+  g.setGraph({
+    rankdir: "TB",
+    nodesep: 10,
+    ranksep: 10,
+    marginx: 8,
+    marginy: 8
+  });
+  for (const block of blocks2) {
+    if (block.size) {
+      g.setNode(block.id, {
+        width: block.size.width,
+        height: block.size.height,
+        intersect: block.intersect
+      });
+    }
+  }
+  for (const edge of edges) {
+    if (edge.start && edge.end) {
+      const startBlock = db2.getBlock(edge.start);
+      const endBlock = db2.getBlock(edge.end);
+      if ((startBlock == null ? void 0 : startBlock.size) && (endBlock == null ? void 0 : endBlock.size)) {
+        const start = startBlock.size;
+        const end = endBlock.size;
+        const points = [
+          { x: start.x, y: start.y },
+          { x: start.x + (end.x - start.x) / 2, y: start.y + (end.y - start.y) / 2 },
+          { x: end.x, y: end.y }
+        ];
+        await (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__.h)(
+          elem,
+          { v: edge.start, w: edge.end, name: edge.id },
+          {
+            ...edge,
+            arrowTypeEnd: edge.arrowTypeEnd,
+            arrowTypeStart: edge.arrowTypeStart,
+            points,
+            classes: "edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-b1"
+          },
+          void 0,
+          "block",
+          g,
+          id
+        );
+        if (edge.label) {
+          await (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__.f)(elem, {
+            ...edge,
+            label: edge.label,
+            labelStyle: "stroke: #333; stroke-width: 1.5px;fill:none;",
+            arrowTypeEnd: edge.arrowTypeEnd,
+            arrowTypeStart: edge.arrowTypeStart,
+            points,
+            classes: "edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-b1"
+          });
+          await (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__.j)(
+            { ...edge, x: points[1].x, y: points[1].y },
+            {
+              originalPath: points
+            }
+          );
+        }
+      }
+    }
+  }
+}
+const padding = ((_b = (_a = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.c)()) == null ? void 0 : _a.block) == null ? void 0 : _b.padding) || 8;
+function calculateBlockPosition(columns, position) {
+  if (columns === 0 || !Number.isInteger(columns)) {
+    throw new Error("Columns must be an integer !== 0.");
+  }
+  if (position < 0 || !Number.isInteger(position)) {
+    throw new Error("Position must be a non-negative integer." + position);
+  }
+  if (columns < 0) {
+    return { px: position, py: 0 };
+  }
+  if (columns === 1) {
+    return { px: 0, py: position };
+  }
+  const px = position % columns;
+  const py = Math.floor(position / columns);
+  return { px, py };
+}
+const getMaxChildSize = (block) => {
+  let maxWidth = 0;
+  let maxHeight = 0;
+  for (const child of block.children) {
+    const { width, height, x, y } = child.size || { width: 0, height: 0, x: 0, y: 0 };
+    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+      "getMaxChildSize abc95 child:",
+      child.id,
+      "width:",
+      width,
+      "height:",
+      height,
+      "x:",
+      x,
+      "y:",
+      y,
+      child.type
+    );
+    if (child.type === "space") {
+      continue;
+    }
+    if (width > maxWidth) {
+      maxWidth = width / (block.widthInColumns || 1);
+    }
+    if (height > maxHeight) {
+      maxHeight = height;
+    }
+  }
+  return { width: maxWidth, height: maxHeight };
+};
+function setBlockSizes(block, db2, siblingWidth = 0, siblingHeight = 0) {
+  var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k;
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+    "setBlockSizes abc95 (start)",
+    block.id,
+    (_a2 = block == null ? void 0 : block.size) == null ? void 0 : _a2.x,
+    "block width =",
+    block == null ? void 0 : block.size,
+    "sieblingWidth",
+    siblingWidth
+  );
+  if (!((_b2 = block == null ? void 0 : block.size) == null ? void 0 : _b2.width)) {
+    block.size = {
+      width: siblingWidth,
+      height: siblingHeight,
+      x: 0,
+      y: 0
+    };
+  }
+  let maxWidth = 0;
+  let maxHeight = 0;
+  if (((_c = block.children) == null ? void 0 : _c.length) > 0) {
+    for (const child of block.children) {
+      setBlockSizes(child, db2);
+    }
+    const childSize = getMaxChildSize(block);
+    maxWidth = childSize.width;
+    maxHeight = childSize.height;
+    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("setBlockSizes abc95 maxWidth of", block.id, ":s children is ", maxWidth, maxHeight);
+    for (const child of block.children) {
+      if (child.size) {
+        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+          `abc95 Setting size of children of ${block.id} id=${child.id} ${maxWidth} ${maxHeight} ${child.size}`
+        );
+        child.size.width = maxWidth * (child.widthInColumns || 1) + padding * ((child.widthInColumns || 1) - 1);
+        child.size.height = maxHeight;
+        child.size.x = 0;
+        child.size.y = 0;
+        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+          `abc95 updating size of ${block.id} children child:${child.id} maxWidth:${maxWidth} maxHeight:${maxHeight}`
+        );
+      }
+    }
+    for (const child of block.children) {
+      setBlockSizes(child, db2, maxWidth, maxHeight);
+    }
+    const columns = block.columns || -1;
+    let numItems = 0;
+    for (const child of block.children) {
+      numItems += child.widthInColumns || 1;
+    }
+    let xSize = block.children.length;
+    if (columns > 0 && columns < numItems) {
+      xSize = columns;
+    }
+    block.widthInColumns || 1;
+    const ySize = Math.ceil(numItems / xSize);
+    let width = xSize * (maxWidth + padding) + padding;
+    let height = ySize * (maxHeight + padding) + padding;
+    if (width < siblingWidth) {
+      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+        `Detected to small siebling: abc95 ${block.id} sieblingWidth ${siblingWidth} sieblingHeight ${siblingHeight} width ${width}`
+      );
+      width = siblingWidth;
+      height = siblingHeight;
+      const childWidth = (siblingWidth - xSize * padding - padding) / xSize;
+      const childHeight = (siblingHeight - ySize * padding - padding) / ySize;
+      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("Size indata abc88", block.id, "childWidth", childWidth, "maxWidth", maxWidth);
+      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("Size indata abc88", block.id, "childHeight", childHeight, "maxHeight", maxHeight);
+      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("Size indata abc88 xSize", xSize, "padding", padding);
+      for (const child of block.children) {
+        if (child.size) {
+          child.size.width = childWidth;
+          child.size.height = childHeight;
+          child.size.x = 0;
+          child.size.y = 0;
+        }
+      }
+    }
+    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+      `abc95 (finale calc) ${block.id} xSize ${xSize} ySize ${ySize} columns ${columns}${block.children.length} width=${Math.max(width, ((_d = block.size) == null ? void 0 : _d.width) || 0)}`
+    );
+    if (width < (((_e = block == null ? void 0 : block.size) == null ? void 0 : _e.width) || 0)) {
+      width = ((_f = block == null ? void 0 : block.size) == null ? void 0 : _f.width) || 0;
+      const num = columns > 0 ? Math.min(block.children.length, columns) : block.children.length;
+      if (num > 0) {
+        const childWidth = (width - num * padding - padding) / num;
+        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("abc95 (growing to fit) width", block.id, width, (_g = block.size) == null ? void 0 : _g.width, childWidth);
+        for (const child of block.children) {
+          if (child.size) {
+            child.size.width = childWidth;
+          }
+        }
+      }
+    }
+    block.size = {
+      width,
+      height,
+      x: 0,
+      y: 0
+    };
+  }
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+    "setBlockSizes abc94 (done)",
+    block.id,
+    (_h = block == null ? void 0 : block.size) == null ? void 0 : _h.x,
+    (_i = block == null ? void 0 : block.size) == null ? void 0 : _i.width,
+    (_j = block == null ? void 0 : block.size) == null ? void 0 : _j.y,
+    (_k = block == null ? void 0 : block.size) == null ? void 0 : _k.height
+  );
+}
+function layoutBlocks(block, db2) {
+  var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q;
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+    `abc85 layout blocks (=>layoutBlocks) ${block.id} x: ${(_a2 = block == null ? void 0 : block.size) == null ? void 0 : _a2.x} y: ${(_b2 = block == null ? void 0 : block.size) == null ? void 0 : _b2.y} width: ${(_c = block == null ? void 0 : block.size) == null ? void 0 : _c.width}`
+  );
+  const columns = block.columns || -1;
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("layoutBlocks columns abc95", block.id, "=>", columns, block);
+  if (block.children && // find max width of children
+  block.children.length > 0) {
+    const width = ((_e = (_d = block == null ? void 0 : block.children[0]) == null ? void 0 : _d.size) == null ? void 0 : _e.width) || 0;
+    const widthOfChildren = block.children.length * width + (block.children.length - 1) * padding;
+    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("widthOfChildren 88", widthOfChildren, "posX");
+    let columnPos = 0;
+    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("abc91 block?.size?.x", block.id, (_f = block == null ? void 0 : block.size) == null ? void 0 : _f.x);
+    let startingPosX = ((_g = block == null ? void 0 : block.size) == null ? void 0 : _g.x) ? ((_h = block == null ? void 0 : block.size) == null ? void 0 : _h.x) + (-((_i = block == null ? void 0 : block.size) == null ? void 0 : _i.width) / 2 || 0) : -padding;
+    let rowPos = 0;
+    for (const child of block.children) {
+      const parent = block;
+      if (!child.size) {
+        continue;
+      }
+      const { width: width2, height } = child.size;
+      const { px, py } = calculateBlockPosition(columns, columnPos);
+      if (py != rowPos) {
+        rowPos = py;
+        startingPosX = ((_j = block == null ? void 0 : block.size) == null ? void 0 : _j.x) ? ((_k = block == null ? void 0 : block.size) == null ? void 0 : _k.x) + (-((_l = block == null ? void 0 : block.size) == null ? void 0 : _l.width) / 2 || 0) : -padding;
+        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("New row in layout for block", block.id, " and child ", child.id, rowPos);
+      }
+      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+        `abc89 layout blocks (child) id: ${child.id} Pos: ${columnPos} (px, py) ${px},${py} (${(_m = parent == null ? void 0 : parent.size) == null ? void 0 : _m.x},${(_n = parent == null ? void 0 : parent.size) == null ? void 0 : _n.y}) parent: ${parent.id} width: ${width2}${padding}`
+      );
+      if (parent.size) {
+        const halfWidth = width2 / 2;
+        child.size.x = startingPosX + padding + halfWidth;
+        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+          `abc91 layout blocks (calc) px, pyid:${child.id} startingPos=X${startingPosX} new startingPosX${child.size.x} ${halfWidth} padding=${padding} width=${width2} halfWidth=${halfWidth} => x:${child.size.x} y:${child.size.y} ${child.widthInColumns} (width * (child?.w || 1)) / 2 ${width2 * ((child == null ? void 0 : child.widthInColumns) || 1) / 2}`
+        );
+        startingPosX = child.size.x + halfWidth;
+        child.size.y = parent.size.y - parent.size.height / 2 + py * (height + padding) + height / 2 + padding;
+        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+          `abc88 layout blocks (calc) px, pyid:${child.id}startingPosX${startingPosX}${padding}${halfWidth}=>x:${child.size.x}y:${child.size.y}${child.widthInColumns}(width * (child?.w || 1)) / 2${width2 * ((child == null ? void 0 : child.widthInColumns) || 1) / 2}`
+        );
+      }
+      if (child.children) {
+        layoutBlocks(child);
+      }
+      columnPos += (child == null ? void 0 : child.widthInColumns) || 1;
+      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("abc88 columnsPos", child, columnPos);
+    }
+  }
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug(
+    `layout blocks (<==layoutBlocks) ${block.id} x: ${(_o = block == null ? void 0 : block.size) == null ? void 0 : _o.x} y: ${(_p = block == null ? void 0 : block.size) == null ? void 0 : _p.y} width: ${(_q = block == null ? void 0 : block.size) == null ? void 0 : _q.width}`
+  );
+}
+function findBounds(block, { minX, minY, maxX, maxY } = { minX: 0, minY: 0, maxX: 0, maxY: 0 }) {
+  if (block.size && block.id !== "root") {
+    const { x, y, width, height } = block.size;
+    if (x - width / 2 < minX) {
+      minX = x - width / 2;
+    }
+    if (y - height / 2 < minY) {
+      minY = y - height / 2;
+    }
+    if (x + width / 2 > maxX) {
+      maxX = x + width / 2;
+    }
+    if (y + height / 2 > maxY) {
+      maxY = y + height / 2;
+    }
+  }
+  if (block.children) {
+    for (const child of block.children) {
+      ({ minX, minY, maxX, maxY } = findBounds(child, { minX, minY, maxX, maxY }));
+    }
+  }
+  return { minX, minY, maxX, maxY };
+}
+function layout(db2) {
+  const root = db2.getBlock("root");
+  if (!root) {
+    return;
+  }
+  setBlockSizes(root, db2, 0, 0);
+  layoutBlocks(root);
+  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("getBlocks", JSON.stringify(root, null, 2));
+  const { minX, minY, maxX, maxY } = findBounds(root);
+  const height = maxY - minY;
+  const width = maxX - minX;
+  return { x: minX, y: minY, width, height };
+}
+const getClasses = function(text, diagObj) {
+  return diagObj.db.getClasses();
+};
+const draw = async function(text, id, _version, diagObj) {
+  const { securityLevel, block: conf } = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.F)();
+  const db2 = diagObj.db;
+  let sandboxElement;
+  if (securityLevel === "sandbox") {
+    sandboxElement = (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .select */ .Ltv)("#i" + id);
+  }
+  const root = securityLevel === "sandbox" ? (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .select */ .Ltv)(sandboxElement.nodes()[0].contentDocument.body) : (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .select */ .Ltv)("body");
+  const svg = securityLevel === "sandbox" ? root.select(`[id="${id}"]`) : (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .select */ .Ltv)(`[id="${id}"]`);
+  const markers = ["point", "circle", "cross"];
+  (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_9__.a)(svg, markers, diagObj.type, id);
+  const bl = db2.getBlocks();
+  const blArr = db2.getBlocksFlat();
+  const edges = db2.getEdges();
+  const nodes = svg.insert("g").attr("class", "block");
+  await calculateBlockSizes(nodes, bl, db2);
+  const bounds = layout(db2);
+  await insertBlocks(nodes, bl, db2);
+  await insertEdges(nodes, edges, blArr, db2, id);
+  if (bounds) {
+    const bounds2 = bounds;
+    const magicFactor = Math.max(1, Math.round(0.125 * (bounds2.width / bounds2.height)));
+    const height = bounds2.height + magicFactor + 10;
+    const width = bounds2.width + 10;
+    const { useMaxWidth } = conf;
+    (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.i)(svg, height, width, !!useMaxWidth);
+    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_5__.l.debug("Here Bounds", bounds, bounds2);
+    svg.attr(
+      "viewBox",
+      `${bounds2.x - 5} ${bounds2.y - 5} ${bounds2.width + 10} ${bounds2.height + 10}`
+    );
+  }
+  (0,d3__WEBPACK_IMPORTED_MODULE_1__/* .scaleOrdinal */ .UMr)(d3__WEBPACK_IMPORTED_MODULE_1__/* .schemeTableau10 */ .zt);
+};
+const renderer = {
+  draw,
+  getClasses
+};
+const diagram = {
+  parser: parser$1,
+  db: db$1,
+  renderer,
+  styles: flowStyles
+};
 
+
+
+/***/ }),
+
+/***/ 6912:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Appends the elements of `values` to `array`.
+ *
+ * @private
+ * @param {Array} array The array to modify.
+ * @param {Array} values The values to append.
+ * @returns {Array} Returns `array`.
+ */
+function arrayPush(array, values) {
+  var index = -1,
+      length = values.length,
+      offset = array.length;
+
+  while (++index < length) {
+    array[offset + index] = values[index];
+  }
+  return array;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (arrayPush);
+
+
+/***/ }),
+
+/***/ 7422:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _arrayLikeKeys_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3607);
+/* harmony import */ var _baseKeys_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1852);
+/* harmony import */ var _isArrayLike_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8446);
+
+
+
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys(object) {
+  return (0,_isArrayLike_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(object) ? (0,_arrayLikeKeys_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(object) : (0,_baseKeys_js__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(object);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (keys);
+
+
+/***/ }),
+
+/***/ 7819:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ _castPath)
+});
+
+// EXTERNAL MODULE: ./node_modules/lodash-es/isArray.js
+var isArray = __webpack_require__(2049);
+// EXTERNAL MODULE: ./node_modules/lodash-es/_isKey.js
+var _isKey = __webpack_require__(6586);
+// EXTERNAL MODULE: ./node_modules/lodash-es/memoize.js
+var memoize = __webpack_require__(6632);
+;// ./node_modules/lodash-es/_memoizeCapped.js
+
+
+/** Used as the maximum memoize cache size. */
+var MAX_MEMOIZE_SIZE = 500;
+
+/**
+ * A specialized version of `_.memoize` which clears the memoized function's
+ * cache when it exceeds `MAX_MEMOIZE_SIZE`.
+ *
+ * @private
+ * @param {Function} func The function to have its output memoized.
+ * @returns {Function} Returns the new memoized function.
+ */
+function memoizeCapped(func) {
+  var result = (0,memoize/* default */.A)(func, function(key) {
+    if (cache.size === MAX_MEMOIZE_SIZE) {
+      cache.clear();
+    }
+    return key;
+  });
+
+  var cache = result.cache;
+  return result;
+}
+
+/* harmony default export */ const _memoizeCapped = (memoizeCapped);
+
+;// ./node_modules/lodash-es/_stringToPath.js
+
+
+/** Used to match property names within property paths. */
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+
+/** Used to match backslashes in property paths. */
+var reEscapeChar = /\\(\\)?/g;
+
+/**
+ * Converts `string` to a property path array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the property path array.
+ */
+var stringToPath = _memoizeCapped(function(string) {
+  var result = [];
+  if (string.charCodeAt(0) === 46 /* . */) {
+    result.push('');
+  }
+  string.replace(rePropName, function(match, number, quote, subString) {
+    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
+  });
+  return result;
+});
+
+/* harmony default export */ const _stringToPath = (stringToPath);
+
+// EXTERNAL MODULE: ./node_modules/lodash-es/toString.js + 1 modules
+var lodash_es_toString = __webpack_require__(8894);
+;// ./node_modules/lodash-es/_castPath.js
+
+
+
+
+
+/**
+ * Casts `value` to a path array if it's not one.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {Array} Returns the cast property path array.
+ */
+function castPath(value, object) {
+  if ((0,isArray/* default */.A)(value)) {
+    return value;
+  }
+  return (0,_isKey/* default */.A)(value, object) ? [value] : _stringToPath((0,lodash_es_toString/* default */.A)(value));
+}
+
+/* harmony default export */ const _castPath = (castPath);
 
 
 /***/ }),
@@ -24307,643 +19289,6 @@ function toString_toString(value) {
 
 /***/ }),
 
-/***/ 8995:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   r: () => (/* binding */ render)
-/* harmony export */ });
-/* harmony import */ var dagre_d3_es_src_dagre_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1176);
-/* harmony import */ var dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4075);
-/* harmony import */ var _edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8146);
-/* harmony import */ var _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6079);
-/* harmony import */ var dagre_d3_es_src_graphlib_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(697);
-/* harmony import */ var _createText_2e5e7dd3_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(114);
-/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6312);
-
-
-
-
-
-
-
-let clusterDb = {};
-let descendants = {};
-let parents = {};
-const clear$1 = () => {
-  descendants = {};
-  parents = {};
-  clusterDb = {};
-};
-const isDescendant = (id, ancestorId) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("In isDescendant", ancestorId, " ", id, " = ", descendants[ancestorId].includes(id));
-  if (descendants[ancestorId].includes(id)) {
-    return true;
-  }
-  return false;
-};
-const edgeInCluster = (edge, clusterId) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Descendants of ", clusterId, " is ", descendants[clusterId]);
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Edge is ", edge);
-  if (edge.v === clusterId) {
-    return false;
-  }
-  if (edge.w === clusterId) {
-    return false;
-  }
-  if (!descendants[clusterId]) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Tilt, ", clusterId, ",not in descendants");
-    return false;
-  }
-  return descendants[clusterId].includes(edge.v) || isDescendant(edge.v, clusterId) || isDescendant(edge.w, clusterId) || descendants[clusterId].includes(edge.w);
-};
-const copy = (clusterId, graph, newGraph, rootId) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn(
-    "Copying children of ",
-    clusterId,
-    "root",
-    rootId,
-    "data",
-    graph.node(clusterId),
-    rootId
-  );
-  const nodes = graph.children(clusterId) || [];
-  if (clusterId !== rootId) {
-    nodes.push(clusterId);
-  }
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Copying (nodes) clusterId", clusterId, "nodes", nodes);
-  nodes.forEach((node) => {
-    if (graph.children(node).length > 0) {
-      copy(node, graph, newGraph, rootId);
-    } else {
-      const data = graph.node(node);
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("cp ", node, " to ", rootId, " with parent ", clusterId);
-      newGraph.setNode(node, data);
-      if (rootId !== graph.parent(node)) {
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Setting parent", node, graph.parent(node));
-        newGraph.setParent(node, graph.parent(node));
-      }
-      if (clusterId !== rootId && node !== clusterId) {
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Setting parent", node, clusterId);
-        newGraph.setParent(node, clusterId);
-      } else {
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("In copy ", clusterId, "root", rootId, "data", graph.node(clusterId), rootId);
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug(
-          "Not Setting parent for node=",
-          node,
-          "cluster!==rootId",
-          clusterId !== rootId,
-          "node!==clusterId",
-          node !== clusterId
-        );
-      }
-      const edges = graph.edges(node);
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Copying Edges", edges);
-      edges.forEach((edge) => {
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Edge", edge);
-        const data2 = graph.edge(edge.v, edge.w, edge.name);
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Edge data", data2, rootId);
-        try {
-          if (edgeInCluster(edge, rootId)) {
-            _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Copying as ", edge.v, edge.w, data2, edge.name);
-            newGraph.setEdge(edge.v, edge.w, data2, edge.name);
-            _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("newGraph edges ", newGraph.edges(), newGraph.edge(newGraph.edges()[0]));
-          } else {
-            _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info(
-              "Skipping copy of edge ",
-              edge.v,
-              "-->",
-              edge.w,
-              " rootId: ",
-              rootId,
-              " clusterId:",
-              clusterId
-            );
-          }
-        } catch (e) {
-          _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.error(e);
-        }
-      });
-    }
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Removing node", node);
-    graph.removeNode(node);
-  });
-};
-const extractDescendants = (id, graph) => {
-  const children = graph.children(id);
-  let res = [...children];
-  for (const child of children) {
-    parents[child] = id;
-    res = [...res, ...extractDescendants(child, graph)];
-  }
-  return res;
-};
-const findNonClusterChild = (id, graph) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Searching", id);
-  const children = graph.children(id);
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Searching children of id ", id, children);
-  if (children.length < 1) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("This is a valid node", id);
-    return id;
-  }
-  for (const child of children) {
-    const _id = findNonClusterChild(child, graph);
-    if (_id) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Found replacement for", id, " => ", _id);
-      return _id;
-    }
-  }
-};
-const getAnchorId = (id) => {
-  if (!clusterDb[id]) {
-    return id;
-  }
-  if (!clusterDb[id].externalConnections) {
-    return id;
-  }
-  if (clusterDb[id]) {
-    return clusterDb[id].id;
-  }
-  return id;
-};
-const adjustClustersAndEdges = (graph, depth) => {
-  if (!graph || depth > 10) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Opting out, no graph ");
-    return;
-  } else {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Opting in, graph ");
-  }
-  graph.nodes().forEach(function(id) {
-    const children = graph.children(id);
-    if (children.length > 0) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn(
-        "Cluster identified",
-        id,
-        " Replacement id in edges: ",
-        findNonClusterChild(id, graph)
-      );
-      descendants[id] = extractDescendants(id, graph);
-      clusterDb[id] = { id: findNonClusterChild(id, graph), clusterData: graph.node(id) };
-    }
-  });
-  graph.nodes().forEach(function(id) {
-    const children = graph.children(id);
-    const edges = graph.edges();
-    if (children.length > 0) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Cluster identified", id, descendants);
-      edges.forEach((edge) => {
-        if (edge.v !== id && edge.w !== id) {
-          const d1 = isDescendant(edge.v, id);
-          const d2 = isDescendant(edge.w, id);
-          if (d1 ^ d2) {
-            _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Edge: ", edge, " leaves cluster ", id);
-            _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Descendants of XXX ", id, ": ", descendants[id]);
-            clusterDb[id].externalConnections = true;
-          }
-        }
-      });
-    } else {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Not a cluster ", id, descendants);
-    }
-  });
-  for (let id of Object.keys(clusterDb)) {
-    const nonClusterChild = clusterDb[id].id;
-    const parent = graph.parent(nonClusterChild);
-    if (parent !== id && clusterDb[parent] && !clusterDb[parent].externalConnections) {
-      clusterDb[id].id = parent;
-    }
-  }
-  graph.edges().forEach(function(e) {
-    const edge = graph.edge(e);
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Edge " + e.v + " -> " + e.w + ": " + JSON.stringify(e));
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Edge " + e.v + " -> " + e.w + ": " + JSON.stringify(graph.edge(e)));
-    let v = e.v;
-    let w = e.w;
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn(
-      "Fix XXX",
-      clusterDb,
-      "ids:",
-      e.v,
-      e.w,
-      "Translating: ",
-      clusterDb[e.v],
-      " --- ",
-      clusterDb[e.w]
-    );
-    if (clusterDb[e.v] && clusterDb[e.w] && clusterDb[e.v] === clusterDb[e.w]) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Fixing and trixing link to self - removing XXX", e.v, e.w, e.name);
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Fixing and trixing - removing XXX", e.v, e.w, e.name);
-      v = getAnchorId(e.v);
-      w = getAnchorId(e.w);
-      graph.removeEdge(e.v, e.w, e.name);
-      const specialId = e.w + "---" + e.v;
-      graph.setNode(specialId, {
-        domId: specialId,
-        id: specialId,
-        labelStyle: "",
-        labelText: edge.label,
-        padding: 0,
-        shape: "labelRect",
-        style: ""
-      });
-      const edge1 = structuredClone(edge);
-      const edge2 = structuredClone(edge);
-      edge1.label = "";
-      edge1.arrowTypeEnd = "none";
-      edge2.label = "";
-      edge1.fromCluster = e.v;
-      edge2.toCluster = e.v;
-      graph.setEdge(v, specialId, edge1, e.name + "-cyclic-special");
-      graph.setEdge(specialId, w, edge2, e.name + "-cyclic-special");
-    } else if (clusterDb[e.v] || clusterDb[e.w]) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Fixing and trixing - removing XXX", e.v, e.w, e.name);
-      v = getAnchorId(e.v);
-      w = getAnchorId(e.w);
-      graph.removeEdge(e.v, e.w, e.name);
-      if (v !== e.v) {
-        const parent = graph.parent(v);
-        clusterDb[parent].externalConnections = true;
-        edge.fromCluster = e.v;
-      }
-      if (w !== e.w) {
-        const parent = graph.parent(w);
-        clusterDb[parent].externalConnections = true;
-        edge.toCluster = e.w;
-      }
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Fix Replacing with XXX", v, w, e.name);
-      graph.setEdge(v, w, edge, e.name);
-    }
-  });
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Adjusted Graph", dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph));
-  extractor(graph, 0);
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace(clusterDb);
-};
-const extractor = (graph, depth) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("extractor - ", depth, dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph), graph.children("D"));
-  if (depth > 10) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.error("Bailing out");
-    return;
-  }
-  let nodes = graph.nodes();
-  let hasChildren = false;
-  for (const node of nodes) {
-    const children = graph.children(node);
-    hasChildren = hasChildren || children.length > 0;
-  }
-  if (!hasChildren) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Done, no node has children", graph.nodes());
-    return;
-  }
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Nodes = ", nodes, depth);
-  for (const node of nodes) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug(
-      "Extracting node",
-      node,
-      clusterDb,
-      clusterDb[node] && !clusterDb[node].externalConnections,
-      !graph.parent(node),
-      graph.node(node),
-      graph.children("D"),
-      " Depth ",
-      depth
-    );
-    if (!clusterDb[node]) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Not a cluster", node, depth);
-    } else if (!clusterDb[node].externalConnections && // !graph.parent(node) &&
-    graph.children(node) && graph.children(node).length > 0) {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn(
-        "Cluster without external connections, without a parent and with children",
-        node,
-        depth
-      );
-      const graphSettings = graph.graph();
-      let dir = graphSettings.rankdir === "TB" ? "LR" : "TB";
-      if (clusterDb[node] && clusterDb[node].clusterData && clusterDb[node].clusterData.dir) {
-        dir = clusterDb[node].clusterData.dir;
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Fixing dir", clusterDb[node].clusterData.dir, dir);
-      }
-      const clusterGraph = new dagre_d3_es_src_graphlib_index_js__WEBPACK_IMPORTED_MODULE_2__/* .Graph */ .T({
-        multigraph: true,
-        compound: true
-      }).setGraph({
-        rankdir: dir,
-        // Todo: set proper spacing
-        nodesep: 50,
-        ranksep: 50,
-        marginx: 8,
-        marginy: 8
-      }).setDefaultEdgeLabel(function() {
-        return {};
-      });
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Old graph before copy", dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph));
-      copy(node, graph, clusterGraph, node);
-      graph.setNode(node, {
-        clusterNode: true,
-        id: node,
-        clusterData: clusterDb[node].clusterData,
-        labelText: clusterDb[node].labelText,
-        graph: clusterGraph
-      });
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("New graph after copy node: (", node, ")", dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(clusterGraph));
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("Old graph after copy", dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph));
-    } else {
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn(
-        "Cluster ** ",
-        node,
-        " **not meeting the criteria !externalConnections:",
-        !clusterDb[node].externalConnections,
-        " no parent: ",
-        !graph.parent(node),
-        " children ",
-        graph.children(node) && graph.children(node).length > 0,
-        graph.children("D"),
-        depth
-      );
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.debug(clusterDb);
-    }
-  }
-  nodes = graph.nodes();
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("New list of nodes", nodes);
-  for (const node of nodes) {
-    const data = graph.node(node);
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn(" Now next level", node, data);
-    if (data.clusterNode) {
-      extractor(data.graph, depth + 1);
-    }
-  }
-};
-const sorter = (graph, nodes) => {
-  if (nodes.length === 0) {
-    return [];
-  }
-  let result = Object.assign(nodes);
-  nodes.forEach((node) => {
-    const children = graph.children(node);
-    const sorted = sorter(graph, children);
-    result = [...result, ...sorted];
-  });
-  return result;
-};
-const sortNodesByHierarchy = (graph) => sorter(graph, graph.children());
-const rect = (parent, node) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Creating subgraph rect for ", node.id, node);
-  const siteConfig = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.c)();
-  const shapeSvg = parent.insert("g").attr("class", "cluster" + (node.class ? " " + node.class : "")).attr("id", node.id);
-  const rect2 = shapeSvg.insert("rect", ":first-child");
-  const useHtmlLabels = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.m)(siteConfig.flowchart.htmlLabels);
-  const label = shapeSvg.insert("g").attr("class", "cluster-label");
-  const text = node.labelType === "markdown" ? (0,_createText_2e5e7dd3_js__WEBPACK_IMPORTED_MODULE_5__.a)(label, node.labelText, { style: node.labelStyle, useHtmlLabels }) : label.node().appendChild((0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.c)(node.labelText, node.labelStyle, void 0, true));
-  let bbox = text.getBBox();
-  if ((0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.m)(siteConfig.flowchart.htmlLabels)) {
-    const div = text.children[0];
-    const dv = (0,d3__WEBPACK_IMPORTED_MODULE_3__/* .select */ .Ltv)(text);
-    bbox = div.getBoundingClientRect();
-    dv.attr("width", bbox.width);
-    dv.attr("height", bbox.height);
-  }
-  const padding = 0 * node.padding;
-  const halfPadding = padding / 2;
-  const width = node.width <= bbox.width + padding ? bbox.width + padding : node.width;
-  if (node.width <= bbox.width + padding) {
-    node.diff = (bbox.width - node.width) / 2 - node.padding / 2;
-  } else {
-    node.diff = -node.padding / 2;
-  }
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Data ", node, JSON.stringify(node));
-  rect2.attr("style", node.style).attr("rx", node.rx).attr("ry", node.ry).attr("x", node.x - width / 2).attr("y", node.y - node.height / 2 - halfPadding).attr("width", width).attr("height", node.height + padding);
-  const { subGraphTitleTopMargin } = (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.g)(siteConfig);
-  if (useHtmlLabels) {
-    label.attr(
-      "transform",
-      // This puts the label on top of the box instead of inside it
-      `translate(${node.x - bbox.width / 2}, ${node.y - node.height / 2 + subGraphTitleTopMargin})`
-    );
-  } else {
-    label.attr(
-      "transform",
-      // This puts the label on top of the box instead of inside it
-      `translate(${node.x}, ${node.y - node.height / 2 + subGraphTitleTopMargin})`
-    );
-  }
-  const rectBox = rect2.node().getBBox();
-  node.width = rectBox.width;
-  node.height = rectBox.height;
-  node.intersect = function(point) {
-    return (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.i)(node, point);
-  };
-  return shapeSvg;
-};
-const noteGroup = (parent, node) => {
-  const shapeSvg = parent.insert("g").attr("class", "note-cluster").attr("id", node.id);
-  const rect2 = shapeSvg.insert("rect", ":first-child");
-  const padding = 0 * node.padding;
-  const halfPadding = padding / 2;
-  rect2.attr("rx", node.rx).attr("ry", node.ry).attr("x", node.x - node.width / 2 - halfPadding).attr("y", node.y - node.height / 2 - halfPadding).attr("width", node.width + padding).attr("height", node.height + padding).attr("fill", "none");
-  const rectBox = rect2.node().getBBox();
-  node.width = rectBox.width;
-  node.height = rectBox.height;
-  node.intersect = function(point) {
-    return (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.i)(node, point);
-  };
-  return shapeSvg;
-};
-const roundedWithTitle = (parent, node) => {
-  const siteConfig = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.c)();
-  const shapeSvg = parent.insert("g").attr("class", node.classes).attr("id", node.id);
-  const rect2 = shapeSvg.insert("rect", ":first-child");
-  const label = shapeSvg.insert("g").attr("class", "cluster-label");
-  const innerRect = shapeSvg.append("rect");
-  const text = label.node().appendChild((0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.c)(node.labelText, node.labelStyle, void 0, true));
-  let bbox = text.getBBox();
-  if ((0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.m)(siteConfig.flowchart.htmlLabels)) {
-    const div = text.children[0];
-    const dv = (0,d3__WEBPACK_IMPORTED_MODULE_3__/* .select */ .Ltv)(text);
-    bbox = div.getBoundingClientRect();
-    dv.attr("width", bbox.width);
-    dv.attr("height", bbox.height);
-  }
-  bbox = text.getBBox();
-  const padding = 0 * node.padding;
-  const halfPadding = padding / 2;
-  const width = node.width <= bbox.width + node.padding ? bbox.width + node.padding : node.width;
-  if (node.width <= bbox.width + node.padding) {
-    node.diff = (bbox.width + node.padding * 0 - node.width) / 2;
-  } else {
-    node.diff = -node.padding / 2;
-  }
-  rect2.attr("class", "outer").attr("x", node.x - width / 2 - halfPadding).attr("y", node.y - node.height / 2 - halfPadding).attr("width", width + padding).attr("height", node.height + padding);
-  innerRect.attr("class", "inner").attr("x", node.x - width / 2 - halfPadding).attr("y", node.y - node.height / 2 - halfPadding + bbox.height - 1).attr("width", width + padding).attr("height", node.height + padding - bbox.height - 3);
-  const { subGraphTitleTopMargin } = (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.g)(siteConfig);
-  label.attr(
-    "transform",
-    `translate(${node.x - bbox.width / 2}, ${node.y - node.height / 2 - node.padding / 3 + ((0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.m)(siteConfig.flowchart.htmlLabels) ? 5 : 3) + subGraphTitleTopMargin})`
-  );
-  const rectBox = rect2.node().getBBox();
-  node.height = rectBox.height;
-  node.intersect = function(point) {
-    return (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.i)(node, point);
-  };
-  return shapeSvg;
-};
-const divider = (parent, node) => {
-  const shapeSvg = parent.insert("g").attr("class", node.classes).attr("id", node.id);
-  const rect2 = shapeSvg.insert("rect", ":first-child");
-  const padding = 0 * node.padding;
-  const halfPadding = padding / 2;
-  rect2.attr("class", "divider").attr("x", node.x - node.width / 2 - halfPadding).attr("y", node.y - node.height / 2).attr("width", node.width + padding).attr("height", node.height + padding);
-  const rectBox = rect2.node().getBBox();
-  node.width = rectBox.width;
-  node.height = rectBox.height;
-  node.diff = -node.padding / 2;
-  node.intersect = function(point) {
-    return (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.i)(node, point);
-  };
-  return shapeSvg;
-};
-const shapes = { rect, roundedWithTitle, noteGroup, divider };
-let clusterElems = {};
-const insertCluster = (elem, node) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Inserting cluster");
-  const shape = node.shape || "rect";
-  clusterElems[node.id] = shapes[shape](elem, node);
-};
-const clear = () => {
-  clusterElems = {};
-};
-const recursiveRender = async (_elem, graph, diagramType, id, parentCluster, siteConfig) => {
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Graph in recursive render: XXX", dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph), parentCluster);
-  const dir = graph.graph().rankdir;
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Dir in recursive render - dir:", dir);
-  const elem = _elem.insert("g").attr("class", "root");
-  if (!graph.nodes()) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("No nodes found for", graph);
-  } else {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Recursive render XXX", graph.nodes());
-  }
-  if (graph.edges().length > 0) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Recursive edges", graph.edge(graph.edges()[0]));
-  }
-  const clusters = elem.insert("g").attr("class", "clusters");
-  const edgePaths = elem.insert("g").attr("class", "edgePaths");
-  const edgeLabels = elem.insert("g").attr("class", "edgeLabels");
-  const nodes = elem.insert("g").attr("class", "nodes");
-  await Promise.all(
-    graph.nodes().map(async function(v) {
-      const node = graph.node(v);
-      if (parentCluster !== void 0) {
-        const data = JSON.parse(JSON.stringify(parentCluster.clusterData));
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Setting data for cluster XXX (", v, ") ", data, parentCluster);
-        graph.setNode(parentCluster.id, data);
-        if (!graph.parent(v)) {
-          _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.trace("Setting parent", v, parentCluster.id);
-          graph.setParent(v, parentCluster.id, data);
-        }
-      }
-      _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("(Insert) Node XXX" + v + ": " + JSON.stringify(graph.node(v)));
-      if (node && node.clusterNode) {
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Cluster identified", v, node.width, graph.node(v));
-        const o = await recursiveRender(
-          nodes,
-          node.graph,
-          diagramType,
-          id,
-          graph.node(v),
-          siteConfig
-        );
-        const newEl = o.elem;
-        (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.u)(node, newEl);
-        node.diff = o.diff || 0;
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Node bounds (abc123)", v, node, node.width, node.x, node.y);
-        (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.s)(newEl, node);
-        _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Recursive render complete ", newEl, node);
-      } else {
-        if (graph.children(v).length > 0) {
-          _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Cluster - the non recursive path XXX", v, node.id, node, graph);
-          _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info(findNonClusterChild(node.id, graph));
-          clusterDb[node.id] = { id: findNonClusterChild(node.id, graph), node };
-        } else {
-          _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Node - the non recursive path", v, node.id, node);
-          await (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.e)(nodes, graph.node(v), dir);
-        }
-      }
-    })
-  );
-  graph.edges().forEach(function(e) {
-    const edge = graph.edge(e.v, e.w, e.name);
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Edge " + e.v + " -> " + e.w + ": " + JSON.stringify(e));
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Edge " + e.v + " -> " + e.w + ": ", e, " ", JSON.stringify(graph.edge(e)));
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Fix", clusterDb, "ids:", e.v, e.w, "Translating: ", clusterDb[e.v], clusterDb[e.w]);
-    (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.f)(edgeLabels, edge);
-  });
-  graph.edges().forEach(function(e) {
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Edge " + e.v + " -> " + e.w + ": " + JSON.stringify(e));
-  });
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("#############################################");
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("###                Layout                 ###");
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("#############################################");
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info(graph);
-  (0,dagre_d3_es_src_dagre_index_js__WEBPACK_IMPORTED_MODULE_0__/* .layout */ .Zp)(graph);
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Graph after layout:", dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph));
-  let diff = 0;
-  const { subGraphTitleTotalMargin } = (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.g)(siteConfig);
-  sortNodesByHierarchy(graph).forEach(function(v) {
-    const node = graph.node(v);
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Position " + v + ": " + JSON.stringify(graph.node(v)));
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info(
-      "Position " + v + ": (" + node.x,
-      "," + node.y,
-      ") width: ",
-      node.width,
-      " height: ",
-      node.height
-    );
-    if (node && node.clusterNode) {
-      node.y += subGraphTitleTotalMargin;
-      (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.p)(node);
-    } else {
-      if (graph.children(v).length > 0) {
-        node.height += subGraphTitleTotalMargin;
-        insertCluster(clusters, node);
-        clusterDb[node.id].node = node;
-      } else {
-        node.y += subGraphTitleTotalMargin / 2;
-        (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.p)(node);
-      }
-    }
-  });
-  graph.edges().forEach(function(e) {
-    const edge = graph.edge(e);
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info("Edge " + e.v + " -> " + e.w + ": " + JSON.stringify(edge), edge);
-    edge.points.forEach((point) => point.y += subGraphTitleTotalMargin / 2);
-    const paths = (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.h)(edgePaths, e, edge, clusterDb, diagramType, graph, id);
-    (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.j)(edge, paths);
-  });
-  graph.nodes().forEach(function(v) {
-    const n = graph.node(v);
-    _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.info(v, n.type, n.diff);
-    if (n.type === "group") {
-      diff = n.diff;
-    }
-  });
-  return { elem, diff };
-};
-const render = async (elem, graph, markers, diagramType, id) => {
-  (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.a)(elem, markers, diagramType, id);
-  (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.b)();
-  (0,_edges_e0da2a9e_js__WEBPACK_IMPORTED_MODULE_6__.d)();
-  clear();
-  clear$1();
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Graph at first:", JSON.stringify(dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph)));
-  adjustClustersAndEdges(graph);
-  _mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.l.warn("Graph after:", JSON.stringify(dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_1__/* .write */ .M(graph)));
-  const siteConfig = (0,_mermaid_b5860b54_js__WEBPACK_IMPORTED_MODULE_4__.c)();
-  await recursiveRender(elem, graph, diagramType, id, void 0, siteConfig);
-};
-
-
-
-/***/ }),
-
 /***/ 9042:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -25172,7 +19517,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 // EXTERNAL MODULE: ./node_modules/lodash-es/_Stack.js + 5 modules
-var _Stack = __webpack_require__(9373);
+var _Stack = __webpack_require__(1754);
 // EXTERNAL MODULE: ./node_modules/lodash-es/_SetCache.js + 2 modules
 var _SetCache = __webpack_require__(2062);
 ;// ./node_modules/lodash-es/_arraySome.js
