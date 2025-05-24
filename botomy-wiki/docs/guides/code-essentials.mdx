@@ -1,0 +1,341 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Code Essentials
+
+Essential coding concepts and utilities to help you build better bots.
+
+## Distance Calculation
+
+Finding the distance between game objects is the foundation for any Botomy player. You must be able to determine whether something is nearby and of interest, or far away and (maybe) not interesting.
+
+Using basic 2D coordinate math, you can easily calculate the distance between two objects.
+
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
+```javascript
+function getDistance(point1, point2) {
+  // a^2 + b^2 = c^2
+  const dx = point2.x - point1.x;
+  const dy = point2.y - point1.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Example usage
+const playerPos = levelData.own_player.position;
+const enemyPos = levelData.enemies[0].position;
+const distance = getDistance(playerPos, enemyPos);
+```
+
+</TabItem>
+<TabItem value="ts" label="TypeScript">
+
+```typescript
+interface Position {
+  x: number;
+  y: number;
+}
+
+function getDistance(point1: Position, point2: Position): number {
+  // a^2 + b^2 = c^2
+  const dx = point2.x - point1.x;
+  const dy = point2.y - point1.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Example usage
+const playerPos = levelData.own_player.position;
+const enemyPos = levelData.enemies[0].position;
+const distance = getDistance(playerPos, enemyPos);
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```python
+import math
+
+def get_distance(point1: dict, point2: dict) -> float:
+    # a^2 + b^2 = c^2
+    dx = point2["x"] - point1["x"]
+    dy = point2["y"] - point1["y"]
+    return math.sqrt(dx * dx + dy * dy)
+
+# Example usage
+player_pos = level_data["own_player"]["position"]
+enemy_pos = level_data["enemies"][0]["position"]
+distance = get_distance(player_pos, enemy_pos)
+```
+
+:::tip
+Worried about performance? Square root operations are expensive. Do you really need the exact distance in normal units?
+:::
+
+</TabItem>
+</Tabs>
+
+## Finding Nearest Object
+
+Using the first item off a list is easy, but it does not guarantee it's the closest thing to your character. Create a simple helper function to find the nearest object based on your position.
+
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
+```javascript
+function findNearest(sourcePos, targets) {
+  return targets.reduce((nearest, current) => {
+    const currentDist = getDistance(sourcePos, current.position);
+    const nearestDist = nearest
+      ? getDistance(sourcePos, nearest.position)
+      : Infinity;
+    return currentDist < nearestDist ? current : nearest;
+  }, null);
+}
+
+// Example usage
+const playerPos = levelData.own_player.position;
+const nearestItem = findNearest(playerPos, levelData.items);
+```
+
+</TabItem>
+<TabItem value="ts" label="TypeScript">
+
+```typescript
+interface GameObject {
+  position: Position;
+}
+
+function findNearest<T extends GameObject>(
+  sourcePos: Position,
+  targets: T[]
+): T | null {
+  return targets.reduce((nearest, current) => {
+    const currentDist = getDistance(sourcePos, current.position);
+    const nearestDist = nearest
+      ? getDistance(sourcePos, nearest.position)
+      : Infinity;
+    return currentDist < nearestDist ? current : nearest;
+  }, null as T | null);
+}
+
+// Example usage
+const playerPos = levelData.own_player.position;
+const nearestItem = findNearest(playerPos, levelData.items);
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```python
+def find_nearest(source_pos: dict, targets: list) -> dict:
+    if not targets:
+        return None
+    return min(targets,
+              key=lambda x: get_distance(source_pos, x["position"]))
+
+# Example usage
+player_pos = level_data["own_player"]["position"]
+coins = [item for item in level_data["items"] if item["type"] == "coin"]
+nearest_coin = find_nearest(player_pos, coins)
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+Build on this to detect things like - is there more than one enemy surrounding me?
+:::
+
+## Filtering
+
+The game gives you large lists of objects grouped at high levels (i.e. items, enemies, players, hazards, collisions).
+
+It's essential to be able to filter the object lists to find specific objects of interest (and ignore the rest).
+
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
+```javascript
+// Find all coins
+const coins = levelData.items.filter((item) => item.type === "coin");
+
+// Find all health potions
+const potions = levelData.items.filter((item) => item.type === "big_potion");
+
+// Find alive players with less than 50% health
+const weakPlayers = levelData.players.filter(
+  (player) => player.health > 0 && player.health / player.max_health < 0.5
+);
+
+// Find enemies within attack range (125 units)
+const playerPos = levelData.own_player.position;
+const nearbyEnemies = levelData.enemies.filter(
+  (enemy) => getDistance(playerPos, enemy.position) < 125
+);
+```
+
+</TabItem>
+<TabItem value="ts" label="TypeScript">
+
+```typescript
+// Find all coins
+const coins = levelData.items.filter((item) => item.type === "coin");
+
+// Find all health potions
+const potions = levelData.items.filter((item) => item.type === "big_potion");
+
+// Find alive players with less than 50% health
+const weakPlayers = levelData.players.filter(
+  (player) => player.health > 0 && player.health / player.max_health < 0.5
+);
+
+// Find enemies within attack range (125 units)
+const playerPos = levelData.own_player.position;
+const nearbyEnemies = levelData.enemies.filter(
+  (enemy) => getDistance(playerPos, enemy.position) < 125
+);
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```python
+# Find all coins
+coins = [item for item in level_data["items"] if item["type"] == "coin"]
+
+# Find all health potions
+potions = [item for item in level_data["items"] if item["type"] == "big_potion"]
+
+# Find alive players with less than 50% health
+weak_players = [
+    player for player in level_data["players"]
+    if player["health"] > 0 and player["health"] / player["max_health"] < 0.5
+]
+
+# Find enemies within attack range (125 units)
+player_pos = level_data["own_player"]["position"]
+nearby_enemies = [
+    enemy for enemy in level_data["enemies"]
+    if get_distance(player_pos, enemy["position"]) < 125
+]
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+Combine filtering with `findNearest()` to locate the closest relevant target:
+
+```javascript
+const nearestPotion = findNearest(
+  levelData.own_player.position,
+  levelData.items.filter((item) => item.type === "big_potion")
+);
+```
+
+:::
+
+## Directional Movement
+
+The game provides basic navigation around obstacles. If you tell your bot to move towards a position, it will navigate around obstacles to get there (assuming it's possible to reach).
+
+Moving in a specific direction vs towards a target is sometimes helpful (e.g. running away from a bomb).
+
+Calculate a new x,y coordinate to move towards based on your position and a target.
+
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
+```javascript
+function moveAway(current, target, magnitude = 400) {
+  const dx = current.x - target.x;
+  const dy = current.y - target.y;
+  const angle = Math.atan2(dy, dx);
+
+  return {
+    move_to: {
+      x: current.x + Math.cos(angle) * magnitude,
+      y: current.y + Math.sin(angle) * magnitude,
+    },
+  };
+}
+
+// Example usage - running away from a hazard
+const playerPos = levelData.own_player.position;
+const hazard = levelData.hazards[0];
+if (hazard) {
+  moves.push(moveAway(playerPos, hazard.position));
+}
+```
+
+</TabItem>
+<TabItem value="ts" label="TypeScript">
+
+```typescript
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface Move {
+  move_to: Position;
+}
+
+function moveAway(current: Point, target: Point, magnitude = 400): Move {
+  const dx = current.x - target.x;
+  const dy = current.y - target.y;
+  const angle = Math.atan2(dy, dx);
+
+  return {
+    move_to: {
+      x: current.x + Math.cos(angle) * magnitude,
+      y: current.y + Math.sin(angle) * magnitude,
+    },
+  };
+}
+
+// Example usage - running away from a hazard
+const playerPos = levelData.own_player.position;
+const hazard = levelData.hazards[0];
+if (hazard) {
+  moves.push(moveAway(playerPos, hazard.position));
+}
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```python
+import math
+
+def move_away(current: dict, target: dict, magnitude: float = 400) -> dict:
+    dx = current["x"] - target["x"]
+    dy = current["y"] - target["y"]
+    angle = math.atan2(dy, dx)
+
+    return {
+        "move_to": {
+            "x": current["x"] + math.cos(angle) * magnitude,
+            "y": current["y"] + math.sin(angle) * magnitude
+        }
+    }
+
+# Example usage - avoiding a hazard
+player_pos = level_data["own_player"]["position"]
+hazard_pos = level_data["hazards"][0]["position"]
+moves.append(move_away(player_pos, hazard_pos))
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+
+- Use `moveAway()` to escape from dangerous enemies or hazards
+- Combine with distance checks and states to switch between pursuing and fleeing
+  :::
