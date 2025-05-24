@@ -2,6 +2,9 @@
 sidebar_position: 2
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 # Quickstart Tutorial
 
 ## How It Works
@@ -43,45 +46,60 @@ Let's start with a simple task - collecting a coin!
 
 ### Basic Movement
 
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
 ```javascript
 // JavaScript (In-Game Editor)
 export default function play(levelData) {
-    const moves = [];
+  const moves = [];
 
-    // Find a coin
-    const coin = levelData.items.find(item => item.type === "coin");
+  // Find a coin
+  const coin = levelData.items.find((item) => item.type === "coin");
 
-    if (coin) {
-        // Move to the coin's position
-        moves.push({
-            move_to: {
-                x: coin.position.x,
-                y: coin.position.y
-            }
-        });
-    }
+  if (coin) {
+    // Move to the coin's position
+    moves.push({
+      move_to: {
+        x: coin.position.x,
+        y: coin.position.y,
+      },
+    });
+  }
 
-    return moves;
+  return moves;
 }
 ```
+
+</TabItem>
+<TabItem value="ts" label="TypeScript">
 
 ```typescript
 // TypeScript (External Server)
 // example modifying src/play.ts
 function play(levelData: LevelData) {
-    const moves = [];
+  const moves = [];
 
-    // Find a coin
-    const coin = levelData.items.find(item => item.type === "coin");
+  // Find a coin
+  const coin = levelData.items.find((item) => item.type === "coin");
 
-    if (coin) {
-        // Move to the coin's position
-        moves.push({ move_to: { x: coin.position.x, y: coin.position.y } });
-    }
+  if (coin) {
+    // Move to the coin's position
+    moves.push({
+      move_to: {
+        x: coin.position.x,
+        y: coin.position.y,
+      },
+    });
+  }
 
-    return moves;
+  return moves;
 }
 ```
+
+</TabItem>
+
+<TabItem value="py" label="Python">
 
 ```python
 # Python (External Server)
@@ -97,7 +115,11 @@ def play(level_data: dict) -> list:
         moves.append({"move_to": {"x": coin["position"]["x"], "y": coin["position"]["y"]}})
 
     return moves
+
 ```
+
+</TabItem>
+</Tabs>
 
 When you run this code:
 
@@ -108,14 +130,14 @@ When you run this code:
 
 API RESPONSE
 
-```
+```json
 [
   {
     "move_to": {
-      "x": <x_coord>,
-      "y": <y_coord>,
+      "x": "<x_coord>",
+      "y": "<y_coord>"
     }
-  },
+  }
 ]
 ```
 
@@ -129,51 +151,55 @@ The coordinate system is "raster coordinate system" where the origin is at the t
 
 ### Combat
 
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
 ```javascript
 // JavaScript (In-Game Editor)
-function play(levelData) {
-    const moves = [];
+export default function play(levelData) {
+  const moves = [];
 
-    // Find an enemy
-    if (levelData.enemies && levelData.enemies.length > 0) {
-        const enemy = levelData.enemies[0];
+  // Find an enemy
+  if (levelData.enemies && levelData.enemies.length > 0) {
+    const enemy = levelData.enemies[0];
 
-        // Move to the enemy's position
-        moves.push({
-            move_to: {
-                x: enemy.position.x,
-                y: enemy.position.y
-            }
-        });
+    // Move to the enemy's position
+    moves.push({ move_to: enemy.position });
 
-        // Attack
-        moves.push("attack");
-    }
+    // Attack
+    moves.push("attack");
+  }
 
-    return moves;
+  return moves;
 }
 ```
+
+</TabItem>
+<TabItem value="ts" label="TypeScript">
 
 ```typescript
 // TypeScript (External Server)
 // example modifying src/play.ts
 function play(levelData: LevelData) {
-    const moves = [];
+  const moves = [];
 
-    // Find an enemy
-    if (levelData.enemies && levelData.enemies.length > 0) {
-        const enemy = levelData.enemies[0];
+  // Find an enemy
+  if (levelData.enemies && levelData.enemies.length > 0) {
+    const enemy = levelData.enemies[0];
 
-        // Move to the enemy's position
-        moves.push({ move_to: { x: enemy.position.x, y: enemy.position.y } });
+    // Move to the enemy's position
+    moves.push({ move_to: enemy.position });
 
-        // Attack
-        moves.push("attack");
-    }
+    // Attack
+    moves.push("attack");
+  }
 
-    return moves;
+  return moves;
 }
 ```
+
+</TabItem>
+<TabItem value="py" label="Python">
 
 ```python
 # Python (External Server)
@@ -186,7 +212,7 @@ def play(level_data: dict) -> list:
     if enemies:
         enemy = enemies[0]
         # Move to the enemy's position
-        moves.append({"move_to": {"x": enemy["position"]["x"], "y": enemy["position"]["y"]}})
+        moves.append({"move_to": enemy["position"]})
 
         # Attack
         moves.append("attack")
@@ -194,16 +220,19 @@ def play(level_data: dict) -> list:
     return moves
 ```
 
+</TabItem>
+</Tabs>
+
 You will see your character attacking while moving towards the enemy.
 
 API RESPONSE
 
-```
+```json
 [
   {
     "move_to": {
-      "x": <x_coord>,
-      "y": <y_coord>,
+      "x": "<x_coord>",
+      "y": "<y_coord>"
     }
   },
   "attack"
