@@ -9,7 +9,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Botomy",
-  tagline: "Developer mode on",
+  tagline: "A challenging strategy game for programmers",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here

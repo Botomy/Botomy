@@ -4,6 +4,50 @@ sidebar_position: 1
 
 # How to Play
 
+## Game Rules
+
+### Victory Condition
+
+#### Free for All
+
+The player with the highest XP at the end of the match wins. Combine strategies around item collection, combat mechanics, and skill progression to best other players.
+
+#### Survival
+
+Work together with other players to survive as many stages as you can. Levelling and combat strategy are key.
+
+### Gaining XP
+
+Earn experience points by:
+
+- Collecting items scattered around the map
+- Defeating other players
+- Killing monsters
+
+### Character Progression
+
+- Gain 1 skill point per level up to level 20
+- Spend points on:
+  - Speed (move faster)
+  - Attack (deal more damage)
+  - Health (increase max HP)
+- Equip power-ups for special attacks
+
+### Gameplay Rules
+
+- Only one power-up can be equipped at a time
+- Dash ability only works when near danger (enemies, players, bombs, etc.)
+- Unlimited deaths with a respawn delay
+- Fixed number of monsters and items spawn on the map
+- Kill streaks enable overclocking:
+  - Boosts speed and damage
+  - Enables health regeneration
+  - Each kill prolongs the overclocking duration
+
+:::tip
+Level up quickly to gain an advantage! More skill points means better stats.
+:::
+
 ## Architecture
 
 Botomy uses a client-server architecture where:
